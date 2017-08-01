@@ -1,1 +1,78 @@
-.
+MOBILE FIRST APPROACH
+	- alles, was man macht, ist für "extra small devices", d.h. mit einer width < 576px
+	- soll etwas für größere width gelten, muss man das explizit angeben
+BREAKPOINTS
+	0px	- 575px		Extra small devices : portrait phones, ist default!
+	576px	- 767px		Small devices: landscape phones
+	768px	- 991px		Medium devices: tablets
+	992px	- 1199px	Large devices: desktops
+	1200px	- unendlich	Extra large devices: large desktops
+REBOOT
+	setzt für HTML-Elemente die Browserdefaults zurück (kein margin, padding,... mehr)
+	Vorteile:
+		- alle Browser gleich (man geht überall vom fast 100% selben Punkt null aus)
+		- sieht eine Spur besser aus (zB eine andere Schrift als Times New Roman als Default-Schrift)
+CONTAINER
+	- ist notwendig für Bootstrap [warum?]
+	- beherbergt das Grid-System von Bootstrap: nur im Container funktionieren die rows und columns
+	- 2 Arten: man muss sich für jedes Projekt für eins entscheiden: kommt auf das Design der Website an
+		- fixed:
+			- geht nicht über die gesamte Breite: hat eine max-width, die sich an Bildschirmgröße anpasst
+			- ist centered in der Mitte und hat links u. rechts einen margin
+			Bsp:
+				<div class="container">
+					<p>Hallo!</p>
+				</div>
+		- fluid
+			- geht über die gesamte Breite: hat eine width von 100%
+			Bsp:
+				<div class="container-fluid">
+					<p>Hallo!</p>
+				</div>
+GRID-SYSTEM
+	- bis v3 kein flexbox, ab v4 mit flexbox
+	- Aufbau: belibig viele Zeilen mit je 12 Spalten
+		row: col col col col col col col col col col col col
+		row: col col col col col col col col col col col col
+		row: col col col col col col col col col col col col
+	- man gibt jedem HTML-Element eine Klasse,
+		- die angibt, wieviel Spalten es groß ist
+		- und für welche devices es diese Spaltenanzahl groß sein soll
+	Bsp: 
+		- Es müssen nicht unbedingt divs sein, denen man die Klassen gibt
+		- Format für columns: col-[Devicegröße und aufwärts]-[Spaltenanzahl]
+		###############################################
+		Folgendes HTML verhält sich, so dass bei Extra small devices, die beiden Elemente übereinander liegen, bei allen größeren devices entstehen 2 Spalten, von denen jede die Hälfte der Breite einnimmt
+		<div class="container">		
+			<div class="row">
+				<div class="col-sm-6">Hallo!</div>
+				<div class="col-sm-6">Hallo!</div>
+			</div>
+		</div>
+		###############################################
+		Beim folgenden liegen die 2 Elemente auch bei Small devices noch übereinander und werden erst ab Medium devices zu gleich großen Spalten
+		<div class="container">		
+			<div class="row">
+				<div class="col-md-6">Hallo!</div>
+				<div class="col-md-6">Hallo!</div>
+			</div>
+		</div>
+		###############################################
+		Man kann auch mehrere Klassen vergeben; beim Folgenden wird ab Medium devices das Element nur mehr 6 Spalten breit und ab Large devices nur mehr 3 Spalten breit
+		<div class="col-md-6 col-lg-3">Hallo!</div>
+		###############################################
+		Wenn die Spalten immer gelten sollen (für alle devices), dann lässt man die device-Größe einfach weg:
+		<div class="col-6">Hallo!</div>
+FLEX-GRID
+JUMBOTRON
+UTILITIES
+	COLORS
+		Hellblauer Hintergrund (bg-[Farbart]) und weißer Text (text-[Farbe]):
+			<div class="bg-info text-white">Hallo!</div>
+	TYPOGRAPHY
+		SCHRIFT UND SCHRIFTGRÖßE
+		TEXT-ALIGNMENT
+			<p class="text-center">Hallo!</p>
+CARDS
+	ersetzen ab v4 die Panels aus früheren Versionen
+
