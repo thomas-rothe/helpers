@@ -17,6 +17,7 @@ CONTAINER
 	- beherbergt das Grid-System von Bootstrap: nur im Container funktionieren die rows und columns
 	- 2 Arten: man muss sich für jedes Projekt für eins entscheiden: kommt auf das Design der Website an
 		- fixed:
+			- hat immer(pro device) eine feste width in px 
 			- geht nicht über die gesamte Breite: hat eine max-width, die sich an Bildschirmgröße anpasst
 			- ist centered in der Mitte und hat links u. rechts einen margin
 			Bsp:
