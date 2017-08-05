@@ -1,0 +1,120 @@
+request and response messages consist of:
+	- an initial line,
+	- zero or more header lines,
+	- a blank line (i.e. a CRLF by itself), and
+	- an optional message body (e.g. a file, or query data, or query output).
+	
+	Bsp:
+		[1. Zeile]
+		[Header1]: [value1]
+		[Header2]: [value2]
+		[Header3]: [value3]
+						<- Leerzeile
+		[optionaler message body]
+
+	1. Zeile
+		Request
+			[Method name] [Local path of requested resource] [HTTP version]
+
+			Bspe:
+			GET /path/index.html HTTP/1.0
+
+			Method names
+				GET 	- requests a representation of the specified resource
+				HEAD	- request same as GET, but doesn't request the response body; 
+						useful for meta-information in response headers, 
+						without having to transport the entire content
+				POST	- new subordinate of the web resource identified by the URI
+				PUT	- the enclosed entity be stored under the URI; existing 
+						resources are modified; if resource is not existing,
+						then the server creates the resource with that URI
+				DELETE	- deletes the specified resource.
+				TRACE	- echoes the received request so that a client can see what
+						changes or additions have been made by intermediate 							servers.
+				OPTIONS	- returns the HTTP methods that the server supports for the
+						specified URL. This can be used to check the 
+						functionality of a web server by requesting '*'
+						instead of a specific resource.
+				CONNECT	- converts the request connection to a transparent TCP/IP
+						tunnel, usually to facilitate SSL-encrypted 
+						communication (HTTPS) through an unencrypted HTTP 
+						proxy
+				PATCH	- applies partial modifications to a resource
+			Local path of requested resource
+				- ist der Teil der URL, der nach dem host kommt, also die request URI)
+			HTTP version
+				- Format: HTTP/x.x
+		Response
+			- die 1. Zeile einer response heißt auch "status line"
+			
+			[HTTP version] [response status code] [reason phrase]
+			
+			Bspe:
+			HTTP/1.0 200 OK
+			HTTP/1.0 404 Not Found
+
+			HTTP version
+				- Format: HTTP/x.x
+			Response status code
+				- machine readable
+
+				1xx indicates an informational message only
+				2xx indicates success of some kind
+					200 OK
+				3xx redirects the client to another URL
+					301 Moved Permanently 
+					302 Moved Temporarily 
+					303 See Other (HTTP 1.1 only)
+				4xx indicates an error on the client's part
+					404 Not Found
+				5xx indicates an error on the server's part
+					500 Server Error
+			Reason phrase
+				- human readable
+				
+				
+	Header
+		- in v1.0 sind alle 16 Header optional
+		- in v1.1 ist von 46 Headern nur einer required (Host:)
+		- aus Höflichkeitskonvention macht man requests mit folgenden Headern:
+			From:
+				- personal email address of whoever's making the request
+			User-Agent:
+				- identifies the program that's making the request
+				- Format: "Program-name/x.xx" (x.xx is the version of the program)
+				Bsp: Netscape 3.0 sendet "User-agent: Mozilla/3.0Gold"
+		- typische (konventionelle) response-Header:
+			Server:
+				- analog zu "User-Agent:", gibt Server Software an
+				- Format: wie User-Agent
+				Bsp: "Server: Apache/1.2b3-dev"
+			Last-Modified:
+				- modification date of the resource that's being returned
+				- It's used in caching and other bandwidth-saving activities
+				- Format: Greenwich Mean Time
+				Bsp: "Last-Modified: Fri, 31 Dec 1999 23:59:59 GMT"
+		- provide infos about request/response, or about the message body
+		- Format: 1 Zeile pro Header, jeweils [NAME]:[BELIEBIG VIELESPACES UND TABS][WERT]
+			- und danach eine neue Zeile mit: CRLF
+			- Header lines beginning with space or tab are actually part of the 
+			previous header line, folded into multiple lines for easy reading
+	Message body
+		- ist optional
+		- Anzahl der Zeilen ist beliebig
+		- response: 
+			- requested resource is returned to the client (most common use)
+			- or perhaps explanatory text if there's an error
+		- request: user-entered data or uploaded files are sent to the server.
+		- If an HTTP message includes a body, there are usually header lines in the message
+			that describe the body. In particular:
+
+			Content-Type: 
+				- this header gives the MIME-type of the data in the body
+				Bsp: "text/html" or "image/gif"
+			Content-Length: 
+				- this header gives the number of bytes in the body
+		- enthält zB:
+			- file contents
+			- query data
+			- binary data
+		
