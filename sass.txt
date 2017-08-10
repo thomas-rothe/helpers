@@ -152,6 +152,11 @@ MATH OPERATORS
 		li {
 			width: (100% / 6);	// wenn man zB 6 li hat, dann sind alle gleich groß
 		}
-FUNCTIONS
-
+COLOR FUNCTIONS
+	BSP.
+		a {
+			background: lighten($color, $amount);	// es gibt einen Haufen 		}						// vordefinierte, benützbare
+								//  Funktionen
+	lighten($color, 6)		macht die Farbe 6 Mal heller
+	complement(red)		erzeugt eine Komplementärfarbe von rot
 CONDITIONAL STATEMENTS
