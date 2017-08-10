@@ -1,0 +1,3 @@
+Funktioniert ohne weiteres einfach so! Einfach ins HTML rein und ein Dummy-Image wird angezeigt!
+<img src="http://placehold.it/150x150" />
+<img src="http://placehold.it/400x250" />

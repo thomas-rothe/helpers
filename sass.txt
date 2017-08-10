@@ -1,0 +1,157 @@
+ALLGEMEINES
+	- 2007 erfunden
+	- SASS ist in Ruby programmiert (man muss also Ruby auf der Maschine installieren, auf der 
+		man SASS verwendet)
+VERGLEICH ZU CSS
+	- flexibler, übersichtlicher, kann mehr
+	- die Style-Dateien können in Module aufgeteilt werden (gut für größere Projekte) -> am 
+		Schluss kommt eh alles zusammen in eine große Datei
+	- ist eine komplett andere Sprache als CSS (auch wenn die Syntax ähnlich aussieht)
+	- Browser verstehen kein SASS -> wenn man SASS geschrieben hat, muss es erst in CSS übersetzt
+		werden, wenn ein Browser die Styles anzeigen können soll
+	- SASS ist mehr wie eine Programmiersprache (als CSS)
+	- SASS wird am Ende immer in CSS übersetzt (sonst hat es keinen Sinn)
+	- CSS ist valides SASS! -> man kann also CSS in SASS-Dateien schreiben
+INSTALLATION
+	2 possibilities:
+		- standalone application
+		- via command line
+			1. install Ruby through the apt package manager, rbenv, or rvm
+			2. sudo gem install sass --no-user-install)
+			3. check with: sass -v
+COMPILATION (or Preprocessing)
+	- Fehler werden bei der Kompilation erkannt und angezeigt (in CSS fehlen oft die
+		Fehlermeldungen!)
+	- man bindet die (durch Kompilation entstandenen) CSS-Dateien ganz normal als style-Elemente
+		ein (lso nicht die SASS-Dateien)
+	COMMANDS
+		HELP
+			sass --help
+		COMPILE ONE FILE MANUALLY
+			sass input.scss output.css
+		WATCH ONE FILE
+			sass --watch input.scss:output.css
+		WATCH DIRECTORY
+			sass --watch path/to/input/dir:path/to/output/dir
+######################################################################################################
+FILES
+	possible file structure and corresponding HTML:
+		<!-- Reset browser defaults -->
+		<link href="css/reset.css" type="text/css" rel="stylesheet"/>
+		<!-- My styles -->
+		<link href="css/styles.css" type="text/css" rel="stylesheet"/>
+GENERAL NOTES ON SYNTAX
+	COMMENTS
+		/* Multiline comment - appears in resulting CSS */
+		// Single-line comment - disappears in resulting CSS
+VARIABLES
+	SYNTAX
+		$[VARIABLENAME]
+	BSP.
+		$deepBlue: #032f3e;
+		$sectionHeading: 24px;
+		h3 {
+			background: $deepBlue;
+			font-size: $sectionHeading;
+		}
+NESTED STYLES
+	- generell ist es angenehmer, nicht zu tief zu schachteln, wegen der Übersichtlichkeit
+		(siehe das Bsp. unten)
+	Vorteile:
+		- dauert viel kürzer, sie zu erstellen, als gewöhnliches CSS
+		- alle Regeln eines Abschnitts der Website bleiben zusammen, es werden nicht
+			verschiedenste CSS-Regeln an verschiedenen Stellen erstellt
+	BSP.
+		nav {
+			background: #032f3e;
+			ul {
+				font-size: 24px;
+			}
+			li {				// könnte man auch nochmal in ul nesten
+				width: 100%;		// es genügt aber so auch (alle zu nav)
+			}				// eher weniger nesten -> ist übersichtlich
+		}
+MIXINS
+	- ist wiederverwendbarer Codeabschnitt in SASS oder CSS, den man in jedes HTML-Element
+		injecten kann
+	BSP.
+		@mixin nav {
+			width: 100%;
+			position: relative;
+			ul {				// -> geht also auch nested!
+				font-size: 24px;
+			}
+		}
+		#nav1 {
+			@include nav;			// übernimmt alles aus dem mixin
+		}
+		#nav2 {
+			@include nav;			// übernimmt alles aus dem mixin
+			font-size: 22px;		// -> spezifisch für nav2
+		}
+	BSP. FÜR EIN MIXIN, DAS MAN EIGENTL. IMMER BRAUCHT
+		@mixin clearfix {
+			content: "";
+			display: block;
+			clear: both;
+		}
+	- man kann auch Variablen an Mixins übergeben und diese im Mixin verwenden
+		BSP.
+			@mixin grid($columns, $margin) {
+				float: left;
+				margin-right: $margin;
+				margin-bottom: $margin;
+				width: ((100% - (($columns - 1) * $margin)) / $columns);
+				&:nth-child(#{$columns}n) {
+					margin-right: 0;
+				}
+			}
+			li {
+				@include grid (4, 4%);
+			}
+IMPORTING EXTERNAL SASS FILES IN MAIN SASS FILE
+	- hilft dabei, die SASS-Dateien modulartig zu gruppieren, sodass jede verschiedene "Sache"
+		ihre eigene Datei hat
+	GENERAL STRUCTURE (this is of course only one possibility!)
+		scss
+		- variables.scss
+		- mixins.scss
+		- reset.scss
+		- ...
+		- styles.scss
+	- ONLY styles.scss GETS COMPILED! ALL OTHER FILES ARE IMPORTET TO styles.scss, d.h. dass auch
+		nur eine Style-Datei ins HTML inkludiert werden muss
+	BSP.
+		@import "path/to/reset";
+		@import "path/to/variables";
+		nav {
+		usw. ...
+PSEUDO CLASSES
+	- einfach mit Ampersand!
+	BSP.
+		nav {
+			a {
+				font-size: 24px;
+				&:hover {
+					background: green;
+				}
+				&:after {
+					clear: both;
+				}
+			}
+		}
+MATH OPERATORS
+	* multiply
+	/ divide
+	+ sum
+	- subtract
+	BSP.
+		li {
+			width: (40px * 2);	// wird zu 80px
+		}
+		li {
+			width: (100% / 6);	// wenn man zB 6 li hat, dann sind alle gleich groß
+		}
+FUNCTIONS
+
+CONDITIONAL STATEMENTS
