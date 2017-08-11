@@ -1,0 +1,4 @@
+PERMANENTER ALIAS
+	cd $HOME
+	vim .bashrc
+	eingeben z.B.: alias gs='git status'

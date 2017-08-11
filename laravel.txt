@@ -1,0 +1,475 @@
+E13 5:00
+
+INSTALLATION
+	ANLEITUNG
+		https://laravel.com/docs/5.4/installation#installing-laravel
+	MIT LARAVEL INSTALLER (braucht man nicht, geht auch ohne Laravel Installer, stattdessen Composer verwenden)
+		composer global require "laravel/installer"
+		export PATH=$PATH:/c/Users/michael.kaefer/AppData/Roaming/Composer/vendor/bin
+		laravel new nemetz-kundenportal   => alternativ: 
+		cd nemetz-kundenportal
+		composer install
+	MIT COMPOSER
+		composer create-project --prefer-dist laravel/laravel nemetz-kundenportal
+EINEN LOKALEN DEV-SERVER STARTEN
+	php artisan serve     => will start a development server at http://localhost:8000
+WICHTIGE KOMMANDOS, DIE MAN STÄNDIG BRAUCH
+	NACH JEDER CONFIG ÄNDERUNG
+		php artisan config:clear
+	NACH JEDER DB ÄNDERUNG (UND NATÜRLICH GANZ AM ANFANG)
+		php artisan migrate
+	NACH JEDER KLASSEN ÄNDERUNG
+		composer dump-autoload
+DEBUG
+	dd('bla'); // global helper function to 'dump' and 'die'
+STANDARD-LOGIN ERSTELLEN
+	php artisan make:auth
+ROUTES							routes/web.php
+	CLOSURE
+		Route::get('/about', function() {
+			return view('about');
+		});
+	CONTROLLER
+		Route::get('/about', 'PagesController@about');
+
+		Route::get('/tasks', 'TasksController@index');		// den Controller, der alle z.B. Tasks anzeigen soll, den nennt man nach Konvention meistens "index"
+		Route::get('/tasks/{task}', 'TasksController@show');	// den Controller, der einen einzelnen z.B. Task anzeigen soll, den nennt man nach Konvention meistens "index"
+	####################################################################
+	WILDCARD
+		Route::get('/task/{blabla_wird_eh_id}', function($id) {
+			dd($id);
+		});
+	####################################################################
+	RESTFUL CONVENTIONS (wichtig für einen "basic resourceful controller")
+		GET	/posts					= view all posts
+		public function index()				= controller method
+
+		GET	/posts/{id}				= view a single post
+		public function show($id)			= controller method
+		#####################################################################################################################
+		GET	/posts/create				= input form for new post
+		public function create()			= controller method
+
+		POST	/posts					= send newly created post
+		public function store(Request $request)		= controller method
+		<form method="POST" action="/posts">		= HTML
+		Route::post('/posts', 'PostController@store');	= Route und Controller: die Methode heißt nach Konvention "store"
+		#####################################################################################################################
+		GET	/posts/{id}/edit			= edit form for existing post
+		public function edit($id)			= controller method
+
+		PATCH	/posts/{id}				= send newly edited parts of existing post
+		public function update(Request $request, $id)	= controller method
+		#####################################################################################################################
+		DELETE	/posts/{id}				= deletes an existing post
+		public function destroy($id)			= controller method
+		#####################################################################################################################
+VIEWS
+	PFADE alle folgenden Beispiel sind ident:
+		view('tasks/show');
+		view('tasks.show'); // more common in Laravel
+	view ist eine globale helper function; folgende Aufrufe sind völlig ident vom Resultat her:
+
+		view('about', ['key' => 'value', 'bla' => 'blu']);
+
+		view('about')->with('key', 'value')->with('bla', 'blu');
+
+		$key = 'value';
+		$bla = 'blu';
+		view('about', compact($key, $bla));
+
+	in about.blade.php ist folgendes wieder ident vom Resultat her:
+
+		Hallo <?php echo $key; ?>
+
+		Hallo <?= $key; ?> 
+
+		Hallo {{ $key }}
+
+		Hallo {!! $key !!}
+		########################################################
+		<?php foreach ($hudri as $wudri) : ?>
+			<li><?= $wudri; ?></li>
+		<?php endforeach; ?>
+
+		@foreach ($hudri as $wudri)
+			<li>{{ $wudri }}</li>
+		@endforeach
+		########################################################
+		weitere:
+			@if
+			@endif
+
+			@while
+			@endwhile
+
+			etc.
+	LAYOUT
+		GENERELLE DATEISTRUKTUR:
+		--views
+		----layouts
+		------footer.blade.php
+		------nav.blade.php
+		----tasks
+		------index.blade.php
+		------show.blade.php
+		----layout.blade.php
+		man kann das layout.blade.php aber auch in directory layouts geben, außerdem kann es ja sein, dass man mehrere layout..blade.php files brauchte (zB normale Seite und admin area)
+		####################################
+		resources/views/layout.blade.php:
+		<!DOCTYPE html>
+			<html>
+			<head>
+				<title>My App</title>
+			</head>
+			<body>
+				@include('layouts.nav')
+				@yield('content')
+				@yield('another_content')
+			</body>
+		</html>
+		####################################
+		resources/views/posts/index.blade.php:
+		@extends('layout')
+
+		@section ('another_content')
+			bla
+		@endsection
+
+		@section ('another_content')
+			<script src="/js/file.js"></script>
+		@endsection
+		####################################
+		resources/views/layouts/nav.blade.php:
+		<nav>
+			...Menü...
+		</nav>
+		####################################
+LARAVEL-SHELL
+	BOOT THE LARAVEL-SHELL
+		php artisan tinker
+	CLEAR SCREEN
+		Strg+k
+ARTISAN
+	HILFE
+		ÜBERSICHT
+			php artisan
+		HILFE ZU EINEM EINZELNEN KOMMANDO
+			php artisan help make:migration
+	mit den verschiedenen make:[bla] Kommandos generiert man Dateien
+MIGRATIONS
+	RUN MIGRATIONS
+		php artisan migrate
+	eine Migration-Datei in database/migrations mit:
+		php artisan make:migration create_tasks_table
+	oder wenn man gleich auch eine DB table namens "tasks" erstellen will:
+		php artisan make:migration create_tasks_table --create=tasks
+	weitere:
+		php artisan migrate:reset    // führt einen Rollback nach dem anderen von hinten nach vorne durch und am Ende ist die DB wieder leer wie am Anfang
+		php artisan migrate:refresh  // wie migrate:reset, nur macht es dann alle migrations wieder neu von vorn bis zur letzten
+	BSPE
+		$table->increment('id');
+		$table->text('longer_text');
+		$table->string('shorter_text');
+		$table->boolean('is_completed')->default(false);
+		$table->timestamps();
+	ALLE
+		$table->bigIncrements('id');	Incrementing ID using a "big integer" equivalent.
+		$table->bigInteger('votes');	BIGINT equivalent to the table
+		$table->binary('data');		BLOB equivalent to the table
+		$table->boolean('confirmed');	BOOLEAN equivalent to the table
+		$table->char('name', 4);	CHAR equivalent with a length
+		$table->date('created_at');	DATE equivalent to the table
+		$table->dateTime('created_at');	DATETIME equivalent to the table
+		$table->decimal('amount', 5, 2);	DECIMAL equivalent with a precision and scale
+		$table->double('column', 15, 8);	DOUBLE equivalent with precision, 15 digits in total and 8 after the decimal point
+		$table->enum('choices', array('foo', 'bar'));	ENUM equivalent to the table
+		$table->float('amount');	FLOAT equivalent to the table
+		$table->increments('id');	Incrementing ID to the table (primary key).
+		$table->integer('votes');	INTEGER equivalent to the table
+		$table->longText('description');	LONGTEXT equivalent to the table
+		$table->mediumInteger('numbers');	MEDIUMINT equivalent to the table
+		$table->mediumText('description');	MEDIUMTEXT equivalent to the table
+		$table->morphs('taggable');	Adds INTEGER taggable_id and STRING  taggable_type
+		$table->nullableTimestamps();	Same as timestamps(), except allows NULLs
+		$table->smallInteger('votes');	SMALLINT equivalent to the table
+		$table->tinyInteger('numbers');	TINYINT equivalent to the table
+		$table->softDeletes();		Adds deleted_at column for soft deletes
+		$table->string('email');	VARCHAR equivalent column
+		$table->string('name', 100);	VARCHAR equivalent with a length
+		$table->text('description');	TEXT equivalent to the table
+		$table->time('sunrise');	TIME equivalent to the table
+		$table->timestamp('added_on');	TIMESTAMP equivalent to the table
+		$table->timestamps();		Adds created_at and updated_at columns
+		$table->rememberToken();	Adds remember_token as VARCHAR(100) NULL
+		->nullable()			Designate that the column allows NULL values
+		->default($value)		Declare a default value for a column
+		->unsigned()			Set INTEGER to UNSIGNED
+
+FETCH FROM DB (query builder; besser ist aber wahrscheinlich immer, dasselbe mit Eloquent Model zu machen)
+	folgendes gibt JSON aus (mit Google Chrome JSON-Plugin kann man sich das schön formatiert ansehen)
+
+		Route::get('/', function() {
+			$tasks = DB::table('tasks')->get();
+			return $tasks;   // oder an view weitergeben:   return view('about', compact('tasks'));
+		});
+
+	WHERE
+		$tasks = DB::table('tasks')->where('created_at', '>=', ... ???)->get();
+		$tasks = DB::table('tasks')->find($id);
+	ORDER BY date
+		$tasks = DB::table('tasks')->latest()->get();
+ELOQUENT-MODEL -> Eloquent is Laravel's active record implementation
+	neue Datei app/Task.php erzeugen:
+		OHNE MIGRATION
+			php artisan make:model Task	// nach Konvention ist Model großgeschrieben und Singular, 
+							// DB-Tabelle kleingeschrieben und Plural, 
+							// Controller groß und Plural und "Controller" hinten dran: "TasksController"
+							// View klein und Plural: "TasksController": "posts.index"
+		MIT MIGRATION (m) UND CONTROLLER (c)
+			php artisan make:model Task -mc
+			IST GENAU DASSELBE WIE:
+			php artisan make:controller PostsController
+			php artisan make:model Post
+			php artisan make:migration create_posts_table --create=posts
+	METHODS
+		FETCH ALL (von einem Model)
+			>>> App\Task::all();
+			$tasks = App\Task::all();
+		FETCH ID 1
+			>>> App\Task::find(1);
+		FETCH WHERE ID 2
+			>>> App\Task::where('id', 2)->get();
+		FETCH ALL WHERE ID > 2
+			>>> App\Task::where('id', '>', 2)->get();
+		FETCH ALL BUT ONLY COLUMN 'body'
+			>>> App\Task::pluck('body');
+		FETCH ALL LIMIT 1
+			>>> App\Task::all()->first();
+		CREATE NEW
+			>>> $task = new App\Task;
+			>>> $task->body = 'fill body column';
+			>>> $task->save();
+	CUSTOM METHODS
+		class Task extends Model
+		{
+			public function myMethod() {}
+		}
+
+		IS
+			// aktueller Task (ist hier immer "uncompleted")
+			public function isComplete()
+			{
+				return false;
+			}
+			>>> $task = App\Task::find(1);
+			>>> $task->isComplete(); // gibt aus: false
+
+			// alle Tasks
+			public static function incomplete()
+			{
+				return static::where('completed', 0)->get();
+			}
+			>>> App\Task::incomplete();
+		DB
+			
+			Post extends Model
+			{
+				public function getComments()
+				{
+					return $this->hasMany(Comment::class);
+				}
+				public function addComment($body)
+				{
+					$this->getComments()->create(compact('body'));
+				}
+				########################################################
+				public function user()
+				{
+					retrun $this->belongsTo(User::class);
+				}
+				########################################################
+				public function scopeFilter($query, $filters)
+				{
+					if ($month = $filters['month']) {
+						$query->whereMonth('created_at', Carbon::parse($month)->month);
+					}
+				}
+				########################################################
+				public static function getArchive()
+				{
+					return static::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+						->groupBy('year', 'month')
+						->orderByRaw('min(created_at) desc')
+						->get()
+						->toArray();
+					);
+				}
+			}
+		QUERY SCOPE wrapper around a particular query
+			public function scopeIncomplete($query)
+			{
+				return $query->where('completed', 0);
+			}
+			>>> App\Task::incomplete()->get();
+			>>> App\Task::incomplete()where('id', '>=', 2)->get();
+	MASS ASSIGNEMENT
+		class Post extends Model
+		{
+			// bei neuen posts per POST request sind aus Sicherheitsgründen nur die gelisteten Felder erlaubt
+			protected $fillable = ['title', 'body'];
+			// oder gleichbedeutend umgekehrt (also die gelisteten Felder sind NICHT erlaubt):
+			protected $guarded = ['user_id'];
+		}
+		so wie oben kann man das für alle Klassen machen, die Model extenden oder wie folgt mit einer Zwischenklasse, 
+		also einer Parent-Klasse die Model extended und die von allen weiteren Model-Klassen extended wird:
+			namespace App;
+			use Illuminate\Database\Eloquent\Model as Eloquent;
+			class Model extends Eloquent
+			{
+				protected $guarded = ['user_id', 'bla'];
+			}
+			und:
+			class Post extends Eloquent
+			{
+				...
+				Post::create(request()->all());
+				oder am besten:
+				Post::create(request(['title', 'body']));
+				...
+			}
+CONTROLLERS
+	neue Klasse in app/Http/Controllers/TasksController.php erstellen:
+		php artisan make:controller TasksController
+	samt den RESTful-Methoden ("resourceful controller"):
+		php artisan make:controller TasksController -r
+	BSP
+		class TasksController extends Controller
+		{
+			public function index()
+			{
+				$tasks = Task:all();
+				return view('tasks.index', compact('tasks');
+			}
+			public function show($id)
+			{
+				$task = Task::find($id);			// schönes Bsp: Controller delegiert an Model und fragt es nach einer ID
+				return view('tasks.show', compact('task'));	// schönes Bsp: Controller delegiert an View und sagt, welche was anzeigen soll
+			}
+		}
+	ROUTE-MODEL-BINDING
+		Route::get('/tasks/{task}', 'TasksController@show');	// "task" muss genauso heißen, wie die Parameter-Variable im Controller!!
+		class TasksController extends Controller
+		{
+			public function show(Task $task)		// funktioniert nur mit dem primary key (also meistens der ID)
+			{						// intern mach Laravel daraus: $task = Task::find([WILDCARD]);
+				return $task;
+			}
+		}
+	STORE()
+		public function store()
+		{
+			// new post object
+			$post = new Post;
+			// get data from POST request
+			$post->title = request('title');
+			$post->body = request('body');
+				// alternativ zu den zwei obigen letzten Zeilen:
+				Post::create([
+					'title'	=> request('title'),
+					'body'	=> request('body')
+				]);
+			// save to DB
+			$post->save();
+			// redirect
+			return redirect('/');
+
+			// oder alternativ, am besten so (mit Parent-Klasse):
+			Post::create(request(['title', 'body']));
+			return redirect('/');
+		}
+	INDEX()
+		public function index()
+		{
+			$posts = Post::all();
+			return view('posts.index', compact('posts'));
+		}
+		plus eine Datei resources/views/posts/post.blade.php, die man includet mit:
+		@foreach ($posts as $post)
+			@include ('posts.post')
+		@endforeach
+		resources/views/posts/post.blade.php:
+		<div class="blog-post">
+			<h2 class="blog-post-title">{{ $post->title }}</h2>
+			<p class="blog-post-meta">{{ $post->created_at }}<a href="{{ ... }}">{{ $post->author }}</a></p>
+			{{ $post->body }}
+		</div>
+	SERVERSEITIGE FORM-VALIDATION
+		public function store()
+		{
+			// validate the request
+			$this->validate(request(), [
+				// alle zu validierenden Felder des Requests
+				'title'	=>'required|min:5',	// "title" muss ausgefüllt sein und mindestens 5 characters haben
+				'body'	=>'required|max:500',
+			]);
+			Post::create(request(['title', 'body']));
+			return redirect('/');
+			// ACHTUNG die Validation-Fehler werden im HTML des Formulars ausgegeben! SIEHE FORM
+		}
+HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
+	Beispiel-HTML_Formular:
+	<form method="POST" action="/posts">
+		{{ csrf_field() }}
+		<div class="form-group">
+			<label for="title">Titel</label>
+			<input type="text" class="form-control" id="title" name="title">
+		</div>
+		<div class="form-group">
+			<label for="body">Body</label>
+			<textarea id="body" name="body" class="form-control"></textarea>
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Publish</button>
+		</div>
+	</form>
+	VALIDATION
+		mit HTML 5 automatisch:
+			z.B. darf "title" nicht NULL sein in der DB, dafür HTML 5 keyword "required":
+			<input type="text" class="form-control" id="title" name="title" required>
+		oder wegen älteren Browsern, die HTML 5 nicht supporten, braucht man stattdessen serverseitige validation:
+			SIEHE CONTROLLER
+			Ausgabe der Validation-Fehler:
+			<form>
+				...
+				@if (count($errors))
+					<div class="form-group">
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)	// $errors-Variable gibt es immer; wenn keine Fehler ist es leer; man kann es also immer schreiben
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					</div>
+				@endif
+			</form>
+			oder übersichtlicher ist es, das in ein partial auszulagern und dieses immer zu includen, wenn nötig:
+			<form>
+				...
+				@include('layouts.errors')
+			</form>
+			mit einer neuen Datei:
+			resources/views/layouts/errors.blade.php:
+			@if (count($errors))
+				<div class="form-group">
+					<div class="alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)	// $errors-Variable gibt es immer; wenn keine Fehler ist es leer; man kann es also immer schreiben
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				</div>
+			@endif
+			

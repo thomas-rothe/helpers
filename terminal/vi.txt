@@ -1,0 +1,17 @@
+################## switch mode
+Insert Mode
+	i
+Command Mode
+	ESC
+################## save, quit in Command Mode
+	Speichern ohne Beenden
+		:w
+	Beenden
+		:q
+################## Cut/Copy, paste
+	1. Position cursor at begin
+	2. v to select characters or V to selct whole lines
+	3. move cursor to end
+	4. y (=yank, means copy) to copy or d (=delete, same as cut) to cut
+	5. move to begin of insert
+	6. P to paste before cursor or p after cursor

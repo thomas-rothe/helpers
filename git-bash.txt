@@ -1,0 +1,2 @@
+KILL PROCESS
+	Strg+Z

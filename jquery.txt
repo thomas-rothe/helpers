@@ -1,0 +1,8 @@
+GET ELEMENT BY
+	href		$('a[href="http://google.com"]');		href="http://google.com"
+	data		$("ul[data-slide='" + 14 +"']");		data-slide="14"
+GET FROM ELEMENT
+	id		$(this).attr('id');				id="text"
+EDIT ELEMENT
+	add class	$('p').addClass('myClass yourClass');
+	remove class	$('p').removeClass('myClass yourClass');

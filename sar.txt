@@ -1,0 +1,2 @@
+https://www.meinedomain.at -> http://localhost/meinedomain.at
+dann im Backend "Permalinks" speichern

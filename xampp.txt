@@ -1,0 +1,40 @@
+VIRTUAL HOST
+	1. Als Administrator C:\Windows\System32\drivers\etc\hosts öffnen und ergänzen:
+		127.0.0.1	bla.localhost
+	2. change directory
+		cd /c/Users/xampp/apache/conf/extra
+	3. folgendes reinschreiben:
+
+NameVirtualHost 127.0.0.1:80
+<VirtualHost *>
+  DocumentRoot /c/Users/xampp/htdocs 		# EINGABE Pfad muss angepasst werden
+  ServerName localhost
+</VirtualHost>
+<VirtualHost *>
+  DocumentRoot "/c/Users/xampp/htdocs/bla" 	# EINGABE Pfad verweist auf Projekt-Ordner
+  ServerName webdesign.localhost		# EINGABE 
+  DirectoryIndex index.php
+  <Directory "INSTALLATIONS_PFAD/xampp/htdocs/webdesign">
+    AllowOverride All
+    Allow from All
+  </Directory>
+</VirtualHost>
+<VirtualHost *>
+  DocumentRoot "INSTALLATIONS_PFAD/xampp/htdocs/webentwicklung" # Pfad verweist auf Projekt-Ordner
+  ServerName webentwicklung.localhost
+  DirectoryIndex index.php
+  <Directory "INSTALLATIONS_PFAD/xampp/htdocs/webentwicklung">
+    AllowOverride All
+    Allow from All
+  </Directory>
+</VirtualHost>
+
+
+Can't import database through phpmyadmin file size too large
+	- Go to XAMPP installed directoy C:\xampp\php
+	- Open the "Configuration Settings" file named php.ini using your text editor, preferably you can also you Notepad for Windows machine.
+	- Somewhere nearby on line no 886, please update it to upload_max_filesize = 128M
+	- Similarly on line no 735 post_max_size = 128M
+	- On line no 442 max_execution_time = 300
+	- On line no 452 max_input_time = 60
+	- Restart your Apache from either XAMPP Control Panel or using CMD in Windows https://stackoverflow.com/a/6723485/969092

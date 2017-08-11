@@ -1,0 +1,78 @@
+USER
+	SHOW NAME
+		git config user.name
+	SHOW ALL
+		git config --list
+	CHANGE USERNAME
+		git config --global user.name "Alvin J. Alexander"
+	SET NAME GLOBAL
+		git config --global user.name "Alvin J. Alexander"
+	SET EMAIL GLOBAL
+		git config --global user.email "alvin.alexander@test.at"
+	SET NAME FOR SINGLE REPO
+		git config user.name "Alvin J. Alexander"
+	SET EMAIL FOR SINGLE REPO
+		git config user.email "alvin.alexander@test.at"
+
+AUSCHECKEN
+	git clone ssh://medanr@www.medani.at:222/~/public_html/www.medani.at/private_plugins/medani-commons/.git ./MyDirectory/
+	git clone //mwdsql01/git-repositories/medani-commons
+	git clone https://mkx_medani@bitbucket.org/mkx_medani/medani-commons-wordpress.git
+
+STAGEN
+	git add .
+
+COMMITTEN
+	git commit -a -m "Blablu"
+   
+REMOTE
+	SHOW ALL
+		git remote -v
+	REMOVE
+		git remote remove origin
+	ADD
+		SSH (nicht so gut)
+			git remote add origin ssh://git@bitbucket.org/medani-web-design/medani-commons.git
+		HTTPS (vielbesser, da man sich nicht um SSH keys kümmern muss)
+			git remote add origin https://bitbucket.org/medani-web-design/medani-commons
+
+PUSHEN
+	VOR DEM PUSHEN DIFF ANZEIGEN:
+		git diff origin/master HEAD
+	FILES
+		git diff --stat origin/master HEAD [ident mit: git diff --stat --cached origin/master]
+	FILES MIT FULL PATH
+		git diff --numstat origin/master
+	VOR DEM PUSHEN DRY RUN
+		git push --dry-run
+	PUSH
+		git push origin master
+
+ZURÜCKSETZEN
+	git fetch --all
+	git reset --hard origin/master
+
+BRANCHES
+	HINWEIS
+		wenn man in einen branch comitten will, muss man sich in diesem branch befinden!!
+	SHOW
+		git branch
+	NEW LOCAL BRANCH
+		git checkout -b [name_of_your_new_branch]
+	SWITCH TO OTHER BRANCH
+		git checkout [name_of_your_new_branch]
+	PUSH BRANCH
+		git push origin [name_of_your_new_branch]
+		OTHER REMOTE THAN ORIGIN
+			git push [name_of_your_new_remote] [name_of_your_branch]
+
+	Update your branch when the original branch from official repository has been updated :
+		git fetch [name_of_your_remote]
+	Then you need to apply to merge changes, if your branch is derivated from develop you need to do :
+		git merge [name_of_your_remote]/develop
+	Delete a branch on your local filesystem :
+		git branch -d [name_of_your_new_branch]
+	To force the deletion of local branch on your filesystem :
+		git branch -D [name_of_your_new_branch]
+	Delete the branch on github :
+		git push origin :[name_of_your_new_branch]

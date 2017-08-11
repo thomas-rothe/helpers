@@ -1,0 +1,16 @@
+###################### FIND STRINGS IN FILES
+grep -R 'www.the-icon' 
+###################### ONLY CERTAIN FILE EXTENSIONS
+grep -r "myaccount" --include="*.php"
+###################### EXCLUDE FILES
+--exclude="*.sql"
+--exclude=\*.{log,sql}
+###################### EXCLUDE DIRECTORIES
+--exclude-dir="cache"
+--exclude-dir={cache,uploads,log,less,assets}
+###################### AUCH DIE 2 ZEILEN VOR DEM TREFFER ANZEIGEN
+-B 2
+###################### AUCH DIE 3 ZEILEN NACH DEM TREFFER ANZEIGEN
+-A 3
+###################### AUCH DIE 2 ZEILEN VOR UND NACH DEM TREFFER ANZEIGEN
+-C 3

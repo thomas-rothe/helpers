@@ -1,0 +1,2 @@
+Alle Dateien aus pwd auf Server laden:
+	scp -r -P 222 * kakcp@77.12.80.109:/usr/home/kakcp/public_html/www.uhrwerk.at/modules

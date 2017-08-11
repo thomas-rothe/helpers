@@ -1,0 +1,25 @@
+LOKAL AUFSETZEN
+	!!!! CACHE AUSSCHALTEN !!!
+		1.6 Erweiterte Einstellungen -> Leistung -> Smarty -> Kompilierung erzwingen UND Cache auf "Nein" setzen
+	beim ersten Login in Backend ist die URL:
+		[shopURL]/admin
+	dann ändert PS den Ordnernamen von "admin" auf "admin" plus irgendwas, zB: "admin3485034580jfgjfogj"; die URL ist dann ebenfalls:
+		[shopURL]/admin[von PS erzeugter Code]
+	
+	
+displaypaymentreturn bankwire
+
+
+
+
+
+•	Textausgabe immer übersetzbar umsetzen
+•	Änderungen immer irgendwie dokumentieren. Mit {* *} schreibt man Kommentare, welche nicht ins HTML ausgegeben werden, wie PHP kommentare.
+
+                                                                               <div class="cart-quantity">
+                                                                                              {l s='ANSEHEN' mod='blockcart'}
+                                                                                              {*MWD Default Anzeige deaktiviert
+                                                                                              <span class="ajax_cart_quantity{if $cart_qties == 0} unvisible{/if}">{$cart_qties}</span>
+                                                                                              <span class="ajax_cart_no_product{if $cart_qties > 0} unvisible{/if}">0</span>
+                                                                                              *}
+                                                                               </div>

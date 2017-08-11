@@ -1,0 +1,6 @@
+NEUES PROJEKT
+	composer create-project --stability="dev" zendframework/skeleton-application path/to/install
+VERSION ANZEIGEN
+	cd /path/to/project/
+	composer show --installed
+	--> z.B.: zendframework/zendframework 2.1.4 Zend Framework 2

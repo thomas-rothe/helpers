@@ -1,0 +1,2 @@
+Windows DNS-Cache leeren
+	ipconfig /flushdns

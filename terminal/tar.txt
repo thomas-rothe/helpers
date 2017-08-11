@@ -1,0 +1,4 @@
+Packen
+	tar -czvf ARCHIVE_NAME.tar.gz FOLDER_NAME/
+Entpacken
+	tar -xzvf ARCHIVE_NAME.tar.gz -C EXTRACT_TO_FOLDER_NAME/

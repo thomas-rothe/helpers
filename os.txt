@@ -1,0 +1,15 @@
+user@servername:~$ uname -a
+Linux servername.your-server.de 3.16.0-4-amd64 #1 SMP Debian 3.16.43-2+deb8u1 (2017-06-18) x86_64 GNU/Linux
+
+user@servername:~$ cat /etc/debian_version
+8.8
+
+user@servername:~$ cat /etc/issue.net
+Debian GNU/Linux 8
+
+user@servername:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Debian
+Description:    Debian GNU/Linux 8.8 (jessie)
+Release:        8.8
+Codename:       jessie
