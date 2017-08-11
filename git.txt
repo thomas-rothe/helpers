@@ -24,7 +24,12 @@ STAGEN
 
 COMMITTEN
 	git commit -a -m "Blablu"
-   
+
+UNDO GIT ADD
+	SINGLE FILE
+		git reset file.txt
+	ALL FILES
+		git reset
 REMOTE
 	SHOW ALL
 		git remote -v
