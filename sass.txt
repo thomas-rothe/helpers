@@ -40,6 +40,10 @@ FILES
 		<link href="css/reset.css" type="text/css" rel="stylesheet"/>
 		<!-- My styles -->
 		<link href="css/styles.css" type="text/css" rel="stylesheet"/>
+	filenames starting with an underscore (_filename.scss) indicate that the file as a "partial";
+	they won't be compiled to a CSS file (filename.css); instead they are meant to be imported
+	with @import "path/to/reset"; the general aim is to only produce one CSS file during 
+	compilation; usually it's called styles.css
 GENERAL NOTES ON SYNTAX
 	COMMENTS
 		/* Multiline comment - appears in resulting CSS */
