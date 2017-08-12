@@ -1,0 +1,3 @@
+SHORTCUTS
+  (UN)COMMENT LINE
+    Strg + Shift + 7  (german keyboard)
