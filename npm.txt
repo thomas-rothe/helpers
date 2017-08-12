@@ -1,1 +1,3 @@
-
+GENERAL
+  - npm (Node Package Manager) is the de facto package manager for front end web development
+  - manages dependencies (JavaScript packages like webpack, etc.)
