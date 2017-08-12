@@ -1,0 +1,35 @@
+GENERAL
+  - for defining webpack build steps for a laravel application
+  - supports several common CSS and Javascript pre-processors
+INSTALL
+  cd myLaravelProjectDirectory
+  npm install                   --> installs all dependencies listed in "package.json", one of them is "laravel-mix"
+  
+  or on Windows sometimes:
+    cd myLaravelProjectDirectory
+    npm install --no-bin-links
+START WATCHING
+  - the npm run watch command will continue running in your terminal and watch all relevant files for changes. Webpack will then automatically recompile your assets when it detects a change
+  cd myLaravelProjectDirectory
+  npm run watch
+  
+  or sometimes (if it is not working):
+    npm run watch-poll
+webpack.mix.js
+  - like a configuration wrapper around Webpack
+  - mix tasks can be chained together to define exactly how the assets should be compiled
+  EXAMPLE
+    mix.js('resources/assets/js/app.js', 'public/js')
+      .sass('resources/assets/sass/app.scss', 'public/css');
+SASS
+  - the "sass" method allows you to compile SASS into CSS
+  EXAMPLES
+    ONE FILE TO ONE FILE IN ONE DIRECTORY
+      mix.sass('resources/assets/sass/app.scss', 'public/css');
+    TWO FILES TO TWO FILES IN TWO DIRECTORIES
+      mix.sass('resources/assets/sass/app.sass', 'public/css')
+        .sass('resources/assets/sass/admin.sass', 'public/css/admin');
+    WITH NODE-SASS PLUG-IN OPTIONS
+      mix.sass('resources/assets/sass/app.sass', 'public/css', {
+        precision: 5
+      });
