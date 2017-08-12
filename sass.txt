@@ -109,6 +109,19 @@ MIXINS
 			li {
 				@include grid (4, 4%);
 			}
+	CONTENT KEYWORD
+		BSP.
+			li {
+				padding: 16px;
+				@include myMediaQuery(600px) {
+					width: 100%;
+				}
+			}
+			@mixin myMediaQuery($maxWidth) {
+				@media screen and (max-width: $maxWidth) {
+					@content;			// becomes: "width: 100%;"
+				}
+			}
 IMPORTING EXTERNAL SASS FILES IN MAIN SASS FILE
 	- hilft dabei, die SASS-Dateien modulartig zu gruppieren, sodass jede verschiedene "Sache"
 		ihre eigene Datei hat
@@ -159,4 +172,27 @@ COLOR FUNCTIONS
 								//  Funktionen
 	lighten($color, 6)		macht die Farbe 6 Mal heller
 	complement(red)		erzeugt eine Komplementärfarbe von rot
-CONDITIONAL STATEMENTS
+IF STATEMENTS
+	BSP.
+		@mixin myMediaQuery($args...){
+			@if length($args) == 1{
+				@media screen and (max-width: nth($args, 1)){
+					@content;
+				}
+			}
+			@if length($args) == 2{
+				@media screen and (max-width: nth($args, 1)) and (min-width: nth($args, 2)){
+					@content;
+				}
+			}
+		}
+		li {
+			@include myMediaQuery(600px) {
+				width: 100%;
+			}
+		}
+		li {
+			@include myMediaQuery(600px, 200px) {
+				width: 100%;
+			}
+		}
