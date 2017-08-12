@@ -225,7 +225,7 @@ ELOQUENT-MODEL -> Eloquent is Laravel's active record implementation
 							// Controller groß und Plural und "Controller" hinten dran: "TasksController"
 							// View klein und Plural: "TasksController": "posts.index"
 		MIT MIGRATION (m) UND CONTROLLER (c)
-			php artisan make:model Task -mc
+			php artisan make:model Post -mc
 			IST GENAU DASSELBE WIE:
 			php artisan make:controller PostsController
 			php artisan make:model Post
