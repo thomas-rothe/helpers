@@ -1,5 +1,3 @@
-E13 5:00
-
 INSTALLATION
 	ANLEITUNG
 		https://laravel.com/docs/5.4/installation#installing-laravel
@@ -13,12 +11,12 @@ INSTALLATION
 		composer create-project --prefer-dist laravel/laravel nemetz-kundenportal
 EINEN LOKALEN DEV-SERVER STARTEN
 	php artisan serve     => will start a development server at http://localhost:8000
-WICHTIGE KOMMANDOS, DIE MAN STÄNDIG BRAUCH
-	NACH JEDER CONFIG ÄNDERUNG
+WICHTIGE KOMMANDOS, DIE MAN STÃ„NDIG BRAUCH
+	NACH JEDER CONFIG Ã„NDERUNG
 		php artisan config:clear
-	NACH JEDER DB ÄNDERUNG (UND NATÜRLICH GANZ AM ANFANG)
+	NACH JEDER DB Ã„NDERUNG (UND NATÃœRLICH GANZ AM ANFANG)
 		php artisan migrate
-	NACH JEDER KLASSEN ÄNDERUNG
+	NACH JEDER KLASSEN Ã„NDERUNG
 		composer dump-autoload
 DEBUG
 	dd('bla'); // global helper function to 'dump' and 'die'
@@ -40,7 +38,7 @@ ROUTES							routes/web.php
 			dd($id);
 		});
 	####################################################################
-	RESTFUL CONVENTIONS (wichtig für einen "basic resourceful controller")
+	RESTFUL CONVENTIONS (wichtig fÃ¼r einen "basic resourceful controller")
 		GET	/posts					= view all posts
 		public function index()				= controller method
 
@@ -53,7 +51,7 @@ ROUTES							routes/web.php
 		POST	/posts					= send newly created post
 		public function store(Request $request)		= controller method
 		<form method="POST" action="/posts">		= HTML
-		Route::post('/posts', 'PostController@store');	= Route und Controller: die Methode heißt nach Konvention "store"
+		Route::post('/posts', 'PostController@store');	= Route und Controller: die Methode heiÃŸt nach Konvention "store"
 		#####################################################################################################################
 		GET	/posts/{id}/edit			= edit form for existing post
 		public function edit($id)			= controller method
@@ -68,7 +66,7 @@ VIEWS
 	PFADE alle folgenden Beispiel sind ident:
 		view('tasks/show');
 		view('tasks.show'); // more common in Laravel
-	view ist eine globale helper function; folgende Aufrufe sind völlig ident vom Resultat her:
+	view ist eine globale helper function; folgende Aufrufe sind vÃ¶llig ident vom Resultat her:
 
 		view('about', ['key' => 'value', 'bla' => 'blu']);
 
@@ -114,7 +112,7 @@ VIEWS
 		------index.blade.php
 		------show.blade.php
 		----layout.blade.php
-		man kann das layout.blade.php aber auch in directory layouts geben, außerdem kann es ja sein, dass man mehrere layout..blade.php files brauchte (zB normale Seite und admin area)
+		man kann das layout.blade.php aber auch in directory layouts geben, auÃŸerdem kann es ja sein, dass man mehrere layout..blade.php files brauchte (zB normale Seite und admin area)
 		####################################
 		resources/views/layout.blade.php:
 		<!DOCTYPE html>
@@ -142,7 +140,7 @@ VIEWS
 		####################################
 		resources/views/layouts/nav.blade.php:
 		<nav>
-			...Menü...
+			...MenÃ¼...
 		</nav>
 		####################################
 LARAVEL-SHELL
@@ -152,7 +150,7 @@ LARAVEL-SHELL
 		Strg+k
 ARTISAN
 	HILFE
-		ÜBERSICHT
+		ÃœBERSICHT
 			php artisan
 		HILFE ZU EINEM EINZELNEN KOMMANDO
 			php artisan help make:migration
@@ -165,7 +163,7 @@ MIGRATIONS
 	oder wenn man gleich auch eine DB table namens "tasks" erstellen will:
 		php artisan make:migration create_tasks_table --create=tasks
 	weitere:
-		php artisan migrate:reset    // führt einen Rollback nach dem anderen von hinten nach vorne durch und am Ende ist die DB wieder leer wie am Anfang
+		php artisan migrate:reset    // fÃ¼hrt einen Rollback nach dem anderen von hinten nach vorne durch und am Ende ist die DB wieder leer wie am Anfang
 		php artisan migrate:refresh  // wie migrate:reset, nur macht es dann alle migrations wieder neu von vorn bis zur letzten
 	BSPE
 		$table->increment('id');
@@ -207,7 +205,7 @@ MIGRATIONS
 		->unsigned()			Set INTEGER to UNSIGNED
 
 FETCH FROM DB (query builder; besser ist aber wahrscheinlich immer, dasselbe mit Eloquent Model zu machen)
-	folgendes gibt JSON aus (mit Google Chrome JSON-Plugin kann man sich das schön formatiert ansehen)
+	folgendes gibt JSON aus (mit Google Chrome JSON-Plugin kann man sich das schÃ¶n formatiert ansehen)
 
 		Route::get('/', function() {
 			$tasks = DB::table('tasks')->get();
@@ -222,9 +220,9 @@ FETCH FROM DB (query builder; besser ist aber wahrscheinlich immer, dasselbe mit
 ELOQUENT-MODEL -> Eloquent is Laravel's active record implementation
 	neue Datei app/Task.php erzeugen:
 		OHNE MIGRATION
-			php artisan make:model Task	// nach Konvention ist Model großgeschrieben und Singular, 
+			php artisan make:model Task	// nach Konvention ist Model groÃŸgeschrieben und Singular, 
 							// DB-Tabelle kleingeschrieben und Plural, 
-							// Controller groß und Plural und "Controller" hinten dran: "TasksController"
+							// Controller groÃŸ und Plural und "Controller" hinten dran: "TasksController"
 							// View klein und Plural: "TasksController": "posts.index"
 		MIT MIGRATION (m) UND CONTROLLER (c)
 			php artisan make:model Task -mc
@@ -316,12 +314,12 @@ ELOQUENT-MODEL -> Eloquent is Laravel's active record implementation
 	MASS ASSIGNEMENT
 		class Post extends Model
 		{
-			// bei neuen posts per POST request sind aus Sicherheitsgründen nur die gelisteten Felder erlaubt
+			// bei neuen posts per POST request sind aus SicherheitsgrÃ¼nden nur die gelisteten Felder erlaubt
 			protected $fillable = ['title', 'body'];
 			// oder gleichbedeutend umgekehrt (also die gelisteten Felder sind NICHT erlaubt):
 			protected $guarded = ['user_id'];
 		}
-		so wie oben kann man das für alle Klassen machen, die Model extenden oder wie folgt mit einer Zwischenklasse, 
+		so wie oben kann man das fÃ¼r alle Klassen machen, die Model extenden oder wie folgt mit einer Zwischenklasse, 
 		also einer Parent-Klasse die Model extended und die von allen weiteren Model-Klassen extended wird:
 			namespace App;
 			use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -353,12 +351,12 @@ CONTROLLERS
 			}
 			public function show($id)
 			{
-				$task = Task::find($id);			// schönes Bsp: Controller delegiert an Model und fragt es nach einer ID
-				return view('tasks.show', compact('task'));	// schönes Bsp: Controller delegiert an View und sagt, welche was anzeigen soll
+				$task = Task::find($id);			// schÃ¶nes Bsp: Controller delegiert an Model und fragt es nach einer ID
+				return view('tasks.show', compact('task'));	// schÃ¶nes Bsp: Controller delegiert an View und sagt, welche was anzeigen soll
 			}
 		}
 	ROUTE-MODEL-BINDING
-		Route::get('/tasks/{task}', 'TasksController@show');	// "task" muss genauso heißen, wie die Parameter-Variable im Controller!!
+		Route::get('/tasks/{task}', 'TasksController@show');	// "task" muss genauso heiÃŸen, wie die Parameter-Variable im Controller!!
 		class TasksController extends Controller
 		{
 			public function show(Task $task)		// funktioniert nur mit dem primary key (also meistens der ID)
@@ -410,14 +408,14 @@ CONTROLLERS
 			// validate the request
 			$this->validate(request(), [
 				// alle zu validierenden Felder des Requests
-				'title'	=>'required|min:5',	// "title" muss ausgefüllt sein und mindestens 5 characters haben
+				'title'	=>'required|min:5',	// "title" muss ausgefÃ¼llt sein und mindestens 5 characters haben
 				'body'	=>'required|max:500',
 			]);
 			Post::create(request(['title', 'body']));
 			return redirect('/');
 			// ACHTUNG die Validation-Fehler werden im HTML des Formulars ausgegeben! SIEHE FORM
 		}
-HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
+HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) fÃ¼r einen Blog-Pst mit Titel und Body
 	Beispiel-HTML_Formular:
 	<form method="POST" action="/posts">
 		{{ csrf_field() }}
@@ -435,9 +433,9 @@ HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
 	</form>
 	VALIDATION
 		mit HTML 5 automatisch:
-			z.B. darf "title" nicht NULL sein in der DB, dafür HTML 5 keyword "required":
+			z.B. darf "title" nicht NULL sein in der DB, dafÃ¼r HTML 5 keyword "required":
 			<input type="text" class="form-control" id="title" name="title" required>
-		oder wegen älteren Browsern, die HTML 5 nicht supporten, braucht man stattdessen serverseitige validation:
+		oder wegen Ã¤lteren Browsern, die HTML 5 nicht supporten, braucht man stattdessen serverseitige validation:
 			SIEHE CONTROLLER
 			Ausgabe der Validation-Fehler:
 			<form>
@@ -454,7 +452,7 @@ HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
 					</div>
 				@endif
 			</form>
-			oder übersichtlicher ist es, das in ein partial auszulagern und dieses immer zu includen, wenn nötig:
+			oder Ã¼bersichtlicher ist es, das in ein partial auszulagern und dieses immer zu includen, wenn nÃ¶tig:
 			<form>
 				...
 				@include('layouts.errors')
@@ -472,4 +470,13 @@ HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
 					</div>
 				</div>
 			@endif
-			
+FAVICON
+	1.
+	<head>
+		...
+		<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+		...
+	</head>
+	2.
+	put favicon.ico to \public
+	[? It might take a bit of time to appear on refresh.]
