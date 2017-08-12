@@ -1,6 +1,7 @@
 GENERAL
   - npm (Node Package Manager) is the de facto package manager for front end web development
   - manages dependencies (JavaScript packages like webpack, etc.)
+  - written entirely in JavaScript, initial release 2010, written by Isaac Z. Schlueter
 INSTALL
   - Debian, Ubuntu, Mint, Linux Mint Debian Edition (LMDE), elementaryOS, bash on Windows and others
     - for Node.js 8 and npm
@@ -11,3 +12,17 @@ INSTALL
       3.
       to compile and install native addons from npm optionally install build tools:
         sudo apt-get install -y build-essential
+Interactively create a package.json file
+  npm init
+Install a new dependency
+  - if not exists creates a folder called "modules"
+  - downloads the dependency (and its dependencies) and puts it into the folder "modules"
+  - adds the dependency to the file "package.json"
+  production
+    npm install [dependency]
+    e.g.
+      npm install webpack
+  development
+    npm install [dependency] --save-dev
+    e.g.
+      npm install webpack --save-dev
