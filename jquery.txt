@@ -1,7 +1,7 @@
 RUN CODE WHEN DOM IS READY
-	$( document ).ready(function() {}
+	$( document ).ready(function() {});
 RUN CODE WHEN WINDOW (DOM + IMAGES + IFRAMES + ...) IS READY
-	$( window ).on( "load", function() { ... })
+	$( window ).on( "load", function() {});
 GET ELEMENT BY
 	href		$('a[href="http://google.com"]');		href="http://google.com"
 	data		$("ul[data-slide='" + 14 +"']");		data-slide="14"
