@@ -1,0 +1,5 @@
+SHEBANG
+  - first row of the script
+  - defines which shell executes the script
+  e.g.:
+    #!/bin/bash
