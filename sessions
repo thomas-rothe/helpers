@@ -4,7 +4,7 @@ PROBLEM
     some seconds) -> things like a product cart are not possible, with HTTP you can not track users
 SOLUTION
     the server creates a unique random number for each client and assigns this number to the client as his 
-    session id (sid)
+    session id (sid) (or "session token")
     
     client   -----request------>     server
              <--response + sid--
