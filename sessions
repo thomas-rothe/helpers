@@ -1,0 +1,34 @@
+PROBLEM
+    a web application can't remember it's users (because HTTP is a  stateless protocol and connections only last 
+    for one or maybe some seconds; each request is handled by a process or thread which terminates after maximum
+    some seconds) -> things like a product cart are not possible, with HTTP you can not track users
+SOLUTION
+    the server creates a unique random number for each client and assigns this number to the client as his 
+    session id (sid)
+    
+    client   -----request------>     server
+             <--response + sid--
+             --request + sid -->
+             --request + sid -->
+             --request + sid -->
+                    ...
+TERMINATION
+    sessions can be terminated by both, the client and the server (the client can stop to send the sid, the server
+    can stop to read it)
+IMPLEMENTATION
+    (seldomly used) URL rewriting
+        append the URL with the sid
+        E.g.:
+            http://bla.com/index.html;jsessionid=0329u0948098rugjorgj
+    (seldomly used) hidden form fields
+    cookies
+        E.g.:
+            Response:
+                HTTP/1.1 200 OK
+                Date:Mon, 11 Apr 2011 15:00:00 GMT
+                Set-Cookie: JSESSIONID=0329u0948098rugjorgj; Path=/
+                ...
+            Request:
+                GET /blu.html HTTP/1.1
+                Host: bla.com
+                Cookie: JSESSIONID=0329u0948098rugjorgj
