@@ -1,5 +1,5 @@
 VIRTUAL HOST
-	1. Als Administrator C:\Windows\System32\drivers\etc\hosts öffnen und ergänzen:
+	1. Als Administrator C:\Windows\System32\drivers\etc\hosts Ã¶ffnen und ergÃ¤nzen:
 		127.0.0.1	bla.localhost
 	2. change directory
 		cd /c/Users/xampp/apache/conf/extra
