@@ -38,7 +38,7 @@ REMOTE
 	ADD
 		SSH (nicht so gut)
 			git remote add origin ssh://git@bitbucket.org/medani-web-design/medani-commons.git
-		HTTPS (vielbesser, da man sich nicht um SSH keys kümmern muss)
+		HTTPS (vielbesser, da man sich nicht um SSH keys kÃ¼mmern muss)
 			git remote add origin https://bitbucket.org/medani-web-design/medani-commons
 
 PUSHEN
@@ -53,7 +53,7 @@ PUSHEN
 	PUSH
 		git push origin master
 
-ZURÜCKSETZEN
+ZURÃœCKSETZEN
 	git fetch --all
 	git reset --hard origin/master
 
