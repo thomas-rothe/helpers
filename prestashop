@@ -3,7 +3,7 @@ LOKAL AUFSETZEN
 		1.6 Erweiterte Einstellungen -> Leistung -> Smarty -> Kompilierung erzwingen UND Cache auf "Nein" setzen
 	beim ersten Login in Backend ist die URL:
 		[shopURL]/admin
-	dann ändert PS den Ordnernamen von "admin" auf "admin" plus irgendwas, zB: "admin3485034580jfgjfogj"; die URL ist dann ebenfalls:
+	dann Ã¤ndert PS den Ordnernamen von "admin" auf "admin" plus irgendwas, zB: "admin3485034580jfgjfogj"; die URL ist dann ebenfalls:
 		[shopURL]/admin[von PS erzeugter Code]
 	
 	
@@ -13,8 +13,8 @@ displaypaymentreturn bankwire
 
 
 
-•	Textausgabe immer übersetzbar umsetzen
-•	Änderungen immer irgendwie dokumentieren. Mit {* *} schreibt man Kommentare, welche nicht ins HTML ausgegeben werden, wie PHP kommentare.
+â€¢	Textausgabe immer Ã¼bersetzbar umsetzen
+â€¢	Ã„nderungen immer irgendwie dokumentieren. Mit {* *} schreibt man Kommentare, welche nicht ins HTML ausgegeben werden, wie PHP kommentare.
 
                                                                                <div class="cart-quantity">
                                                                                               {l s='ANSEHEN' mod='blockcart'}
