@@ -9,10 +9,10 @@ IMPORT
 	source c:/xampp/htdocs/meinec_db1.sql
 
 	mysql -u DB_USER -p DATABASE < db_backup.sql 	(ACHTUNG: nicht mysqldump sondern mysql!)
-################################################################### DB erstellen und löschen
+################################################################### DB erstellen und lÃ¶schen
 	CREATE DATABASE `DB_NAME`;
 	DROP DATABASE `DB_NAME`;
-################################################################### Insert admin user to wp-db (ACHTUNG Tabellenpräfix ist wichtig für: 'wp_capabilities' und 'wp_user_level'
+################################################################### Insert admin user to wp-db (ACHTUNG TabellenprÃ¤fix ist wichtig fÃ¼r: 'wp_capabilities' und 'wp_user_level'
 INSERT INTO `MW_users` (
 	`ID`,
 	`user_login`,
@@ -52,5 +52,5 @@ INSERT INTO `MW_usermeta` (
 	'wp_user_level',
 	'10'
 );
-################################################################### Alle Menüs ausgeben
+################################################################### Alle MenÃ¼s ausgeben
 SELECT * FROM mwd_terms AS t LEFT JOIN mwd_term_taxonomy AS tt ON tt.term_id = t.term_id WHERE tt.taxonomy = 'nav_menu';
