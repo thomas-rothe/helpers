@@ -1,0 +1,18 @@
+AUTHENTICATION
+    a typical web appplication establishes a session but REST APIsare strictly stateless -> so there is no
+    session
+    IMPLEMENTATIONS
+        Basic auth (basic access authentication)
+            - client send in EVERY request a username and a password
+            - username and password are sent in the format "username:password"; e.g.: "peter:test123"
+            - username and password are sent in the HTTP-header
+            - username and password are not encrypted but encoded in base64 (the reason why they are sent
+                encoded is not for security but just because there could be characters which are not allowed
+                in HTTP protocol and these characters have to be transfomed to allowed characters; base64 
+                encoding is used as simple string conversion)
+            - since username and password are only encoded they should be sent via https for security reasons
+        Digest access authentication
+        Asymmetric cryptography
+        OAuth 1
+        OAuth 2
+        JSON web tokens
