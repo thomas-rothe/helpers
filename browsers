@@ -1,0 +1,5 @@
+REDIRECTS
+    when browsers receive a 3xx (redirects) HTTP response they usually automatically request the redirect URL without 
+    asking the user to do so
+CACHE
+    browsers have their own application cache which can be cleared manually by the user
