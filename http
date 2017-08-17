@@ -1,3 +1,6 @@
+TOOLS
+	VIEW YOUR HTTP REQUESTS
+		https://requestb.in/
 request and response messages consist of:
 	1) an initial line,
 	2) zero or more header lines,
