@@ -1,16 +1,21 @@
 VERSION
     curl --version
 HTTP-REQUESTS
+    MOST BASIC EXAMPLE
+        curl www.google.com
     IMPORTANT OPTIONS
-        -v (same as "--verbose")
-            shows more information about the request and the response
+        -v 
+            - same as "--verbose"
+            - shows more information about the request and the response
             e.g.:
                 curl -v www.google.com
-    GET
-        curl www.google.com (since "-X GET" is the default, this is the same as "curl -X GET www.google.com")
-    POST
-        curl -X POST http://requestb.in/example
-    PUT 
-        curl -X POST http://requestb.in/example
-    DELETE
-        curl -X POST http://requestb.in/example
+        -X [request method]
+            - used to specify a request method
+            -X GET
+                curl www.google.com (since "-X GET" is the default, this is the same as "curl -X GET www.google.com")
+            -X POST
+                curl -X POST http://requestb.in/example
+            -X PUT 
+                curl -X PUT http://requestb.in/example
+            -X DELETE
+                curl -X DELETE http://requestb.in/example
