@@ -1,10 +1,11 @@
 TOOLS
-	VIEW YOUR HTTP REQUESTS
-		https://requestb.in/
-	
-	- The  reserved  endpoints  (http://example.com,  http://example.net,  and  http://example.org) established by the Internet Assigned Numbers Authority
-	- HTTPResponder  is  a  similar  tool  and  is  on  GitHub  so  you  could  host/adapt  ityourself
-	- A selection of endpoints with specific behaviors at httpbin.org
+	BROWSER
+		- https://requestb.in/ - allows to view your own HTTP requests
+		- The  reserved  endpoints  (http://example.com,  http://example.net,  and  http://example.org) established by the Internet Assigned Numbers Authority
+		- HTTPResponder  is  a  similar  tool  and  is  on  GitHub  so  you  could  host/adapt  ityourself
+		- A selection of endpoints with specific behaviors at httpbin.org
+	COMMAND LINE
+		- cURL - available for all platforms
 
 request and response messages consist of:
 	1) an initial line,
