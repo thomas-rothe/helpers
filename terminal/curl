@@ -15,7 +15,24 @@ HTTP-REQUESTS
                 curl www.google.com (since "-X GET" is the default, this is the same as "curl -X GET www.google.com")
             -X POST
                 curl -X POST http://requestb.in/example
+                -d key="value"
+                    - with POST parameters
+                        curl -X POST http://requestb.in/example -d name="Lorna" -d email="lorna@example.com"
+                        curl -X POST http://requestb.in/example -d @or_put_it_in_a_file.txt
             -X PUT 
                 curl -X PUT http://requestb.in/example
             -X DELETE
                 curl -X DELETE http://requestb.in/example
+        -H [header]
+            - send a request with a header specified as a string
+                curl -H "Accept: text/html" http://requestb.in/example
+        -c [filename]
+            - if the response contains cookies we can store them (as usual in simple plain text) in a file to use them 
+            for further requests
+            - the filename "cookiejar.txt" seems to be some weird convention...
+                curl -c cookiejar.txt http://requestb.in/example
+        -b [filename]
+            - if we got a file with cookies, we can send the cookies in a request
+                url -b cookiejar.txt http://requestb.in/example
+
+
