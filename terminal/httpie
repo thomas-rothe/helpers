@@ -1,0 +1,4 @@
+very similar to curl but more human friendly (for e.g. it comes with syntax highlighting)
+
+BASIC EXAMPLE
+    http -s trac www.google.com
