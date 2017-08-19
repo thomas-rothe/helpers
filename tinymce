@@ -15,4 +15,66 @@ DOWNLOAD AND USE
         --jquery.tinymce.min.js
         --license.txt
         --tinymce.min.js
+HTML
+    <textarea class="tinymce"></textarea>
+    <!-- Downloaded libraries -->
+    <scipt type"text/javascript" src="jquery.min.js"></script>
+    <scipt type"text/javascript" src="tinymce/tinymce.min.js"></script>
+    <! My own custom .js files -->
+    <scipt type"text/javascript" src="init-tinymce.min.js"></script>
+init-tinymce.js
+    tinymce.init({
+        // convert all <textarea class="tinymce"> into a TinyMCE text editor
+        selector: "textarea.tinymce",
         
+        // OPTIONAL: choose theme and color
+        theme: "modern",
+        skin: "lightgray",
+        
+        // OPTIONAL: chose width and height of the editor
+        width: "100%",
+        height: 300,
+        
+        // OPTIONAL: display statusbar
+        statusbar: true,
+        
+        // OPTIONAL: plugins
+        plugins: [
+            "save table contextmenu [.........]"
+        ],
+        
+        // OPTIONAL: toolbar
+       toolbar: "insertfile undo redo | styleselect | bold italic | [.......]",
+       
+       // OPTIONAL: style
+       style_formats: [
+            {
+                title: "Headers",
+                items: [
+                    {
+                        title: "Header 1",
+                        format: "h1"
+                    },
+                    {
+                        title: "Header 2",
+                        format: "h2"
+                    }
+                ]
+            },
+            {
+                title: "Inline",
+                items: [
+                    {
+                        title: "Bold",
+                        icon: "bold",
+                        format: "bold"
+                    },
+                    {
+                        title: "Italic",
+                        icon: "italic",
+                        format: "italic"
+                    }
+                ] 
+            }
+       ]
+    });
