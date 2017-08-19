@@ -16,12 +16,20 @@ DOWNLOAD AND USE
         --license.txt
         --tinymce.min.js
 HTML
-    <textarea class="tinymce"></textarea>
+    <form id="get-data-form" method="post">
+        <textarea class="tinymce" id="texteditor"></textarea>
+        <input type="submit" value="Get Data">
+    </form>
+    
+    <div id="data-container"></div>
+    
     <!-- Downloaded libraries -->
     <scipt type"text/javascript" src="jquery.min.js"></script>
     <scipt type"text/javascript" src="tinymce/tinymce.min.js"></script>
     <! My own custom .js files -->
     <scipt type"text/javascript" src="init-tinymce.min.js"></script>
+    <scipt type"text/javascript" src="get-data-from-tinymce.min.js"></script>
+
 init-tinymce.js
     tinymce.init({
         // convert all <textarea class="tinymce"> into a TinyMCE text editor
@@ -77,4 +85,17 @@ init-tinymce.js
                 ] 
             }
        ]
+    });
+get-data-from-tinymce.min.js    
+    $(document).ready(function() {
+        $('#get-data-form).submit(function(e) {
+            // Get the content
+            var content = tinymce.get("texteditor").getContent();
+            
+            // Process content somehow
+            $("#data-container").html(content);
+            
+            // to prevent that the page reloads (because the form was submitted)
+            return false;
+        });
     });
