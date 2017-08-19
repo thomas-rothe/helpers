@@ -1,0 +1,18 @@
+DEPENDENCIES
+    jQuery
+DOWNLOAD AND USE
+    - community version on www.tinymce.com/download
+    - you get a zip file: "tinymce_[version].zip"
+    - unzip it
+    - copy to your project:
+      [path to unzipped folder]/tinymce/js/tinymce
+    - now you got a folder in your project like this:
+        -tinymce
+        --langs
+        --plugins
+        --skins
+        --themes
+        --jquery.tinymce.min.js
+        --license.txt
+        --tinymce.min.js
+        
