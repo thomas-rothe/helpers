@@ -2,4 +2,13 @@
 Read     4    4    4
 Write    2    2    2
 Execute  1    1    1
+No       0    0    0
 You add the numbers together, when there are more privileges. So r-x would be 5, because 4+1 is logically 5
+
+E.G.:
+       chmod [sticky bit][user][group][other] [filename]
+       chmod 0700 filename.txt
+       
+       sticky bit
+              usually is "0"
+
