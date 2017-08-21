@@ -81,3 +81,89 @@ BRANCHES
 		git branch -D [name_of_your_new_branch]
 	Delete the branch on github :
 		git push origin :[name_of_your_new_branch]
+
+1. "git init" in an empty directory produces a filestructure like this:
+	.git
+	+branches/
+	+hooks/
+	--applypatch-msg.sample
+		#!/bin/sh
+		#
+		# An example hook script to check the commit log message taken by
+		# applypatch from an e-mail message.
+		#
+		# The hook should exit with non-zero status after issuing an
+		# appropriate message if it wants to stop the commit.  The hook is
+		# allowed to edit the commit message file.
+		#
+		# To enable this hook, rename this file to "applypatch-msg".
+
+		. git-sh-setup
+		commitmsg="$(git rev-parse --git-path hooks/commit-msg)"
+		test -x "$commitmsg" && exec "$commitmsg" ${1+"$@"}
+		:
+	--commit-msg.sample
+		#!/bin/sh
+		#
+		# An example hook script to check the commit log message.
+		# Called by "git commit" with one argument, the name of the file
+		# that has the commit message.  The hook should exit with non-zero
+		# status after issuing an appropriate message if it wants to stop the
+		# commit.  The hook is allowed to edit the commit message file.
+		#
+		# To enable this hook, rename this file to "commit-msg".
+		
+		# Uncomment the below to add a Signed-off-by line to the message.
+		# Doing this in a hook is a bad idea in general, but the prepare-commit-msg
+		# hook is more suited to it.
+		#
+		# SOB=$(git var GIT_AUTHOR_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+		# grep -qs "^$SOB" "$1" || echo "$SOB" >> "$1"
+
+		# This example catches duplicate Signed-off-by lines.
+
+		test "" = "$(grep '^Signed-off-by: ' "$1" |
+			 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
+			echo >&2 Duplicate Signed-off-by lines.
+			exit 1
+		}
+	--post-update.sample
+		[...]
+	--pre-applypatch.sample
+		[...]
+	--pre-commit.sample
+		[...]
+	--prepare-commit-msg.sample
+		[...]
+	--pre-push.sample
+		[...]
+	--pre-rebase.sample
+		[...]
+	--update.sample
+		[...]
+	+info/
+	--exclude
+		# git ls-files --others --exclude-from=.git/info/exclude
+		# Lines that start with '#' are comments.
+		# For a project mostly in C, the following would be a good set of
+		# exclude patterns (uncomment them if you want to use them):
+		# *.[oa]
+		# *~
+	+objects/
+	++info/
+	++pack/
+	+refs/
+	++heads/
+	++tags/
+	-config
+		[core]
+			repositoryformatversion = 0
+			filemode = true
+			bare = false
+			logallrefupdates = true
+	-description
+		Unnamed repository; edit this file 'description' to name the repository.
+	-HEAD
+		ref: refs/heads/master
+2. creating empty textfile with "touch test" does not change anything in the ".git" directory
+3. 
