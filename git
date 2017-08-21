@@ -166,4 +166,71 @@ BRANCHES
 	-HEAD
 		ref: refs/heads/master
 2. creating empty textfile with "touch test" does not change anything in the ".git" directory
-3. 
+3. staging with "git add test" creates:
+	- a file ".git/index"
+		DIRCY�@c
+			  �T�Y�@c
+				 �T�������⛲��CK�)�wZ����S�test�cnXtRi�')lc�:��FΗ%
+	- a directory ".git/objects/e6"
+	- a file ".git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+		xK��OR0`	��
+4. committing with: "git commit -m "initial commit""
+	- edits ".git/index" to
+		DIRCY�@c
+			  �T�Y�@c
+				 �T�������⛲��CK�)�wZ����S�testTREE1 0
+		�Z�s�6�Qv���4�a�k='�p���w��1?��h���~~
+	- creates a file ".git/COMMIT_EDITMSG"
+		initial commit
+	- creates a folder ".git/logs"
+	- creates a file ".git/logs/HEAD"
+		0000000000000000000000000000000000000000 7057b31146d304f4207974bf8e50d9c28878a4c5 michaelKaefer <michael.kaefer1@gmx.at> 1503347411 +0200	commit (initial): initial commit
+	- creates a folder ".git/logs/refs"
+	- creates a folder ".git/logs/refs/heads"
+	- creates a file ".git/logs/refs/heads/master"
+		0000000000000000000000000000000000000000 7057b31146d304f4207974bf8e50d9c28878a4c5 michaelKaefer <michael.kaefer1@gmx.at> 1503347411 +0200	commit (initial): initial commit
+	- a directory ".git/objects/70"
+	- a file ".git/objects/70/57b31146d304f4207974bf8e50d9c28878a4c5"
+		x��K
+			\]���LQ�0g�c��!f�����S�u���̲\X�lp��p�Ϸ�X'�`�|��p��ZS��~�
+                                                           �=�6^��2o�L>�
+	- a directory ".git/objects/f0"
+	- a file ".git/objects/f0/5af273ba36fe5176e5eaab349661a56b3d27a0"
+		x+)JMU06b040031Q(I-.ax6���M�9{wk�+��q�IO�D'�M
+	- a file ".git/refs/heads/master"
+		7057b31146d304f4207974bf8e50d9c28878a4c5
+5. "touch test_2"
+6. "git add test_2"
+	- edits ".git/index" to:
+		DIRCY�@c
+			  �T�Y�@c
+				 �T�������⛲��CK�)�wZ����S�testY�G A{�Y�G A{�������⛲��CK�)�wZ����S�test_2TREE-1 0
+		�I���A�})�<X�-r���
+7. "git commit -m "second commit"
+	- edits ".git/COMMIT_EDITMSG" to:
+		second commit
+	- edits ".git/index" to:
+		DIRCY�@c
+			  �T�Y�@c
+				 �T�������⛲��CK�)�wZ����S�testY�G A{�Y�G A{�������⛲��CK�)�wZ����S�test_2TREE2 0
+		n){��?�Z�;\�����&M^מz蔼\�6�T��k�;���
+	- edits ".git/logs/HEAD" to
+		0000000000000000000000000000000000000000 7057b31146d304f4207974bf8e50d9c28878a4c5 michaelKaefer <michael.kaefer1@gmx.at> 1503347411 +0200	commit (initial): initial commit
+		7057b31146d304f4207974bf8e50d9c28878a4c5 7a548c49d778587f9c9165a0803ae71692f02e7a michaelKaefer <michael.kaefer1@gmx.at> 1503348931 +0200	commit: second commit
+	- edits ".git/logs/refs/heads/master"
+		0000000000000000000000000000000000000000 7057b31146d304f4207974bf8e50d9c28878a4c5 michaelKaefer <michael.kaefer1@gmx.at> 1503347411 +0200	commit (initial): initial commit
+		7057b31146d304f4207974bf8e50d9c28878a4c5 7a548c49d778587f9c9165a0803ae71692f02e7a michaelKaefer <michael.kaefer1@gmx.at> 1503348931 +0200	commit: second commit
+	- a directory ".git/objects/7a"
+	- a file ".git/objects/7a/548c49d778587f9c9165a0803ae71692f02e7a" 
+		x��A
+		�0=��
+		       e��4	�x��dc�����+�x��
+						   ��y��F
+		�VEt/�P
+			;*�Mq���$
+	- a directory ".git/objects/e6"
+	- a file ".git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391" 
+		xK��OR0`	��
+	- edits ".git/refs/heads/master"
+		7a548c49d778587f9c9165a0803ae71692f02e7a
+	
