@@ -84,6 +84,7 @@ PUSHING
 UNDO
 	git fetch --all
 	git reset --hard origin/master
+
 ##### HELPER COMMANDS ###
 LOG
 	git log			<-- list of all commits
