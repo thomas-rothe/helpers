@@ -14,16 +14,16 @@ CONFIGURE
 	SET EMAIL FOR SINGLE REPO
 		git config user.email "alvin.alexander@test.at"
 INITIALISING
-	git init	<-- safe: nothing will get lost if working directory is not empty
+	git init		<-- safe: nothing will get lost if working directory is not empty
 CLONING
 	git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
 	git clone /absolute/path/to/repo-directory
 	git clone https://user@bitbucket.org/username/project.git
 STAGING
-	git add . 	<-- maybe same as: git add -A
+	git add .		<-- maybe same as: git add -A
 UNSTAGING
 	SINGLE FILE
-		git reset file.txt	<-- maybe same as: git rm --cached file.txt
+		git reset file.txt		<-- maybe same as: git rm --cached file.txt
 	ALL FILES
 		git reset
 COMMITTING
@@ -35,47 +35,48 @@ REMOTE
 	REMOVE
 		git remote remove origin
 	ADD
-		SSH (nicht so gut)
-			git remote add origin ssh://git@bitbucket.org/medani-web-design/medani-commons.git
-		HTTPS (vielbesser, da man sich nicht um SSH keys kümmern muss)
-			git remote add origin https://bitbucket.org/medani-web-design/medani-commons
-PUSHEN
-	VOR DEM PUSHEN DIFF ANZEIGEN:
+		SSH (prefered is via HTTPS)
+			git remote add origin ssh://user@bitbucket.org/path/to/repo.git
+		HTTPS (better than via SSH, you don't have to bother about SSH keys)
+			git remote add origin https://bitbucket.org/user/repo
+PUSHING
+	SHOW DIFFS BEFORE PUSHING
 		git diff origin/master HEAD
 	FILES
-		git diff --stat origin/master HEAD [ident mit: git diff --stat --cached origin/master]
-	FILES MIT FULL PATH
+		git diff --stat origin/master HEAD	<-- same as: git diff --stat --cached origin/master
+	FILES WITH FULL PATH
 		git diff --numstat origin/master
 	VOR DEM PUSHEN DRY RUN
 		git push --dry-run
 	PUSH
 		git push origin master
-
-ZURÜCKSETZEN
+UNDO
 	git fetch --all
 	git reset --hard origin/master
-
-BRANCHES
-	HINWEIS
-		wenn man in einen branch comitten will, muss man sich in diesem branch befinden!!
-	SHOW
+BRANCHING
+	- if you want to commit to a branch you have to switch to this branch before!!
+	LIST LOCAL BRANCHES
 		git branch
 	NEW LOCAL BRANCH
-		git checkout -b [name_of_your_new_branch]
+		git checkout -b localbranchname
 	SWITCH TO OTHER BRANCH
-		git checkout [name_of_your_new_branch]
+		git checkout localbranchname
 	PUSH BRANCH
-		git push origin [name_of_your_new_branch]
-		OTHER REMOTE THAN ORIGIN
-			git push [name_of_your_new_remote] [name_of_your_branch]
+		git push origin localbranchname
+		OTHER REMOTE BRANCH THAN ORIGIN
+			git push remotebranchname localbranchname
 
-	Update your branch when the original branch from official repository has been updated :
+	Update your branch when the original branch from official repository has been updated:
 		git fetch [name_of_your_remote]
-	Then you need to apply to merge changes, if your branch is derivated from develop you need to do :
+	Then you need to apply to merge changes, if your branch is derivated from develop you need to do:
 		git merge [name_of_your_remote]/develop
-	Delete a branch on your local filesystem :
+	Delete a branch on your local filesystem:
 		git branch -d [name_of_your_new_branch]
-	To force the deletion of local branch on your filesystem :
+	To force the deletion of local branch on your filesystem:
 		git branch -D [name_of_your_new_branch]
-	Delete the branch on github :
+	Delete the branch on github:
 		git push origin :[name_of_your_new_branch]
+##### HELPER COMMANDS ###
+LOG
+	git log			<-- list of all commits
+	git log --oneline	<-- short list of all commits
