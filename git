@@ -1,4 +1,5 @@
-CONFIGURE
+### CONFIGURATION ###
+USER
 	SHOW NAME
 		git config user.name
 	SHOW ALL
@@ -13,22 +14,6 @@ CONFIGURE
 		git config user.name "Alvin J. Alexander"
 	SET EMAIL FOR SINGLE REPO
 		git config user.email "alvin.alexander@test.at"
-INITIALISING
-	git init		<-- safe: nothing will get lost if working directory is not empty
-CLONING
-	git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
-	git clone /absolute/path/to/repo-directory
-	git clone https://user@bitbucket.org/username/project.git
-STAGING
-	git add .		<-- maybe same as: git add -A
-UNSTAGING
-	SINGLE FILE
-		git reset file.txt		<-- maybe same as: git rm --cached file.txt
-	ALL FILES
-		git reset
-COMMITTING
-	git commit -m "added header"		<-- commits all staged files
-	git commit -a -m "bugfix in header"	<-- stages all tracked files and commits them (doesn't stage or commit untracked files)
 REMOTE
 	SHOW ALL
 		git remote -v
@@ -39,21 +24,28 @@ REMOTE
 			git remote add origin ssh://user@bitbucket.org/path/to/repo.git
 		HTTPS (better than via SSH, you don't have to bother about SSH keys)
 			git remote add origin https://bitbucket.org/user/repo
-PUSHING
-	SHOW DIFFS BEFORE PUSHING
-		git diff origin/master HEAD
-	FILES
-		git diff --stat origin/master HEAD	<-- same as: git diff --stat --cached origin/master
-	FILES WITH FULL PATH
-		git diff --numstat origin/master
-	VOR DEM PUSHEN DRY RUN
-		git push --dry-run
-	PUSH
-		git push origin master
-UNDO
-	git fetch --all
-	git reset --hard origin/master
-BRANCHING
+
+### CREATE REPO ###
+INITIALISING
+	git init		<-- safe: nothing will get lost if working directory is not empty
+CLONING
+	git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
+	git clone /absolute/path/to/repo-directory
+	git clone https://user@bitbucket.org/username/project.git
+STAGING
+	git add .		<-- maybe same as: git add -A
+
+### MOVE FILES BETWEEN AREAS ###
+UNSTAGING
+	SINGLE FILE
+		git reset file.txt		<-- maybe same as: git rm --cached file.txt
+	ALL FILES
+		git reset
+COMMITTING
+	git commit -m "added header"		<-- commits all staged files
+	git commit -a -m "bugfix in header"	<-- stages all tracked files and commits them (doesn't stage or commit untracked files)PUSHING
+
+### BRANCHING ###
 	- if you want to commit to a branch you have to switch to this branch before!!
 	LIST LOCAL BRANCHES
 		git branch
@@ -76,6 +68,22 @@ BRANCHING
 		git branch -D [name_of_your_new_branch]
 	Delete the branch on github:
 		git push origin :[name_of_your_new_branch]
+
+### WORKING WITH REMOTE ###
+PUSHING
+	SHOW DIFFS BEFORE PUSHING
+		git diff origin/master HEAD
+	FILES
+		git diff --stat origin/master HEAD	<-- same as: git diff --stat --cached origin/master
+	FILES WITH FULL PATH
+		git diff --numstat origin/master
+	VOR DEM PUSHEN DRY RUN
+		git push --dry-run
+	PUSH
+		git push origin master
+UNDO
+	git fetch --all
+	git reset --hard origin/master
 ##### HELPER COMMANDS ###
 LOG
 	git log			<-- list of all commits
