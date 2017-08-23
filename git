@@ -46,7 +46,16 @@ COMMITTING
 	git commit -a -m "bugfix in header"	<-- stages all tracked files and commits them (doesn't stage or commit untracked files)PUSHING
 
 ### BRANCHING ###
-	- if you want to commit to a branch you have to switch to this branch before!!
+	INFOS
+		- if you want to commit to a branch you have to switch to this branch before!!
+		- when creating a new repo git automatically creates a branch named "master" and the user starts on this branch
+		- new branches are usually created for:
+			- bugfixes		<-- for quick fixes, after completion it could be merged e.g. to master
+			- new features		<-- for longer development
+			- test			<-- could be a branch which never gets deleted and is used for tests
+			- development		<-- could be a branch which never gets deleted and is used for development
+			- production		<-- usually named "master", usually a branch which never gets deleted and contains the most recent tested production code
+			- releases		<-- usually there's a branch for every release, like "branchV1.0.0", "branchV1.0.1", etc.
 	LIST LOCAL BRANCHES
 		git branch
 	NEW LOCAL BRANCH
@@ -89,3 +98,14 @@ UNDO
 LOG
 	git log			<-- list of all commits
 	git log --oneline	<-- short list of all commits
+	
+##############################################################################
+##############################################################################
+##############################################################################
+git checkout 7efr684
+git checkout master
+
+git revert 7efr684
+
+git reset 7efr684
+git reset 7efr684 --hard
