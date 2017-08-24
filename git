@@ -25,12 +25,16 @@
 			HTTPS (better than via SSH, you don't have to bother about SSH keys)
 				git remote add origin https://bitbucket.org/user/repo
 ### CREATE REPO ###
+	INFO
+		- there are 2 ways of starting a new repo on your machine:
+			- create one locally with "git init" in an empty or not empty directory
+			- clone an existing repo from another machine or from a directory on the local machine
 	INITIALISING
 		git init		<-- safe: nothing will get lost if working directory is not empty
 	CLONING
-		git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
-		git clone /absolute/path/to/repo-directory
+		git clone /absolute/or/relative/path/to/repo-directory target/directory
 		git clone https://user@bitbucket.org/username/project.git
+		git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
 ### MOVE FILES BETWEEN AREAS ###
 	MODIFIED->STAGING
 		git add .		<-- maybe same as: git add -A
