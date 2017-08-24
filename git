@@ -89,6 +89,18 @@
 	Delete the branch on github:
 		git push origin :[name_of_your_new_branch]
 ### WORKING WITH REMOTE ###
+	INFO
+		- usually all developers are pulling from/pushing to the same remote repo
+		- usually all developers keep up to date (so e.g. they pull in the morning before starting work)
+		- if you develop a new feature or bugfix you e.g.:
+			- pull from remote and then
+			- create a new branch
+			- create, delete, edit files
+			- stage and commit
+			- not merge the new branch locally in master but rather push the new branch to the remote
+			- other people review the code
+			- the new branch is merged into the master branch on the remote
+			- after it is merged to master the branch can be deleted
 	BEFORE PUSHING
 		SHOW DIFFS BEFORE PUSHING
 			git diff origin/master HEAD
@@ -99,10 +111,15 @@
 		VOR DEM PUSHEN DRY RUN
 			git push --dry-run
 	PUSH
-		git push origin master			<-- same as e.g.: git push https://github.com/user/repo.git master
+		git push origin localbranch		<-- same as e.g.: git push https://github.com/user/repo.git master
 	UNDO
 		git fetch --all
 		git reset --hard origin/master
+	PULL
+		git pull origin master		<-- a) fetches and b) merges master from remote to local master
+						<-- maybe same as: git fetch; git merge
+	FETCH
+		
 ##### HELPER COMMANDS ###
 	LOG
 		git log			<-- list of all commits
