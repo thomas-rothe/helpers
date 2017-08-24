@@ -58,8 +58,12 @@ COMMITTING
 			- releases		<-- usually there's a branch for every release, like "branchV1.0.0", "branchV1.0.1", etc.
 	LIST LOCAL BRANCHES
 		git branch
-	NEW LOCAL BRANCH
-		git checkout -b localbranchname
+	CREATE LOCAL BRANCH
+		git branch localbranchname		<-- create new local branch
+		git checkout -b localbranchname		<-- create new local branch and switch to it
+	DELETE LOCAL BRANCH
+		git branch -d localbranchname		<-- delete local branch
+		git branch -D localbranchname		<-- delete local branch even if changes didn't get merged
 	SWITCH TO OTHER BRANCH
 		git checkout localbranchname
 	PUSH BRANCH
