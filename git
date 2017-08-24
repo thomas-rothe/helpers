@@ -99,8 +99,10 @@
 			- stage and commit
 			- not merge the new branch locally in master but rather push the new branch to the remote
 			- other people review the code
+			- you fix things mentioned in the review on your local branch and push it to the new remote branch
 			- the new branch is merged into the master branch on the remote
 			- after it is merged to master the branch can be deleted
+			- you pull from the remote to update your local repo again
 	BEFORE PUSHING
 		SHOW DIFFS BEFORE PUSHING
 			git diff origin/master HEAD
