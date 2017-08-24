@@ -18,16 +18,18 @@
 		SHOW ALL
 			git remote -v
 		REMOVE
-			git remote remove origin
+			git remote remove origin	<-- removes the alias "origin"
 		ADD
+			INFO
+				- if you clone a repo git automatically sets the default alias "origin" for your source
 			SSH (prefered is via HTTPS)
-				git remote add origin ssh://user@bitbucket.org/path/to/repo.git
+				git remote add origin ssh://user@bitbucket.org/path/to/repo.git	<--sets an alias "origin"
 			HTTPS (better than via SSH, you don't have to bother about SSH keys)
-				git remote add origin https://bitbucket.org/user/repo
+				git remote add origin https://bitbucket.org/user/repo		<--sets an alias "origin"
 ### CREATE REPO ###
 	INFO
 		- there are 2 ways of starting a new repo on your machine:
-			- create one locally with "git init" in an empty or not empty directory
+			- create one locally with "git init" in an empty or not empty directory (you can create an empty repo later on a server and use it as remote)
 			- clone an existing repo from another machine or from a directory on the local machine
 	INITIALISING
 		git init		<-- safe: nothing will get lost if working directory is not empty
@@ -37,7 +39,10 @@
 		git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
 ### MOVE FILES BETWEEN AREAS ###
 	MODIFIED->STAGING
-		git add .		<-- maybe same as: git add -A
+		SINGLE FILE
+			git add file.txt
+		ALL FILES
+			git add .			<-- maybe same as: git add -A
 	STAGING->MODIFIED
 		SINGLE FILE
 			git reset file.txt		<-- maybe same as: git rm --cached file.txt
@@ -83,9 +88,8 @@
 		git branch -D [name_of_your_new_branch]
 	Delete the branch on github:
 		git push origin :[name_of_your_new_branch]
-
 ### WORKING WITH REMOTE ###
-	PUSHING
+	BEFORE PUSHING
 		SHOW DIFFS BEFORE PUSHING
 			git diff origin/master HEAD
 		FILES
@@ -94,8 +98,8 @@
 			git diff --numstat origin/master
 		VOR DEM PUSHEN DRY RUN
 			git push --dry-run
-		PUSH
-			git push origin master
+	PUSH
+		git push origin master			<-- same as e.g.: git push https://github.com/user/repo.git master
 	UNDO
 		git fetch --all
 		git reset --hard origin/master
