@@ -5,6 +5,12 @@ LOKAL AUFSETZEN
 		[shopURL]/admin
 	dann ändert PS den Ordnernamen von "admin" auf "admin" plus irgendwas, zB: "admin3485034580jfgjfogj"; die URL ist dann ebenfalls:
 		[shopURL]/admin[von PS erzeugter Code]
+CHACHE LÖSCHEN
+	cache/class_index.php
+	UND Z.B.:
+	override/classes/Customer.php
+	override/classes/ObjectModel.php
+	override/controllers/front/AuthController.php
 	
 	
 displaypaymentreturn bankwire
