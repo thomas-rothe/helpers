@@ -1,8 +1,5 @@
 Passwort:
 	AuthType Basic
-
 	AuthName "Password Protected Area"
-	
-AuthUserFile /var/www/blabla.at/web/.htpasswd
-	
-Require valid-user
+	AuthUserFile /var/www/blabla.at/web/.htpasswd
+	Require valid-user
