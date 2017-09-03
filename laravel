@@ -11,7 +11,9 @@ INSTALLATION
 		composer create-project --prefer-dist laravel/laravel nemetz-kundenportal
 EINEN LOKALEN DEV-SERVER STARTEN
 	php artisan serve     => will start a development server at http://localhost:8000
-WICHTIGE KOMMANDOS, DIE MAN STÄNDIG BRAUCH
+WICHTIGE KOMMANDOS, DIE MAN STÄNDIG BRAUCHT
+	AM ANFANG DES PROJEKTS FÜR ENCRYPTION
+		php artisan key:generate
 	NACH JEDER CONFIG ÄNDERUNG
 		php artisan config:clear
 	NACH JEDER DB ÄNDERUNG (UND NATÜRLICH GANZ AM ANFANG)
