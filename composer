@@ -1,0 +1,45 @@
+Package
+	- kind of a small PHP library containing PHP source code for various tasks
+Packagist
+	- is a repository for public PHP packages and is the default repo used by Composer
+Composer
+	- is a dependency manager
+	- is also used for autoloading because it has its own autoloader
+composer.json
+	- gibt an, welche packages man will, mit einem gewissen Spielraum, zB Version 2.4.X bis Version 3.X
+	- kann man manuell anlegen oder mit: composer init
+
+	"require": alle packages, die man für die Produktivversion des Projekts braucht
+	"require-dev": alle packages, die man für die Developmentversion des Projekts braucht
+composer.lock
+	- gibt an, welche packages gerade tatsächlich installiert sind, mit der GENAUEN Versionsnummer, zB Version 2.6.13
+
+composer install
+	1. schaut, ob es eine Datei "composer.json" gibt
+	2. sucht in "composer.json" nach den dependencies (in der Form von packages) und versucht, diese zu installieren
+	3. schaut, ob es eine Datei "composer.lock" gibt
+		-> nein, dann wird automatisch "composer update" ausgeführt (das erzeugt auch automatisch eine Datei "composer.lock")
+		-> ja, dann werden die angegbenen packages installiert
+composer update
+	1/2(?). schaut in "composer.json", welche Version gemäß dieser Datei die letzte Version ist, da ja immer gerade diese Version installiert sein soll 
+	1/2(?). liest (wenn vorhanden) die Datei "composer.lock" und schaut, welche Version gerade installiert ist und vergleicht, ob das mit der letzten Version übereinstimmt
+		-> ja, dann natürlich keine Neuinstallation
+		-> nein, dann wird die alte Version gelöscht und die neue installiert
+	3. wenn neue Versionen installiert wurden, dann wird die Datei "composer.lock" erstellt bzw. bearbeitet, damit diese auf dem neuesten Stand ist, welche packages in welcher Version gerade installiert sind
+	ANM.: --dev braucht man nicht setzen: ist default und installiert auch alle packages unter "require-dev"; für die Produktivversion braucht man zB keine Tests und kann die Installation von "require-dev"-packages ausschließen mit: --no-dev (diese Option löscht sogar alle zuvor installierten "require-dev"-packages physisch vom Rechner)
+2 Optionen, um ein package in einem Ordner (der noch keine Datei "composer.json" beinhaltet) zu installieren (man findet die verfügbaren freien packages bei Packagist):
+	- manuell eine Datei "composer.json" erstellen und das package eintragen (zB unter "require") -> nicht so angenehm, eher die nächste Option wählen und das von Composer machen lassen
+	- composer require [vendorname/packagename], Bsp: composer "require intervention/image"
+		1. erstellt eine Datei "composer.json" und trägt das angegebene package unter "require" ein
+		2. erstellt einen Ordner "vendor" (wenn nicht vorhanden)
+		3. installiert die letzte Version des package im Ordner "vendor"
+		4. erstellt eine Datei "composer.lock" und trägt dort das package (sowie dessen dependency-packages) ein, sowie die installierte Version des package
+	dann:
+		eine Datei, zB "index.php" erstellen und dort das package verwenden:
+		index.php:
+			<?php
+			require 'vendor/autoload.php';
+			use [namespace\path\to\classname];
+			$var = [classname]::[method]([params]);
+
+
