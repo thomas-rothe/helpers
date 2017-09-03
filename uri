@@ -1,0 +1,60 @@
+Quelle: https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn
+DORT IST AUCH EIN GUTES VENN-DIAGRAMM!
+
+#################################################################################################
+
+an URI can be:
+	- URL
+	- URN
+	- URC
+	- both, URL and URN
+
+#################################################################################################
+
+URI (Uniform Resource Identifier)
+	- URIs are a standard for identifying documents using a short string of numbers, letters, 
+		and symbols. They are defined by RFC 3986 - Uniform Resource Identifier (URI): 
+		Generic Syntax. URLs, URNs, and URCs are all types of URI.
+
+URL (Uniform Resource Locator)
+	- Contains information about how to fetch a resource from its location. For example:
+	- URLs always start with a protocol (http) and usually contain information such as the 
+		network host name (example.com) and often a document path (/foo/mypage.html). 
+		URLs may have query parameters and fragment identifiers.
+
+	Bspe.:
+		http://example.com/mypage.html
+		ftp://example.com/download.zip
+		mailto:user@example.com
+		file:///home/user/file.txt
+		tel:1-888-555-5555
+		http://example.com/resource?foo=bar#fragment
+		/other/link.html --- A relative URL, only useful in the context of another URL.
+
+URN (Uniform Resource Name)
+	- Identifies a resource by a unique and persistent name, but doesn't necessarily tell 
+		you how to locate it on the internet. It usually starts with the prefix "urn:"
+	- URNs can identify ideas and concepts. They are not restricted to identifying documents.
+		When a URN does represent a document, it can be translated into a URL by a
+		"resolver". The document can then be downloaded from the URL.
+
+	Bspe.:
+		urn:isbn:0451450523 --- to identify a book by its ISBN number.
+		urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66 --- a globally unique identifier
+		urn:publishing:book --- An XML namespace that identifies the docum. as a type of book.
+
+URC (Uniform Resource Citation)
+	- Points to meta data about a document rather than to the document itself. An example 
+		of a URC is one that points to the HTML source code of a page like: 
+	
+	Bspe.:
+		view-source:http://example.com/
+
+Data URI
+	- Rather than locating it on the internet, or naming it, data can be placed directly into 
+		a URI. An example would be:
+
+	Bspe.:
+		data:,Hello%20World
+
+#################################################################################################
