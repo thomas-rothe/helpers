@@ -1,30 +1,37 @@
 HOW BROWSERS PARSE DOCUMENTS
+    - Browser requests an HTML document "index.html"
+    - Browser receives the HTML document "index.html"
+    
     EXAMPLE 1
-    1. Browser requests an HTML document "index.html"
-    2. Browser receives the HTML document "index.html":
+    "index.html"
     	<div>text 1</div>
-    	<script src="alert.js"></script>
+    	<script src="document-write.js"></script>
     	<div>text 2</div>
-    	<script>alert('alerting again...');</script>
+    	<script>document.write('<div>Inline hi!<div>');</script>
     	<div>text 3</div>
-    3. Browser starts to parse "index.html"
+    "document-write.js"
+    	document.write('<div>Hi from file!<div>');
+    - Browser starts to parse "index.html"
         - Browser reads the first div and does not output anything
     	- Browser reads the first script tag and
-            - downloads[?] the document "alert.js"
-	    	alert('alerting...');
-	    - parses "alert.js"
-	    - executes "alert.js" (shows "alerting...")
+            - downloads[?] the document "document-write.js"
+	    - parses "document-write.js"
+	    - executes "document-write.js" (writes '<div>Hi from file!</div>' to the document)
         - Browser goes on parsing "index.html" and reads in the second div
     	- Browser reads the second script tag and
 	    - parses the inline script
-	    - executes the inline script (shows "alerting again...")
+	    - executes the inline script (writes '<div>Inline hi!</div>' to the document)
         - Browser goes on parsing "index.html" and reads in the third div
 	- Browser has finished parsing the HTML
 	- Browser outputs the page to the user as:
 		text 1
+		Hi from file!
 		text 2
+		Inline hi!
 		text 3
+		
     EXAMPLE 2
+    
 PLAIN TEXT FILES
 	- can be embedded in HTML
 	- are not parsed, neither as HTML nor JS nor anything else
