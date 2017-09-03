@@ -1,3 +1,30 @@
+HOW BROWSERS PARSE DOCUMENTS
+    EXAMPLE 1
+    1. Browser requests an HTML document "index.html"
+    2. Browser receives the HTML document "index.html":
+    	<div>text 1</div>
+    	<script src="alert.js"></script>
+    	<div>text 2</div>
+    	<script>alert('alerting again...');</script>
+    	<div>text 3</div>
+    3. Browser starts to parse "index.html"
+        - Browser reads the first div and does not output anything
+    	- Browser reads the first script tag and
+            - downloads[?] the document "alert.js"
+	    	alert('alerting...');
+	    - parses "alert.js"
+	    - executes "alert.js" (shows "alerting...")
+        - Browser goes on parsing "index.html" and reads in the second div
+    	- Browser reads the second script tag and
+	    - parses the inline script
+	    - executes the inline script (shows "alerting again...")
+        - Browser goes on parsing "index.html" and reads in the third div
+	- Browser has finished parsing the HTML
+	- Browser outputs the page to the user as:
+		text 1
+		text 2
+		text 3
+    EXAMPLE 2
 PLAIN TEXT FILES
 	- can be embedded in HTML
 	- are not parsed, neither as HTML nor JS nor anything else
