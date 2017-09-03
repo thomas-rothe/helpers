@@ -1,3 +1,18 @@
+PLAIN TEXT FILES
+	- can be embedded in HTML
+	- are not parsed, neither as HTML nor JS nor anything else
+	- are outputted by the browser exactly as they are
+	e.g.:
+		<object
+		  data="file.txt"
+		  type="text/plain"
+		  width="500"
+		  style="height: 300px"
+		>
+		  <!-- Only parsed (and displayed) if some error occures (like -->
+		  <!-- HTML is not supported or a typo in the filename -->
+		  <a href="html.txt">Link to the text file</a>
+		</object>
 FORM
 	SELECT
 		<select name="cars">
