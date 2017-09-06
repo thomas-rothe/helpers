@@ -10,7 +10,31 @@ INSTALLATION
 	check if it's there
 		cd somewhere
 		grunt --version
-
+USAGE
+	- install grunt and add it as dependency of your project to "package.json" (file in project root directory):
+		npm install -S grunt
+	- add a file "Gruntfile.js" to your project root directory and in it configure Grunt; e.g.:
+	
+		module.exports = function(grunt) {
+		  // Project configuration.
+		  grunt.initConfig({
+		    pkg: grunt.file.readJSON('package.json'),
+		    uglify: {
+		      options: {
+			banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+		      },
+		      build: {
+			src: 'src/<%= pkg.name %>.js',
+			dest: 'build/<%= pkg.name %>.min.js'
+		      }
+		    }
+		  });
+		  // Load the plugin that provides the "uglify" task.
+		  grunt.loadNpmTasks('grunt-contrib-uglify');
+		  // Default task(s).
+		  grunt.registerTask('default', ['uglify']);
+		};
+	
 
 
 
