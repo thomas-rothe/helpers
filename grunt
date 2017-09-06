@@ -1,2 +1,18 @@
+BEFORE INSTALLATION
+	check if you have node installed:
+		node -v
+	check if you have npm installed:
+		npm -v
+INSTALLATION
+	global installation (also exports the path to the grunt binary to your $PATH)
+		cd no/matter/where
+		sudo npm install -g grunt-cli
+	check if it's there
+		cd somewhere
+		grunt --version
+
+
+
+
 INS DIR WECHSELN, WO SICH Gruntfile.js BEFINDET, BEI STEINKRAFT ZB: /usr/home/username/public_html/dev.steinkraft-naturerocks.com/themes/steinkraft-theme
 	grunt watch
