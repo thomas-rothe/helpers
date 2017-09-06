@@ -1,0 +1,25 @@
+PURPOSE
+    - faster page speed because of smaller files
+    - faster page speed because of less files
+FUNCTIONS
+    - concatenating CSS files to one file
+    - concatenating JS files to one file
+    - uglify JS files (e.g: var myVariable = 1; getsrewritten to: var a = 1;)
+    - minify CSS and JS code (removes whitespaces and line breaks, etc.)
+    - prefixing CSS, e.g.:
+            a {
+                display: flex;
+            }
+        gets rewritten to:
+            a {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex
+            }
+    - detecting errors in JS files with special tools like JSHint
+    - live refresh (reload browser which has opened the site)
+TOOLS
+    - Grunt (since 2012)
+    - Gulp (since 2013)
+    - Brunch
