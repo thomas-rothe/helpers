@@ -13,13 +13,16 @@ START USING GRUNT IN A PROJECT
 		sudo npm install -g grunt-cli
 	5. got to your project:
 		cd projectdirectory
-	6. create a file "package.json" interactively (for a most basic "package.json" file it is enough to provide a project name)
+	6. if it's not yet there: create a file "package.json" interactively (for a most basic "package.json" file it is enough to provide a project name)
 		npm init
 	7. install grunt (to "node_modules") and add it as dependency of your project to "package.json" (file in project root directory):
 		npm install grunt
-	8. create a file "Gruntfile.js"
+	8. if you need them: install Grunt plugins to your development environment like: (can also be done later)
+		npm install grunt-contrib-concat --save-dev
+		npm install grunt-contrib-watch --save-dev
+	9. create a file "Gruntfile.js"
 		touch Gruntfile.js
-	9. configure Grunt in your "Gruntfile.js"
+	10. configure Grunt in your "Gruntfile.js"
 CHOOSE A FOLDER STRUCTURE LIKE FOR EXAMPLE:
 	+ project
 	-+ public
@@ -82,8 +85,6 @@ CONFIGURE GRUNT IN THE FILE "GRUNTFILE.JS"
 
 		PLUGIN grunt-contrib-concat
 		concatenates multiple files to one single files
-		- install a plugin, e.g. "grunt-contrib-concat" for your development environment
-			npm install grunt-contrib-concat --save-dev
 		- Gruntfile.js:
 			module.exports = function(grunt) {
 				// load task
@@ -109,35 +110,6 @@ CONFIGURE GRUNT IN THE FILE "GRUNTFILE.JS"
 
 		PLUGIN grunt-contrib-watch
 		watches for file system changes and if there is one it runs tasks
-		- install
-			npm install grunt-contrib-watch --save-dev
-		- Gruntfile.js:
-			module.exports = function(grunt) {
-				// load task
-				grunt.loadNpmTasks('grunt-contrib-watch');
-				// configure task
-				grunt.initConfig({
-					watch: {
-						myJs: {
-							files: ['path/**/*.js'], 		// any folder: **
-												// any file: *
-												// so here: any .js file in the path directory
-							tasks: ['concat', 'jshint', 'mytask'],
-						},
-						myCss: {
-							files: ['path/**/*.css'],
-							tasks: ['concat', 'mytask'],
-						},
-					},
-				});
-			}
-		- execute it on command line:
-			grunt watch
-
-		PLUGIN grunt-contrib-watch
-		watches for file system changes and if there is one it runs tasks
-		- install
-			npm install grunt-contrib-watch --save-dev
 		- Gruntfile.js:
 			module.exports = function(grunt) {
 				// load task
