@@ -1,12 +1,12 @@
 PURPOSE
-    - faster page speed because of smaller files
-    - faster page speed because of less files
+    - faster page speed because of smaller files (minify and uglify files)
+    - faster page speed because of less files (concatenate files)
+    - compiling SASS and LESS files into CSS files
 FUNCTIONS
-    - concatenating CSS files to one file
-    - concatenating JS files to one file
-    - uglify JS files (e.g: var myVariable = 1; getsrewritten to: var a = 1;)
+    - concatenating CSS files to one CSS file and concatenating JS files to one JS file
+    - uglify JS files (e.g: var myVariable = 1; gets rewritten to: var a = 1;)
     - minify CSS and JS code (removes whitespaces and line breaks, etc.)
-    - prefixing CSS, e.g.:
+    - prefixing CSS rules, e.g.:
             a {
                 display: flex;
             }
@@ -17,6 +17,7 @@ FUNCTIONS
                 display: -ms-flexbox;
                 display: flex
             }
+    - compiling SASS and LESS files into CSS files
     - detecting errors in JS files with special tools like JSHint
     - live refresh (reload browser which has opened the site)
 TOOLS
