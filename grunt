@@ -25,27 +25,27 @@ USAGE
 	- add a file "Gruntfile.js" to your project root directory and in it configure Grunt; e.g.:
 	
 		create a task
-			Gruntfile.js:
+			- Gruntfile.js:
 				module.exports = function(grunt) {
 					grunt.registerTask('helloworld', function() {
 						console.log('Hello world!');
 					});
 				}
-			execute it on command line:
+			- execute it on command line:
 				grunt helloworld
 		
 		create a default task
-			Gruntfile.js:
+			- Gruntfile.js:
 				module.exports = function(grunt) {
 					grunt.registerTask('default', function() {
 						console.log('Hello world!');
 					});
 				}
-			execute it on command line:
+			- execute it on command line:
 				grunt
 				
 		create a task which runs other tasks
-			Gruntfile.js:
+			- Gruntfile.js:
 				module.exports = function(grunt) {
 					grunt.registerTask('mybuildtask', ['hello', 'goodbye']);
 					
@@ -57,10 +57,36 @@ USAGE
 						console.log('Goodbye!');
 					});
 				}
-			execute it on command line:
+			- execute it on command line:
 				grunt mybuildtask
-		
-	
+				
+		plugins (can be searched at "gruntjs.com/plugins")
+			- install a plugin, e.g. "grunt-contrib-concat" for your development environment
+				npm install grunt-contrib-concat --save-dev
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					// load task
+					grunt.loadNpmTasks('grunt-contrib-concat');
+					// configure task
+					grunt.initConfig({
+						concat: {
+							myActionName: {
+								src: ['mypath/myfile1.js', 'mypath/f2.js', 'p4/f3.js'],
+								dest: 'path/to/build/dir/myscript.js',
+							},
+						},
+					});
+				}
+			- execute it on command line:
+				grunt mybuildtask
+			- good file structure for built files is for example:
+				+ build
+				-+ js
+				--- vendor.min.js
+				--- application.min.js
+				-+ css
+				--- vendor.min.css
+				--- application.min.css
 		module.exports = function(grunt) {
 		  // Project configuration.
 		  grunt.initConfig({
