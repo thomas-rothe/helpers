@@ -20,6 +20,8 @@ START USING GRUNT IN A PROJECT
 	8. if you need them: install Grunt plugins to your development environment like: (can also be done later)
 		npm install grunt-contrib-concat --save-dev
 		npm install grunt-contrib-watch --save-dev
+		npm install node-sass --save-dev		NODE PACKAGE FOR GRUNT-SASS
+		npm install grunt-sass --save-dev		SASS (WITHOUT RUBY INSTALLED)
 	9. create a file "Gruntfile.js"
 		touch Gruntfile.js
 	10. configure Grunt in your "Gruntfile.js"
@@ -42,128 +44,120 @@ CHOOSE A FOLDER STRUCTURE LIKE FOR EXAMPLE:
 	-- package-lock.json
 	-- Gruntfile.js
 CONFIGURE GRUNT IN THE FILE "GRUNTFILE.JS"
-	create a task
-		- Gruntfile.js:
-			module.exports = function(grunt) {
-				grunt.registerTask('helloworld', function() {
-					console.log('Hello world!');
-				});
-			}
-		- execute it on command line:
-			grunt helloworld
+	CREATE TASKS
+		HELLO WORLD TASK
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					grunt.registerTask('helloworld', function() {
+						console.log('Hello world!');
+					});
+				}
+			- execute it on command line:
+				grunt helloworld
 
-	create a default task
-		- Gruntfile.js:
-			module.exports = function(grunt) {
-				grunt.registerTask('default', function() {
-					console.log('Hello world!');
-				});
-			}
-		- execute it on command line:
-			grunt
+		DEEFAULT TASK
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					grunt.registerTask('default', function() {
+						console.log('Hello world!');
+					});
+				}
+			- execute it on command line:
+				grunt
 
-	create a task which runs other tasks
-		- Gruntfile.js:
-			module.exports = function(grunt) {
-				grunt.registerTask('mybuildtask', ['hello', 'goodbye']);
+		TASK WHICH RUNS OTHER TASKS
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					grunt.registerTask('hello', function() {
+						console.log('Hello!');
+					});
 
-				grunt.registerTask('hello', function() {
-					console.log('Hello!');
-				});
+					grunt.registerTask('goodbye', function() {
+						console.log('Goodbye!');
+					});
+					
+					grunt.registerTask('mybuildtask', ['hello', 'goodbye']);
+				}
+			- execute it on command line:
+				grunt mybuildtask
 
-				grunt.registerTask('goodbye', function() {
-					console.log('Goodbye!');
-				});
-			}
-		- execute it on command line:
-			grunt mybuildtask
-
-	good idea :)
-		grunt.registerTask('default', ['concat', 'watch']);  // first builds and then waits for changes 
-
-	plugins (can be searched at "gruntjs.com/plugins")
-
-		PLUGIN grunt-contrib-concat
-		concatenates multiple files to one single files
-		- Gruntfile.js:
-			module.exports = function(grunt) {
-				// load task
-				grunt.loadNpmTasks('grunt-contrib-concat');
-				// configure task
-				grunt.initConfig({
-					concat: {
-						myJs: {
-							src: ['mypath/myfile1.js', 'mypath/f2.js', 'p4/f3.js'],
-							dest: 'path/to/build/dir/myscript.js',
+		TIPP OF THE DAY
+			grunt.registerTask('default', ['concat', 'watch']);  // first builds and then waits for changes 
+	CONFIGURE PLUGINS (can be found at "gruntjs.com/plugins")
+		CONCATENATION: grunt-contrib-concat
+			- concatenates multiple files to one single files
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					// load task
+					grunt.loadNpmTasks('grunt-contrib-concat');
+					// configure task
+					grunt.initConfig({
+						concat: {
+							myJs: {
+								src: ['mypath/myfile1.js', 'mypath/f2.js', 'p4/f3.js'],
+								dest: 'path/to/build/dir/myscript.js',
+							},
+							myCss: {
+								src: ['path/file.css', 'path/otherfile.css'],
+								dest: 'path/to/build/dir/mystyle.js',
+							},
 						},
-						myCss: {
-							src: ['path/file.css', 'path/otherfile.css'],
-							dest: 'path/to/build/dir/mystyle.js',
+						watch: { ... },
+						myplugin: { ... },
+					});
+				}
+			- execute it on command line:
+				grunt concat
+		WATCHING: grunt-contrib-watch
+			- watches for file system changes and if there is one it runs tasks
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					// load task
+					grunt.loadNpmTasks('grunt-contrib-watch');
+					// configure task
+					grunt.initConfig({
+						watch: {
+							myJs: {
+								files: ['path/**/*.js'], 		// any folder: **
+													// any file: *
+													// so here: any .js file in the path directory
+								tasks: ['concat', 'jshint', 'mytask'],
+							},
+							myCss: {
+								files: ['path/**/*.css'],
+								tasks: ['concat', 'mytask'],
+							},
 						},
-					},
-					watch: { ... },
-					myplugin: { ... },
-				});
-			}
-		- execute it on command line:
-			grunt concat
+					});
+				}
+			- execute it on command line:
+				grunt watch
+		SASS: grunt-sass
+		LESS:
+		MINIFY:
+		UGLIFY:
+	SYNTAX
+		**			all folders	EXAMPLE: 'path/**/file.js'
+		*			all files	EXAMPLE: 'path/*.js'
+		<%= object.property %>	variable	EXAMPLE:
+								grunt.initConfig({
+									pkg: grunt.file.readJSON('package.json'),
+									...										src: 'src/<%= pkg.name %>.js',
+// FULL EXAMPLE OF GRUNTFILE.JS
+module.exports = function(grunt) {
 
-		PLUGIN grunt-contrib-watch
-		watches for file system changes and if there is one it runs tasks
-		- Gruntfile.js:
-			module.exports = function(grunt) {
-				// load task
-				grunt.loadNpmTasks('grunt-contrib-watch');
-				// configure task
-				grunt.initConfig({
-					watch: {
-						myJs: {
-							files: ['path/**/*.js'], 		// any folder: **
-												// any file: *
-												// so here: any .js file in the path directory
-							tasks: ['concat', 'jshint', 'mytask'],
-						},
-						myCss: {
-							files: ['path/**/*.css'],
-							tasks: ['concat', 'mytask'],
-						},
-					},
-				});
-			}
-		- execute it on command line:
-			grunt watch
+    grunt.initConfig({
+        concat: {
+            js: {
+                src: ['js/*.js'],
+                dest: 'public/assets/js/application.js',
+            },
+            css: {
+                src: ['css/*.css'],
+                dest: 'public/assets/css/application.css',
+            },
+        }
+    });
 			
-				
-				
-				
-				
-				
-				
-				
-				
-				
-		module.exports = function(grunt) {
-		  // Project configuration.
-		  grunt.initConfig({
-		    pkg: grunt.file.readJSON('package.json'),
-		    uglify: {
-		      options: {
-			banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-		      },
-		      build: {
-			src: 'src/<%= pkg.name %>.js',
-			dest: 'build/<%= pkg.name %>.min.js'
-		      }
-		    }
-		  });
-		  // Load the plugin that provides the "uglify" task.
-		  grunt.loadNpmTasks('grunt-contrib-uglify');
-		  // Default task(s).
-		  grunt.registerTask('default', ['uglify']);
-		};
-	
-
-
-
-INS DIR WECHSELN, WO SICH Gruntfile.js BEFINDET, BEI STEINKRAFT ZB: /usr/home/username/public_html/dev.steinkraft-naturerocks.com/themes/steinkraft-theme
-	grunt watch
+    grunt.loadNpmTasks('grunt-contrib-concat');
+}
