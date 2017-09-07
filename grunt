@@ -59,9 +59,14 @@ USAGE
 				}
 			- execute it on command line:
 				grunt mybuildtask
-				
+		
+		good idea :)
+			grunt.registerTask('default', ['concat', 'watch']);  // first builds and then waits for changes 
+		
 		plugins (can be searched at "gruntjs.com/plugins")
+		
 			PLUGIN grunt-contrib-concat
+			concatenates multiple files to one single files
 			- install a plugin, e.g. "grunt-contrib-concat" for your development environment
 				npm install grunt-contrib-concat --save-dev
 			- Gruntfile.js:
@@ -85,8 +90,10 @@ USAGE
 					});
 				}
 			- execute it on command line:
-				grunt mybuildtask
+				grunt concat
+				
 			PLUGIN grunt-contrib-watch
+			watches for file system changes and if there is one it runs tasks
 			- install
 				npm install grunt-contrib-watch --save-dev
 			- Gruntfile.js:
@@ -96,18 +103,49 @@ USAGE
 					// configure task
 					grunt.initConfig({
 						watch: {
-							scripts: {
-								files: ['**/*.js'],
-			 					tasks: ['jshint'],
-								options: {
-									spawn: false,
-								}
+							myJs: {
+								files: ['path/**/*.js'], 		// any folder: **
+													// any file: *
+													// so here: any .js file in the path directory
+			 					tasks: ['concat', 'jshint', 'mytask'],
+							},
+							myCss: {
+								files: ['path/**/*.css'],
+			 					tasks: ['concat', 'mytask'],
 							},
 						},
 					});
 				}
 			- execute it on command line:
 				grunt watch
+			
+			PLUGIN grunt-contrib-watch
+			watches for file system changes and if there is one it runs tasks
+			- install
+				npm install grunt-contrib-watch --save-dev
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					// load task
+					grunt.loadNpmTasks('grunt-contrib-watch');
+					// configure task
+					grunt.initConfig({
+						watch: {
+							myJs: {
+								files: ['path/**/*.js'], 		// any folder: **
+													// any file: *
+													// so here: any .js file in the path directory
+			 					tasks: ['concat', 'jshint', 'mytask'],
+							},
+							myCss: {
+								files: ['path/**/*.css'],
+			 					tasks: ['concat', 'mytask'],
+							},
+						},
+					});
+				}
+			- execute it on command line:
+				grunt watch
+			
 			
 	- good file structure for built files is for example:
 		+ project
