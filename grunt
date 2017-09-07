@@ -11,9 +11,55 @@ INSTALLATION
 		cd somewhere
 		grunt --version
 USAGE
-	- install grunt and add it as dependency of your project to "package.json" (file in project root directory):
-		npm install -S grunt
+	- folder structure will be:
+		- project
+			+ node_modules
+			++ ...
+			++ grunt
+			++ ...
+			- package.json
+			- package-lock.json
+			- Gruntfile.js
+	- install grunt (to "node_modules") and add it as dependency of your project to "package.json" (file in project root directory):
+		npm install grunt
 	- add a file "Gruntfile.js" to your project root directory and in it configure Grunt; e.g.:
+	
+		create a task
+			Gruntfile.js:
+				module.exports = function(grunt) {
+					grunt.registerTask('helloworld', function() {
+						console.log('Hello world!');
+					});
+				}
+			execute it on command line:
+				grunt helloworld
+		
+		create a default task
+			Gruntfile.js:
+				module.exports = function(grunt) {
+					grunt.registerTask('default', function() {
+						console.log('Hello world!');
+					});
+				}
+			execute it on command line:
+				grunt
+				
+		create a task which runs other tasks
+			Gruntfile.js:
+				module.exports = function(grunt) {
+					grunt.registerTask('mybuildtask', ['hello', 'goodbye']);
+					
+					grunt.registerTask('hello', function() {
+						console.log('Hello!');
+					});
+					
+					grunt.registerTask('goodbye', function() {
+						console.log('Goodbye!');
+					});
+				}
+			execute it on command line:
+				grunt mybuildtask
+		
 	
 		module.exports = function(grunt) {
 		  // Project configuration.
