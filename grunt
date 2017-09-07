@@ -61,6 +61,7 @@ USAGE
 				grunt mybuildtask
 				
 		plugins (can be searched at "gruntjs.com/plugins")
+			PLUGIN grunt-contrib-concat
 			- install a plugin, e.g. "grunt-contrib-concat" for your development environment
 				npm install grunt-contrib-concat --save-dev
 			- Gruntfile.js:
@@ -70,16 +71,44 @@ USAGE
 					// configure task
 					grunt.initConfig({
 						concat: {
-							myActionName: {
+							myJs: {
 								src: ['mypath/myfile1.js', 'mypath/f2.js', 'p4/f3.js'],
-								dest: 'path/to/build/dir/myscript.js',
+			 					dest: 'path/to/build/dir/myscript.js',
+							},
+							myCss: {
+								src: ['path/file.css', 'path/otherfile.css'],
+			 					dest: 'path/to/build/dir/mystyle.js',
+							},
+						},
+						watch: { ... },
+						myplugin: { ... },
+					});
+				}
+			- execute it on command line:
+				grunt mybuildtask
+			PLUGIN grunt-contrib-watch
+			- install
+				npm install grunt-contrib-watch --save-dev
+			- Gruntfile.js:
+				module.exports = function(grunt) {
+					// load task
+					grunt.loadNpmTasks('grunt-contrib-watch');
+					// configure task
+					grunt.initConfig({
+						watch: {
+							scripts: {
+								files: ['**/*.js'],
+			 					tasks: ['jshint'],
+								options: {
+									spawn: false,
+								}
 							},
 						},
 					});
 				}
 			- execute it on command line:
-				grunt mybuildtask
-				
+				grunt watch
+			
 	- good file structure for built files is for example:
 		+ project
 		-+ ...
