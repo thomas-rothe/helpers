@@ -79,14 +79,27 @@ USAGE
 				}
 			- execute it on command line:
 				grunt mybuildtask
-			- good file structure for built files is for example:
-				+ build
-				-+ js
-				--- vendor.min.js
-				--- application.min.js
-				-+ css
-				--- vendor.min.css
-				--- application.min.css
+				
+	- good file structure for built files is for example:
+		+ project
+		-+ ...
+		-+ assets
+		--+ build
+		---+ js
+		----- vendor.min.js
+		----- application.min.js
+		---+ css
+		----- vendor.min.css
+		----- application.min.css
+		-+ ...		
+				
+				
+				
+				
+				
+				
+				
+				
 		module.exports = function(grunt) {
 		  // Project configuration.
 		  grunt.initConfig({
