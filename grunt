@@ -1,164 +1,167 @@
-BEFORE INSTALLATION
-	check if you have node installed:
+START USING GRUNT IN A PROJECT
+	1. check if you have node installed:
+		cd somewhere
 		node -v
-	check if you have npm installed:
+	2. check if you have npm installed:
+		cd somewhere
 		npm -v
-INSTALLATION
-	global installation (also exports the path to the grunt binary to your $PATH)
-		cd no/matter/where
-		sudo npm install -g grunt-cli
-	check if it's there
+	3. check if grunt is installed globally:
 		cd somewhere
 		grunt --version
-USAGE
-	- folder structure will be:
-		- project
-			+ node_modules
-			++ ...
-			++ grunt
-			++ ...
-			- package.json
-			- package-lock.json
-			- Gruntfile.js
-	- install grunt (to "node_modules") and add it as dependency of your project to "package.json" (file in project root directory):
+	4. if it is not: install it globally: (which exports the path to the grunt binary to your $PATH)
+		cd somewhere
+		sudo npm install -g grunt-cli
+	5. got to your project:
+		cd projectdirectory
+	6. create a file "package.json" interactively (for a most basic "package.json" file it is enough to provide a project name)
+		npm init
+	7. install grunt (to "node_modules") and add it as dependency of your project to "package.json" (file in project root directory):
 		npm install grunt
-	- add a file "Gruntfile.js" to your project root directory and in it configure Grunt; e.g.:
-	
-		create a task
-			- Gruntfile.js:
-				module.exports = function(grunt) {
-					grunt.registerTask('helloworld', function() {
-						console.log('Hello world!');
-					});
-				}
-			- execute it on command line:
-				grunt helloworld
-		
-		create a default task
-			- Gruntfile.js:
-				module.exports = function(grunt) {
-					grunt.registerTask('default', function() {
-						console.log('Hello world!');
-					});
-				}
-			- execute it on command line:
-				grunt
+	8. create a file "Gruntfile.js"
+		touch Gruntfile.js
+	9. configure Grunt in your "Gruntfile.js"
+CHOOSE A FOLDER STRUCTURE LIKE FOR EXAMPLE:
+	+ project
+	-+ public
+	--+ assets
+	---+ build
+	----+ js
+	------ vendor.min.js
+	------ application.min.js
+	----+ css
+	------ vendor.min.css
+	------ application.min.css
+	-+ node_modules
+	--+ anotherLibrary
+	--+ grunt
+	--+ yetAnotherLibrary
+	-- package.json
+	-- package-lock.json
+	-- Gruntfile.js
+CONFIGURE GRUNT IN THE FILE "GRUNTFILE.JS"
+	create a task
+		- Gruntfile.js:
+			module.exports = function(grunt) {
+				grunt.registerTask('helloworld', function() {
+					console.log('Hello world!');
+				});
+			}
+		- execute it on command line:
+			grunt helloworld
+
+	create a default task
+		- Gruntfile.js:
+			module.exports = function(grunt) {
+				grunt.registerTask('default', function() {
+					console.log('Hello world!');
+				});
+			}
+		- execute it on command line:
+			grunt
+
+	create a task which runs other tasks
+		- Gruntfile.js:
+			module.exports = function(grunt) {
+				grunt.registerTask('mybuildtask', ['hello', 'goodbye']);
+
+				grunt.registerTask('hello', function() {
+					console.log('Hello!');
+				});
+
+				grunt.registerTask('goodbye', function() {
+					console.log('Goodbye!');
+				});
+			}
+		- execute it on command line:
+			grunt mybuildtask
+
+	good idea :)
+		grunt.registerTask('default', ['concat', 'watch']);  // first builds and then waits for changes 
+
+	plugins (can be searched at "gruntjs.com/plugins")
+
+		PLUGIN grunt-contrib-concat
+		concatenates multiple files to one single files
+		- install a plugin, e.g. "grunt-contrib-concat" for your development environment
+			npm install grunt-contrib-concat --save-dev
+		- Gruntfile.js:
+			module.exports = function(grunt) {
+				// load task
+				grunt.loadNpmTasks('grunt-contrib-concat');
+				// configure task
+				grunt.initConfig({
+					concat: {
+						myJs: {
+							src: ['mypath/myfile1.js', 'mypath/f2.js', 'p4/f3.js'],
+							dest: 'path/to/build/dir/myscript.js',
+						},
+						myCss: {
+							src: ['path/file.css', 'path/otherfile.css'],
+							dest: 'path/to/build/dir/mystyle.js',
+						},
+					},
+					watch: { ... },
+					myplugin: { ... },
+				});
+			}
+		- execute it on command line:
+			grunt concat
+
+		PLUGIN grunt-contrib-watch
+		watches for file system changes and if there is one it runs tasks
+		- install
+			npm install grunt-contrib-watch --save-dev
+		- Gruntfile.js:
+			module.exports = function(grunt) {
+				// load task
+				grunt.loadNpmTasks('grunt-contrib-watch');
+				// configure task
+				grunt.initConfig({
+					watch: {
+						myJs: {
+							files: ['path/**/*.js'], 		// any folder: **
+												// any file: *
+												// so here: any .js file in the path directory
+							tasks: ['concat', 'jshint', 'mytask'],
+						},
+						myCss: {
+							files: ['path/**/*.css'],
+							tasks: ['concat', 'mytask'],
+						},
+					},
+				});
+			}
+		- execute it on command line:
+			grunt watch
+
+		PLUGIN grunt-contrib-watch
+		watches for file system changes and if there is one it runs tasks
+		- install
+			npm install grunt-contrib-watch --save-dev
+		- Gruntfile.js:
+			module.exports = function(grunt) {
+				// load task
+				grunt.loadNpmTasks('grunt-contrib-watch');
+				// configure task
+				grunt.initConfig({
+					watch: {
+						myJs: {
+							files: ['path/**/*.js'], 		// any folder: **
+												// any file: *
+												// so here: any .js file in the path directory
+							tasks: ['concat', 'jshint', 'mytask'],
+						},
+						myCss: {
+							files: ['path/**/*.css'],
+							tasks: ['concat', 'mytask'],
+						},
+					},
+				});
+			}
+		- execute it on command line:
+			grunt watch
+			
 				
-		create a task which runs other tasks
-			- Gruntfile.js:
-				module.exports = function(grunt) {
-					grunt.registerTask('mybuildtask', ['hello', 'goodbye']);
-					
-					grunt.registerTask('hello', function() {
-						console.log('Hello!');
-					});
-					
-					grunt.registerTask('goodbye', function() {
-						console.log('Goodbye!');
-					});
-				}
-			- execute it on command line:
-				grunt mybuildtask
-		
-		good idea :)
-			grunt.registerTask('default', ['concat', 'watch']);  // first builds and then waits for changes 
-		
-		plugins (can be searched at "gruntjs.com/plugins")
-		
-			PLUGIN grunt-contrib-concat
-			concatenates multiple files to one single files
-			- install a plugin, e.g. "grunt-contrib-concat" for your development environment
-				npm install grunt-contrib-concat --save-dev
-			- Gruntfile.js:
-				module.exports = function(grunt) {
-					// load task
-					grunt.loadNpmTasks('grunt-contrib-concat');
-					// configure task
-					grunt.initConfig({
-						concat: {
-							myJs: {
-								src: ['mypath/myfile1.js', 'mypath/f2.js', 'p4/f3.js'],
-			 					dest: 'path/to/build/dir/myscript.js',
-							},
-							myCss: {
-								src: ['path/file.css', 'path/otherfile.css'],
-			 					dest: 'path/to/build/dir/mystyle.js',
-							},
-						},
-						watch: { ... },
-						myplugin: { ... },
-					});
-				}
-			- execute it on command line:
-				grunt concat
-				
-			PLUGIN grunt-contrib-watch
-			watches for file system changes and if there is one it runs tasks
-			- install
-				npm install grunt-contrib-watch --save-dev
-			- Gruntfile.js:
-				module.exports = function(grunt) {
-					// load task
-					grunt.loadNpmTasks('grunt-contrib-watch');
-					// configure task
-					grunt.initConfig({
-						watch: {
-							myJs: {
-								files: ['path/**/*.js'], 		// any folder: **
-													// any file: *
-													// so here: any .js file in the path directory
-			 					tasks: ['concat', 'jshint', 'mytask'],
-							},
-							myCss: {
-								files: ['path/**/*.css'],
-			 					tasks: ['concat', 'mytask'],
-							},
-						},
-					});
-				}
-			- execute it on command line:
-				grunt watch
-			
-			PLUGIN grunt-contrib-watch
-			watches for file system changes and if there is one it runs tasks
-			- install
-				npm install grunt-contrib-watch --save-dev
-			- Gruntfile.js:
-				module.exports = function(grunt) {
-					// load task
-					grunt.loadNpmTasks('grunt-contrib-watch');
-					// configure task
-					grunt.initConfig({
-						watch: {
-							myJs: {
-								files: ['path/**/*.js'], 		// any folder: **
-													// any file: *
-													// so here: any .js file in the path directory
-			 					tasks: ['concat', 'jshint', 'mytask'],
-							},
-							myCss: {
-								files: ['path/**/*.css'],
-			 					tasks: ['concat', 'mytask'],
-							},
-						},
-					});
-				}
-			- execute it on command line:
-				grunt watch
-			
-			
-	- good file structure for built files is for example:
-		+ project
-		-+ ...
-		-+ assets
-		--+ build
-		---+ js
-		----- vendor.min.js
-		----- application.min.js
-		---+ css
-		----- vendor.min.css
-		----- application.min.css
-		-+ ...		
 				
 				
 				
