@@ -82,6 +82,7 @@ composer update
 			use [namespace\path\to\classname];
 			$var = [classname]::[method]([params]);
 Autoloading
+	...
 Lifecycle hooks and scripts
 	- Composer allows you to define commands which will be run after a specified event
 	- for example after composer "create-project", "composer install", "composer update" etc.
