@@ -10,7 +10,10 @@ composer.json
 	- you can write it manually or create it with: composer init
 	
 	a minimal composer.json only has to contain valid JSON: {}
-	a more useful composer.json example:
+	a more useful composer.json example which
+		- defines the package "symfony/process" v3.3 or higher for the package in production mode and
+		- "symfony/var-dumper" for the package in development mode
+		
 		{
 			"name": "me/mypackage",
 			"description": "A package to play with Composer",
@@ -23,12 +26,10 @@ composer.json
 			"require": {
 				"symfony/process": "^3.3"
 			},
+			"require-dev": {
+				"symfony/var-dumper": "^3.3"
+			}
 		}
-
-
-
-	"require": all packages your application needs in production
-	"require-dev": all packages you need during development
 composer.lock
 	- is written automatically by Composer
 	- contains all actually installed packages plus the exact version, e.g.: 2.6.13
