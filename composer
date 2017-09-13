@@ -1,19 +1,37 @@
 Package
-	- kind of a small PHP library containing PHP source code for various tasks
+	- a (rather small) PHP library containing PHP source code
 Packagist
 	- is a repository for public PHP packages and is the default repo used by Composer
 Composer
 	- is a dependency manager
 	- is also used for autoloading because it has its own autoloader
 composer.json
-	- gibt an, welche packages man will, mit einem gewissen Spielraum, zB Version 2.4.X bis Version 3.X
-	- kann man manuell anlegen oder mit: composer init
+	- you write the packages you want into this file, the version can be a range, e.g.: any version from 2.4.X to 3.X
+	- you can write it manually or create it with: composer init
+	
+	a minimal composer.json only has to contain valid JSON: {}
+	a more useful composer.json example:
+		{
+			"name": "me/mypackage",
+			"description": "A package to play with Composer",
+			"authors": [
+				{
+					"name": "michaelKaefer",
+					"email": "michael.kaefer@something.at"
+				}
+			],
+			"require": {
+				"symfony/process": "^3.3"
+			},
+		}
 
-	"require": alle packages, die man für die Produktivversion des Projekts braucht
-	"require-dev": alle packages, die man für die Developmentversion des Projekts braucht
+
+
+	"require": all packages your application needs in production
+	"require-dev": all packages you need during development
 composer.lock
-	- gibt an, welche packages gerade tatsächlich installiert sind, mit der GENAUEN Versionsnummer, zB Version 2.6.13
-
+	- is written automatically by Composer
+	- contains all actually installed packages plus the exact version, e.g.: 2.6.13
 composer install
 	1. schaut, ob es eine Datei "composer.json" gibt
 	2. sucht in "composer.json" nach den dependencies (in der Form von packages) und versucht, diese zu installieren
