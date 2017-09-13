@@ -4,8 +4,12 @@ Packagist
 	- is a repository for public PHP packages and is the default repo used by Composer
 Composer
 	- is a dependency manager
-	- is also used for autoloading because it has its own autoloader
+	- is used for autoloading (because it has its own autoloader)
+	(- does compiler optimization)
+	(- custom hooks into lifecycle events, such as application installed, updated, or first created)
+	(- stability checking)
 composer.json
+	- is a file you create in the root directory of your project
 	- you write the packages you want into this file, the version can be a range, e.g.: any version from 2.4.X to 3.X
 	- you can write it manually or create it with: composer init
 	
@@ -13,7 +17,7 @@ composer.json
 	a more useful composer.json example which
 		- defines the package "symfony/process" v3.3 or higher for the package in production mode and
 		- "symfony/var-dumper" for the package in development mode
-		
+		- several other infos which are mainly used by packagist.org to catalog packages
 		{
 			"name": "me/mypackage",
 			"description": "A package to play with Composer",
@@ -23,6 +27,8 @@ composer.json
 					"email": "michael.kaefer@something.at"
 				}
 			],
+			"keywords": ["testing", "playing"],
+			"license": "MIT",
 			"require": {
 				"symfony/process": "^3.3"
 			},
@@ -30,22 +36,37 @@ composer.json
 				"symfony/var-dumper": "^3.3"
 			}
 		}
+Version rules
+	exact versions				1.0.2
+	ranges of valid versions	>	<2.0
+					>=	>=1.0
+					<	<1.1
+					<=	<=1.0
+					!=	!=1.0
+					,	>=1.0,<2.0		, is like logical AND (defines multiple ranges)
+					|	>=1.0,<1.1 | >=1.2	| is like logical OR
+					, has higher precedence than |
+	wildcard			*	1.0.*			equivalent of >=1.0,<1.1
+	tilde operator			∼1.2				equivalent to >=1.2,<2.0.
 composer.lock
 	- is written automatically by Composer
 	- contains all actually installed packages plus the exact version, e.g.: 2.6.13
 composer install
-	1. schaut, ob es eine Datei "composer.json" gibt
-	2. sucht in "composer.json" nach den dependencies (in der Form von packages) und versucht, diese zu installieren
-	3. schaut, ob es eine Datei "composer.lock" gibt
-		-> nein, dann wird automatisch "composer update" ausgeführt (das erzeugt auch automatisch eine Datei "composer.lock")
-		-> ja, dann werden die angegbenen packages installiert
+	1. checks if the file "composer.lock" exists
+	2.	- if it exists it reads it and installs the dependencies listed there
+		- if not it does the same as "composer update"
 composer update
-	1/2(?). schaut in "composer.json", welche Version gemäß dieser Datei die letzte Version ist, da ja immer gerade diese Version installiert sein soll 
-	1/2(?). liest (wenn vorhanden) die Datei "composer.lock" und schaut, welche Version gerade installiert ist und vergleicht, ob das mit der letzten Version übereinstimmt
-		-> ja, dann natürlich keine Neuinstallation
-		-> nein, dann wird die alte Version gelöscht und die neue installiert
-	3. wenn neue Versionen installiert wurden, dann wird die Datei "composer.lock" erstellt bzw. bearbeitet, damit diese auf dem neuesten Stand ist, welche packages in welcher Version gerade installiert sind
-	ANM.: --dev braucht man nicht setzen: ist default und installiert auch alle packages unter "require-dev"; für die Produktivversion braucht man zB keine Tests und kann die Installation von "require-dev"-packages ausschließen mit: --no-dev (diese Option löscht sogar alle zuvor installierten "require-dev"-packages physisch vom Rechner)
+	1. checks if the file "composer.json" exists
+	2. reads the file and for every package it remembers the latest possible version 
+	3. if the file exists it reads "composer.lock" and compares the remembered latest possible version from "composer.json" with the version currently installed
+	4. if the remembered version is newer tha the one in "composer.lock" it installs the newer version
+	5. creates or updates the file "composer.lock"
+	
+	--dev
+		- braucht man nicht setzen: ist default und installiert auch alle packages unter "require-dev"
+		- für die Produktivversion braucht man zB keine Tests und kann die Installation von "require-dev"-packages 
+		ausschließen mit: --no-dev (diese Option löscht sogar alle zuvor installierten "require-dev"-packages 
+		physisch vom Rechner)
 2 Optionen, um ein package in einem Ordner (der noch keine Datei "composer.json" beinhaltet) zu installieren (man findet die verfügbaren freien packages bei Packagist):
 	- manuell eine Datei "composer.json" erstellen und das package eintragen (zB unter "require") -> nicht so angenehm, eher die nächste Option wählen und das von Composer machen lassen
 	- composer require [vendorname/packagename], Bsp: composer "require intervention/image"
@@ -60,5 +81,25 @@ composer update
 			require 'vendor/autoload.php';
 			use [namespace\path\to\classname];
 			$var = [classname]::[method]([params]);
-
-
+Autoloading
+Lifecycle hooks and scripts
+	- Composer allows you to define commands which will be run after a specified event
+	- for example after composer "create-project", "composer install", "composer update" etc.
+	- e.g.: in Laravel you could run your migrations, clean up assets, etc. after every "composer install", so to get to production you only run "git pull ; composer install"
+	
+	"scripts": {
+		"post-root-package-install": [
+			"php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+		],
+		"post-create-project-cmd": [
+			"php artisan key:generate"
+		],
+		"post-install-cmd": [
+			"illuminate\\Foundation\\ComposerScripts::postInstall",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"illuminate\\Foundation\\ComposerScripts::postUpdate",
+			"php artisan optimize"
+		],
+	},
