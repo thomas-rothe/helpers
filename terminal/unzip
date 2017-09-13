@@ -9,4 +9,4 @@ TEST RUN TO SEE IF ARCHIVE IS OK
 UNZIP SINGLE FILE
     unzip file.zip file.txt
 LIST FILES OF ARCHIVE
-  unzip -l pics.zip
+    unzip -l pics.zip
