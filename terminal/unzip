@@ -1,0 +1,12 @@
+UNZIP FILE
+    unzip file.zip
+UNZIP FILE QUIETLY
+    unzip file.zip -q
+UNZIP FILE TO FOLDER
+    unzip file.zip -d somefolder
+TEST RUN TO SEE IF ARCHIVE IS OK
+    unzip -tq pics.zip
+UNZIP SINGLE FILE
+    unzip file.zip file.txt
+LIST FILES OF ARCHIVE
+  unzip -l pics.zip
