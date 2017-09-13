@@ -1,7 +1,7 @@
 UNZIP FILE
     unzip file.zip
 UNZIP FILE QUIETLY
-    unzip file.zip -q
+    unzip -q file.zip
 UNZIP FILE TO FOLDER
     unzip file.zip -d somefolder
 TEST RUN TO SEE IF ARCHIVE IS OK
