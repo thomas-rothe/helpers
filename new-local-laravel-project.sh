@@ -208,7 +208,7 @@ if [[ -z "$DB_PASSWORD" ]]
 fi
 
 # Create DB
-messageStart "Creating a symbolic link from \"public/storage\" to \"storage/app/public\""
+messageStart "Creating Database \"$DB_NAME\""
 cmd "CREATE DATABASE $DB_NAME" | mysql -u$DB_USER -p$DB_PASSWORD"
 
 # Return success
