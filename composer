@@ -11,10 +11,21 @@ Composer
 composer.json
 	- is a file you create in the root directory of your project
 	- you write the packages you want into this file, the version can be a range, e.g.: any version from 2.4.X to 3.X
-	- you can write it manually or create it with: composer init
+	- you can
+		- write it manually
+		- create it with: composer init
+		- create or append it with: composer require somevendor/somepackage
 	
-	a minimal composer.json only has to contain valid JSON: {}
-	a more useful composer.json example which
+	a minimal composer.json only has to contain valid JSON:
+		{}
+	a rather minimal composer.json only lists dependencies of your project:
+		"composer require michaelKaefer/oauth2-wrike" creates:
+		{
+		    "require": {
+			"michaelKaefer/oauth2-wrike": "^1.0"
+		    }
+		}
+	a more useful composer.json for a package example which
 		- defines the package "symfony/process" v3.3 or higher for the package in production mode and
 		- "symfony/var-dumper" for the package in development mode
 		- several other infos which are mainly used by packagist.org to catalog packages
@@ -36,18 +47,18 @@ composer.json
 				"symfony/var-dumper": "^3.3"
 			}
 		}
-Version rules
-	exact versions				1.0.2
-	ranges of valid versions	>	<2.0
-					>=	>=1.0
-					<	<1.1
-					<=	<=1.0
-					!=	!=1.0
-					,	>=1.0,<2.0		, is like logical AND (defines multiple ranges)
-					|	>=1.0,<1.1 | >=1.2	| is like logical OR
-					, has higher precedence than |
-	wildcard			*	1.0.*			equivalent of >=1.0,<1.1
-	tilde operator			∼1.2				equivalent to >=1.2,<2.0.
+	Version rules
+		exact versions				1.0.2
+		ranges of valid versions	>	<2.0
+						>=	>=1.0
+						<	<1.1
+						<=	<=1.0
+						!=	!=1.0
+						,	>=1.0,<2.0		, is like logical AND (defines multiple ranges)
+						|	>=1.0,<1.1 | >=1.2	| is like logical OR
+						, has higher precedence than |
+		wildcard			*	1.0.*			equivalent of >=1.0,<1.1
+		tilde operator			∼1.2				equivalent to >=1.2,<2.0.
 composer.lock
 	- is written automatically by Composer
 	- contains all actually installed packages plus the exact version, e.g.: 2.6.13
@@ -67,22 +78,18 @@ composer update
 		- für die Produktivversion braucht man zB keine Tests und kann die Installation von "require-dev"-packages 
 		ausschließen mit: --no-dev (diese Option löscht sogar alle zuvor installierten "require-dev"-packages 
 		physisch vom Rechner)
-2 Optionen, um ein package in einem Ordner (der noch keine Datei "composer.json" beinhaltet) zu installieren (man findet die verfügbaren freien packages bei Packagist):
-	- manuell eine Datei "composer.json" erstellen und das package eintragen (zB unter "require") -> nicht so angenehm, eher die nächste Option wählen und das von Composer machen lassen
-	- composer require [vendorname/packagename], Bsp: composer "require intervention/image"
-		1. erstellt eine Datei "composer.json" und trägt das angegebene package unter "require" ein
-		2. erstellt einen Ordner "vendor" (wenn nicht vorhanden)
-		3. installiert die letzte Version des package im Ordner "vendor"
-		4. erstellt eine Datei "composer.lock" und trägt dort das package (sowie dessen dependency-packages) ein, sowie die installierte Version des package
-	dann:
-		eine Datei, zB "index.php" erstellen und dort das package verwenden:
-		index.php:
-			<?php
-			require 'vendor/autoload.php';
-			use [namespace\path\to\classname];
-			$var = [classname]::[method]([params]);
+composer require [vendorname/packagename]
+	1. creates a composer.json file if it not exists
+	2. in composer.json it adds the package to the "require" section (or to "require-dev" section)
+	3. if it not exists creates a folder "vendor"
+	4. installs the package under "vendor/"
+	5. creates or updates composer.lock with the package, its version and its dependencies
 Autoloading
-	...
+	Usage
+		<?php
+		require 'vendor/autoload.php';
+		use [namespace\path\to\classname];
+		$var = [classname]::[method]([params]);
 Lifecycle hooks and scripts
 	- Composer allows you to define commands which will be run after a specified event
 	- for example after composer "create-project", "composer install", "composer update" etc.
