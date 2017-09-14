@@ -123,6 +123,8 @@
 	FETCH
 		
 ##### HELPER COMMANDS ###
+	RELEASE A VERSION
+		git tag -a 1.0.0 -m 'First version.'
 	LOG
 		git log			<-- list of all commits
 		git log --oneline	<-- short list of all commits
