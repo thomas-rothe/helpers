@@ -138,6 +138,19 @@ Autoloading
 				}
 			}
 		classmap
+			- when generating its autoloader code Composer iterates all listed directories and 
+			maps every PHP class it can find in the files to the path of the file of the class
+			- when you use a previously undefined class Composer will load it from the file
+			- big downside: if you add a new file with a new class to any of the pathes you have
+			to tell Composer to refresh its classmap with: composer dump-autoload
+			{
+				"autoload": {
+					"classmap": [
+						"projectroot/path",
+						"projectroot/otherpath"
+					]
+				}
+			}
 		psr-0
 		psr-4
 Lifecycle hooks and scripts
