@@ -157,7 +157,7 @@ Autoloading
 				}
 			}
 		psr-0
-			if you have a file "vendor/Me/Some/Namespace/File.php":
+			if you have a file "src/Me/Some/Namespace/File.php":
 				<?php
 				namespace Me\Some\Namespace;
 				class File { ... }
@@ -165,16 +165,20 @@ Autoloading
 			{
 				"autoload": {
 					"psr-0": {
-						"Me\\Some\\Namespace\\File": "vendor/"
+						"Me\\Some\\Namespace\\File": "src/"
 					}
 				}
 			}
 		psr-4
-			if you have a file "vendor/Something/File.php"
+			if you have a file "src/Something/File.php":
+				<?php
+				namespace Me\Namespace\Something;
+				class File { ... }
+			then you can load it like that:
 			{
 				"autoload": {
 					"psr-4": {
-						"Me\\Namespace\\": "vendor/"
+						"Me\\Namespace\\": "src/"
 					}
 				}
 			}
