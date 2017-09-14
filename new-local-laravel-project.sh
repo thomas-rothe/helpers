@@ -207,7 +207,9 @@ if [[ -z "$DB_PASSWORD" ]]
     DB_PW=$DB_PASSWORD_DEFAULT
 fi
 
-echo "create database $DB_NAME" | mysql -u $DB_USER -p $DB_PASSWORD
+# Create DB
+messageStart "Creating a symbolic link from \"public/storage\" to \"storage/app/public\""
+cmd "CREATE DATABASE $DB_NAME" | mysql -u$DB_USER -p$DB_PASSWORD"
 
 # Return success
 exit 0
