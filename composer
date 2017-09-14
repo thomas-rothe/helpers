@@ -8,11 +8,16 @@ Composer
 	(- does compiler optimization)
 	(- custom hooks into lifecycle events, such as application installed, updated, or first created)
 	(- stability checking)
-DEPENDENCY
+Dependency
 	- applications and packages can have libraries they depend on: dependencies
 	- dependencies also may have their own dependencies (and so on)
 	- if you tell Composer that your application or package depends on a package,
 	it will also make sure that you have all the dependencies of your dependency-package
+Conventional file structure of a Composer package
+	+ src/
+	+ tests/
+	+ docs/
+	- composer.json
 composer.json
 	- is a file you create in the root directory of your project
 	- you write the packages you want into this file, the version can be a range, e.g.: any version from 2.4.X to 3.X
@@ -152,7 +157,27 @@ Autoloading
 				}
 			}
 		psr-0
+			if you have a file "vendor/Me/Some/Namespace/File.php":
+				<?php
+				namespace Me\Some\Namespace;
+				class File { ... }
+			then you can load it like that:
+			{
+				"autoload": {
+					"psr-0": {
+						"Me\\Some\\Namespace\\File": "vendor/"
+					}
+				}
+			}
 		psr-4
+			if you have a file "vendor/Something/File.php"
+			{
+				"autoload": {
+					"psr-4": {
+						"Me\\Namespace\\": "vendor/"
+					}
+				}
+			}
 Lifecycle hooks and scripts
 	- Composer allows you to define commands which will be run after a specified event
 	- for example after composer "create-project", "composer install", "composer update" etc.
