@@ -1,16 +1,10 @@
 INSTALLATION
-	ANLEITUNG
-		https://laravel.com/docs/5.4/installation#installing-laravel
-	MIT LARAVEL INSTALLER (braucht man nicht, geht auch ohne Laravel Installer, stattdessen Composer verwenden)
-		composer global require "laravel/installer"
-		export PATH=$PATH:/c/Users/michael.kaefer/AppData/Roaming/Composer/vendor/bin
-		laravel new nemetz-kundenportal   => alternativ: 
-		cd nemetz-kundenportal
-		composer install
-	MIT COMPOSER
-		composer create-project --prefer-dist laravel/laravel nemetz-kundenportal
-EINEN LOKALEN DEV-SERVER STARTEN
-	php artisan serve     => will start a development server at http://localhost:8000
+	WITH COMPOSER
+		composer create-project laravel/laravel projectname
+	WITH LARAVEL INSTALLER
+		laravel new projectname
+START A LOCAL SERVER FOR DEVELOPMENT AT http://127.0.0.1:8000
+	php artisan serve
 WICHTIGE KOMMANDOS, DIE MAN STÄNDIG BRAUCHT
 	AM ANFANG DES PROJEKTS FÜR ENCRYPTION
 		php artisan key:generate
