@@ -8,6 +8,11 @@ Composer
 	(- does compiler optimization)
 	(- custom hooks into lifecycle events, such as application installed, updated, or first created)
 	(- stability checking)
+DEPENDENCY
+	- applications and packages can have libraries they depend on: dependencies
+	- dependencies also may have their own dependencies (and so on)
+	- if you tell Composer that your application or package depends on a package,
+	it will also make sure that you have all the dependencies of your dependency-package
 composer.json
 	- is a file you create in the root directory of your project
 	- you write the packages you want into this file, the version can be a range, e.g.: any version from 2.4.X to 3.X
@@ -16,8 +21,11 @@ composer.json
 		- create it with: composer init
 		- create or append it with: composer require somevendor/somepackage
 	
+	Example 1)
 	a minimal composer.json only has to contain valid JSON:
 		{}
+		
+	Example 2)
 	a rather minimal composer.json only lists dependencies of your project:
 		"composer require michaelKaefer/oauth2-wrike" creates:
 		{
@@ -25,6 +33,8 @@ composer.json
 			"michaelKaefer/oauth2-wrike": "^1.0"
 		    }
 		}
+		
+	Example 3)
 	a more useful composer.json for a package example which
 		- defines the package "symfony/process" v3.3 or higher for the package in production mode and
 		- "symfony/var-dumper" for the package in development mode
@@ -47,8 +57,34 @@ composer.json
 				"symfony/var-dumper": "^3.3"
 			}
 		}
+		
+	Stability
+		you can define branches instead of version(ranges)
+		but if the branch is not stable you have to explicitly allow Composer to install it (the default stability is "stable")
+			{
+				"require": {
+					"somevendor/somepackage": "dev-master"
+				},
+				"minimum-stability": "dev"
+			}
+	Conflicting packages
+		if there are packages that do not work with your apllication or package you can prevent installing them ever
+		{
+			"conflict": {
+				"somevendor/somepackage": "1.0.0"
+			}
+		}
+	Suggestions
+		packages that enhance your packages functionality can be suggested to users of the package while
+		they install your package
+		{
+			"suggest": {
+				"somevendor/somepackage": "1.0.0"
+			}
+		}
 	Version rules
 		exact versions				1.0.2
+		wildcard			*	1.0.*			equivalent of >=1.0,<1.1
 		ranges of valid versions	>	<2.0
 						>=	>=1.0
 						<	<1.1
@@ -57,7 +93,6 @@ composer.json
 						,	>=1.0,<2.0		, is like logical AND (defines multiple ranges)
 						|	>=1.0,<1.1 | >=1.2	| is like logical OR
 						, has higher precedence than |
-		wildcard			*	1.0.*			equivalent of >=1.0,<1.1
 		tilde operator			∼1.2				equivalent to >=1.2,<2.0.
 composer.lock
 	- is written automatically by Composer
@@ -85,11 +120,26 @@ composer require [vendorname/packagename]
 	4. installs the package under "vendor/"
 	5. creates or updates composer.lock with the package, its version and its dependencies
 Autoloading
-	Usage
+	- by default Composer automatically creates a file "vendor/autoload"
+	- if you require this file to your code you can autoload all classes of your dependencies
 		<?php
 		require 'vendor/autoload.php';
 		use [namespace\path\to\classname];
 		$var = [classname]::[method]([params]);
+	- if you want to configure autoloading yourself Composer offers differten methods of autoloading
+		files
+			when you require "vendor/autoload.php" Composer will load a list of files
+			{
+				"autoload": {
+					"files": [
+						"projectroot/path/file.php",
+						"projectroot/otherpath/file.php"
+					]
+				}
+			}
+		classmap
+		psr-0
+		psr-4
 Lifecycle hooks and scripts
 	- Composer allows you to define commands which will be run after a specified event
 	- for example after composer "create-project", "composer install", "composer update" etc.
