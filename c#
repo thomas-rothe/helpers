@@ -1,0 +1,49 @@
+Mono installieren:
+sudo apt-get install monodevelop
+
+Textdatei erstellen:
+nano hello.cs
+
+Programmcode einfügen:
+// A Hello World! program in C#.
+using System;
+namespace HelloWorld
+{
+    class Hello 
+    {
+        static void Main() 
+        {
+            Console.WriteLine("Hello World!");
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
+        }
+    }
+}
+
+Kompilieren:
+dmcs hello.cs
+
+Ausführen:
+mono hello.exe
+oder:
+./hello.exe
+
+IDE öffnen:
+monodevelop
+
+
+
+
+
+
+ANDERE MÖGLICHKEIT:
+1. Getting Flatpak:
+sudo add-apt-repository ppa:alexlarsson/flatpak
+sudo apt update
+sudo apt install flatpak
+2. monodevelop
+flatpak install --user --from https://download.mono-project.com/repo/monodevelop.flatpakref
+3. starten
+flatpak run com.xamarin.MonoDevelop
