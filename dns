@@ -1,2 +1,33 @@
 Windows DNS-Cache leeren
 	ipconfig /flushdns
+
+Domain -> IP    = forward lookup
+IP -> Domain    = reverse llokup
+
+möglich:
+    eine Domain hat mehrere IPs  => dient der Lastverteilung
+    eine IP hat mehrere Domains  => mehrere virtual hosts auf einem Server
+
+Reihenfolge: [nicht sicher!]
+    LOKAL
+    1. Cache der jeweiligen Applikation (z.B. Browser DNS Cache)
+    2. /etc/hosts Datei und OS DNS Cache (bei unixoiden OS muss man erst Software installieren, kein Standardmäßiger DNS Cache)
+    STUB RESOLVER (wird durch einen system call aufgerufen, der Stub Resolver sendet eine rekursive Anfrage an den DNS Server)
+    3. rekursive Anfrage an den DNS server (ein Server vom ISP ; der ISP weist uns ihren defualt DNS server zu, wenn wir die Internetverbindung nutzen)
+    4. DNS Server schaut in seinem Cache (dort nur kurze TTL, aber dort sammeln sich alle Einträge von allen ISP-Kunden)
+    5. der DNS Server des ISP kennt IP eines Root Servers
+    FULL RESOLVER schickt iterative Anfragen an ROOT SERVER, TLD Server, AUTHORITATIVE DNS SERVER
+    6. DNS Server des ISP fragt Root Server; dieser kennt IP eines TLD Servers und schickt sie dem DNS Server des ISP (top-level domain server) (toplevel domains sind z.B.: .com, .at., ...)
+    7. DNS Server des ISP fragt TLD Server; dieser kennt IP eines Authoritative DNS Servers, der die gesuchte IP kennt (wenn man domain anmeldet, sorgt der Registrar dafür, dass diese auf Authoritative DNS Servern landet)
+    8. DNS Server des ISP fragt Authoritative DNS Server; dieser übermittelt die IP des A Records der angefragten Domain
+Sobald IP gefunden:
+    1. IP wird dem DNS Server übermittelt (und dort gecacht)
+    2. IP wird dem OS übermittelt (kommt gegebenfalls mit recht kurzer TTL in Cache)
+    3. OS übermittelt die IP der anfragenden Applikation (kommt in deren Cache, auch mit kurzer TTL)
+    3. Applikation (z.B. Browser) sendet Request an die IP
+
+Unterschied A Record (address record) und CNAME Record:
+    ein A Record verweist direkt auf eine IP, CNAME Record verweist auf eine weitere Domain (die auf eine eine IP oder wieder auf eine Domain verweist, usw.). Bsp.:
+	blog.dnsimple.com.      CNAME   aetrion.github.io.
+	aetrion.github.io.      CNAME   github.map.fastly.net.
+	github.map.fastly.net.  A       185.31.17.133   
