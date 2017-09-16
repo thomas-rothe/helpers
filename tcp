@@ -1,0 +1,40 @@
+Voraussetzungen:
+    - Server, der Dienst anbietet, erzeugt einen Endpunkt (auch Socket genannt) mit der Portnummer und seiner IP-Adresse ("passive open", oder auch "listen")
+    - Client, der Verbindung aufbauen will, erzeugt einen eigenen Socket aus seiner Rechneradresse und einer eigenen, noch freien Portnummer. Mit Hilfe eines ihm bekannten Ports und der Adresse des Servers kann dann eine Verbindung aufgebaut werden. Eine TCP-Verbindung ist identifiziert durch:
+        Quell-IP
+        Quell-Port
+        Ziel-IP
+        Ziel-Port
+    Während der Datenübertragungsphase (active open) sind die Rollen von Client und Server (aus TCP-Sicht) vollkommen symmetrisch. Insbesondere kann jeder der beiden beteiligten Rechner einen Verbindungsabbau einleiten.
+
+Verbindungsaufbau:
+    1. TCP-SEGMENT
+    - Rechner sendet ein TCP-Segment:
+        - ohne Daten
+        - an Ziel-Port der Ziel-IP
+        - mit SYN-Flag gesetzt
+        - mit initialer Sequence Number (eine beliebige Zahl)
+    - Server empfäng das TCP-Segment
+    - Server prüft, ob der Port offen ist (sonst keine Verbindung, Server sagt das dem Rechner durch RST-Flag)
+    2. TCP-SEGMENT
+    - Server antwortet mit einem TCP-Segment:
+        - mit ACK-Flag gesetzt
+        - mit Acknowledgment Number (die vom Rechner erhaltene initiale Sequence Number plus 1)
+        - mit SYN-Flag gesetzt
+        - mit eigener initialer Sequence Number (eine beliebige Zahl)
+    - Rechner erhält diese Anwort
+    3. TCP-SEGMENT
+    - Rechner sendet TCP-Segment:
+        - mit ACK-Flag gesetzt
+        - mit Acknowledgement Number (die vom Server erhaltene initiale Sequence Number plus 1)
+        - mit SYN-Flag gesetzt
+        - mit Sequence Number (die eigene initiale Sequence Number plus eins)
+
+Verbindungsabbau:
+    Der geregelte Verbindungsabbau erfolgt ähnlich. Statt des SYN-Bits kommt das FIN-Bit (von engl. finish ‚Ende‘, ‚Abschluss‘) zum Einsatz, welches anzeigt, dass keine Daten mehr vom Sender kommen werden. 
+    Der Erhalt des Pakets wird wiederum mittels ACK bestätigt. Der Empfänger des FIN-Pakets sendet zuletzt seinerseits ein FIN-Paket, das ihm ebenfalls bestätigt wird.
+    Zudem ist ein verkürztes Verfahren möglich, bei dem FIN und ACK genau wie beim Verbindungsaufbau im selben Paket untergebracht werden. 
+    Die maximum segment lifetime (MSL) ist die maximale Zeit, die ein Segment im Netzwerk verbringen kann, bevor es verworfen wird. 
+    Nach dem Senden des letzten ACKs wechselt der Client in einen zwei MSL andauernden Wartezustand (wait state), in dem alle verspäteten Segmente verworfen werden. 
+    Dadurch wird sichergestellt, dass keine verspäteten Segmente als Teil einer neuen Verbindung fehlinterpretiert werden. 
+    Außerdem wird eine korrekte Verbindungsterminierung sichergestellt. Geht ACK y+1 verloren, läuft beim Server der Timer ab, und das LAST_ACK-Segment wird erneut übertragen. 
