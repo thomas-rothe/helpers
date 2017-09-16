@@ -1,0 +1,8 @@
+HEADER
+  - the preprocessor text replaces #include statements with the text of the header files,
+  if you have:
+    - file.c
+    - file.h
+  you compile with:
+    gcc file.c
+  
