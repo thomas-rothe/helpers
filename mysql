@@ -17,7 +17,7 @@ OPEN AS ROOT
 CHANGE PASSWORD OF ROOT
 	mysqladmin -u root -p'myoldpw' password 'mynewpw'
 EXECUTE SQL
-	mysql -uroot --password='mypassword' -e'CREATE DATABASE somedb'
+	mysql -u'root' --password='mypassword' -e'CREATE DATABASE somedb'
 ################################################################### Export & Import
 EXPORT
 	mysqldump -u DB_USER -p DATABASE_NAME > db_backup.sql
