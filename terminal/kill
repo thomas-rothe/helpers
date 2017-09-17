@@ -1,0 +1,22 @@
+KILL
+  - sends signals to processes using their process ID
+  - normally over 60 available signals
+  - default signal is SIGTERM
+QUIT A PROCESS
+  SIGTERM
+    - signal that tells a process to exit on its own (the process can clean up itsself, etc.)
+    - identical examples:
+      kill 123
+      kill -s TERM 123
+      kill -TERM 123
+      kill -15 123
+  SIGKILL
+    - the kernel kills the process (the process can't clean up itsself, etc.)
+    - identical examples:
+      kill -s KILL 123
+      kill -KILL 123
+      kill -9 123
+PAUSE A PROCESS
+  kill -SIGSTOP 4711
+CONTINUE A PAUSED PROCESS
+  kill -SIGCONT 4711
