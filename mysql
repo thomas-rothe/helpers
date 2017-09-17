@@ -5,8 +5,14 @@ REMOVE MQSYL
 	sudo apt-get autoclean
 INSTALL MYSQL SERVER (ALSO INSTALLS MYSQL CLIENT)
 	sudo apt-get install mysql-server
-OPEN AS ROOT WITH PASSWORD PROMPT
-	mysql -uroot -p
+OPEN AS ROOT
+	WITH PASSWORD PROMPT
+		mysql -uroot -p
+	WITHOUT PASSWORD PROMPT
+		IF YOU HAVE NO PASSWORD
+			mysql -uroot
+		IF YOU HAVE A PASSWORD
+			mysql -uroot --password='mypassword'
 CHANGE PASSWORD OF ROOT
 	mysqladmin -u root -p'myoldpw' password 'mynewpw'
 ################################################################### Login Terminal
