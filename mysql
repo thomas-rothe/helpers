@@ -34,9 +34,9 @@ INSERT INTO `MW_users` (
 	`display_name`
 ) VALUES (
 	'5000', 
-	'medani', 
-	MD5('uw$1$G0Z%%Eubl.NEmYOTRN0Z'), 
-	'username', 
+	'myname', 
+	MD5('uw$1$G0Z%%Eubl.asdfOTRN0Z'), 
+	'nice username', 
 	'test@test.at', 
 	'0', 
 	'name'
