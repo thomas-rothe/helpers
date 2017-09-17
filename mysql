@@ -1,3 +1,4 @@
+################################################################### From terminal
 REMOVE MQSYL
 	sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-5.5 mysql-client-core-5.5
 	sudo rm -rf /etc/mysql /var/lib/mysql
@@ -15,8 +16,8 @@ OPEN AS ROOT
 			mysql -uroot --password='mypassword'
 CHANGE PASSWORD OF ROOT
 	mysqladmin -u root -p'myoldpw' password 'mynewpw'
-################################################################### Login Terminal
-	mysql -u DB_USER -p
+EXECUTE SQL
+	mysql -uroot --password='mypassword' -e'CREATE DATABASE somedb'
 ################################################################### Export & Import
 EXPORT
 	mysqldump -u DB_USER -p DATABASE_NAME > db_backup.sql
