@@ -1,3 +1,22 @@
+
+// model
+
+// customizing the route key for an eloquent model ##################################################################
+// Any	time	an	Eloquent	model	is	looked	up	via	a	URL	segment	(usually	because	of	route	model	binding),	the
+// default	column	Eloquent	will	look	it	up	by	is	its	primary	key	(ID).
+// To	change	the	column	your	Eloquent	model	uses	for	URL	lookups,	add	a	method	to	your	model	named
+// getRouteKeyName() :
+public function getRouteKeyName()
+{
+    return	'slug';
+}
+// Now,	a	URL	like	 conferences/{conference} 	will	expect	to	get	the	slug	instead	of	the	ID,	and	will	perform	its
+// lookups	accordingly.
+
+####################################################################################################
+####################################################################################################
+####################################################################################################
+
 ELOQUENT-MODEL -> Eloquent is Laravel's active record implementation
 	neue Datei app/Task.php erzeugen:
 		OHNE MIGRATION
