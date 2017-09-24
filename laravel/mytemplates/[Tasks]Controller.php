@@ -27,10 +27,10 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        [Task]::create([
-                'title'        	= $request->title,
-                'description'  	= $request->description,
-	]);
+        [Task]::create($request([
+                'title',
+                'description',
+	]));
 
         return redirect('[tasks]');
 
@@ -78,10 +78,10 @@ class TasksController extends Controller
 
     public function update([Task] [$task], Request $request)
     {
-        [$task]->fill([
-                'title'        	= $request->title,
-                'description'  	= $request->description,
-	]);
+        [$task]->fill($request([
+                'title',
+                'description',
+	]));
 
         return redirect('[tasks]');
     }
