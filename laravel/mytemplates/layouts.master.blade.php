@@ -7,24 +7,23 @@
         
         <title>My Site | @yield('title', 'Home Page')</title>
         
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        @include('assets.favicon')
         
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        @include('assets.fonts')
 
-        <!-- Styles -->
+        @include('assets.styles')
     </head>
     <body>
-        @section('sidebar')
-            This is the master sidebar.
-        @show
-        
-        <div class="container">
-            @yield('content')
+        <div class="container-overflow-wrap">
+            <div class="container">
+                @include('layouts.header')
+                
+                @yield('content')
+                
+                @include('layouts.footer')
+            </div>
         </div>
         
-        @section('footerScripts')
-            <script	src="app.js"></script>
-        @show
+        @include('assets.scripts')
     </body>
 </html>
