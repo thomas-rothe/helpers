@@ -1,0 +1,81 @@
+VIEWS
+	PFADE alle folgenden Beispiel sind ident:
+		view('tasks/show');
+		view('tasks.show'); // more common in Laravel
+	view ist eine globale helper function; folgende Aufrufe sind völlig ident vom Resultat her:
+
+		view('about', ['key' => 'value', 'bla' => 'blu']);
+
+		view('about')->with('key', 'value')->with('bla', 'blu');
+
+		$key = 'value';
+		$bla = 'blu';
+		view('about', compact($key, $bla));
+
+	in about.blade.php ist folgendes wieder ident vom Resultat her:
+
+		Hallo <?php echo $key; ?>
+
+		Hallo <?= $key; ?> 
+
+		Hallo {{ $key }}
+
+		Hallo {!! $key !!}
+		########################################################
+		<?php foreach ($hudri as $wudri) : ?>
+			<li><?= $wudri; ?></li>
+		<?php endforeach; ?>
+
+		@foreach ($hudri as $wudri)
+			<li>{{ $wudri }}</li>
+		@endforeach
+		########################################################
+		weitere:
+			@if
+			@endif
+
+			@while
+			@endwhile
+
+			etc.
+	LAYOUT
+		GENERELLE DATEISTRUKTUR:
+		--views
+		----layouts
+		------footer.blade.php
+		------nav.blade.php
+		----tasks
+		------index.blade.php
+		------show.blade.php
+		----layout.blade.php
+		man kann das layout.blade.php aber auch in directory layouts geben, außerdem kann es ja sein, dass man mehrere layout..blade.php files brauchte (zB normale Seite und admin area)
+		####################################
+		resources/views/layout.blade.php:
+		<!DOCTYPE html>
+			<html>
+			<head>
+				<title>My App</title>
+			</head>
+			<body>
+				@include('layouts.nav')
+				@yield('content')
+				@yield('another_content')
+			</body>
+		</html>
+		####################################
+		resources/views/posts/index.blade.php:
+		@extends('layout')
+
+		@section ('another_content')
+			bla
+		@endsection
+
+		@section ('another_content')
+			<script src="/js/file.js"></script>
+		@endsection
+		####################################
+		resources/views/layouts/nav.blade.php:
+		<nav>
+			...Menü...
+		</nav>
+		####################################
