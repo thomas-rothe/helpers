@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <title>My Site | @yield('title', 'Home Page')</title>
+        <title>{{ config('app.name') }} | @yield('title')</title>
         
         @include('assets.favicon')
         
