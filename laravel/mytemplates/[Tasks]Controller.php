@@ -7,10 +7,14 @@ use App\[Task];
 
 class TasksController extends Controller
 {
-    public function __construct()
+    /* public function __construct()
     {
-        // $this->middleware('auth');
-    }
+        $this->middleware('auth');		// attach middleware 'auth' to all methods of the controller
+        $this->middleware('admin-auth')		// attach middleware 'admin-auth' to the method 'admin'
+            ->only('admin');
+        $this->middleware('team-member')	// attach middleware 'team-member' to all methods except 'admin'
+            ->except('admin');
+    } */
 
     public function index()
     {
