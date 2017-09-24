@@ -38,6 +38,8 @@ ECHO
 	{{ $variable }}			<?php echo htmlentities($variable); ?>
 	{!! $variable !!}		<?php echo $variable; ?>
 	@{{ $variable }}		<?php echo '{{ $variable }}'; ?>
+COMMENT
+	{{-- This comment will not be in the rendered HTML --}}
 CONDITIONALS
 	IF
 		@if ($condition)			<?php if ($condition): ?>
