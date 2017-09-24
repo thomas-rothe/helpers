@@ -1,79 +1,36 @@
-// It	may	be	tempting	to	cram	all	of	the	application’s	logic	into	the	controllers,	but	it’s	better	to
-// think	of	controllers	as	the	traffic	cops	that	route	HTTP	requests	around	your	application.
-// Since	there	are	other	ways	requests	can	come	into	your	application	—	cron	jobs,	Artisan
-// command-line	calls,	queue	jobs,	etc.	—	it’s	wise	to	not	rely	on	controllers	for	much	behavior.
-// This	means	a	controller ’s	primary	job	is	to	capture	the	intent	of	an	HTTP	request	and	pass	it
-// on	to	the	rest	of	the	application.
-
-// Injecting	Dependencies	into	Controllers
-// Laravel’s	facades	present	a	simple	interface	to	the	most	useful	classes	in	Laravel’s	codebase.
-// You	can	get	information	about	the	current	request	and	user	input,	the	session,	caches,	and
-// much	more.
-// But	if	you	prefer	to	inject	your	dependencies,	or	if	you	want	to	use	a	service	that	doesn’t	have
-// a	facade,	you’ll	need	to	find	some	way	to	bring	instances	of	these	classes	into	your	controller.
-// This	is	our	first	exposure	to	Laravel’s	service	container.	For	now,	if	this	is	unfamiliar,	you
-// can	think	about	it	as	a	little	bit	of	Laravel	magic;	or,	if	you	want	to	know	more	about	how	it’s
-// actually	functioning,	you	can	skip	ahead	to	Chapter	11.
-// All	controller	methods	(including	the	constructors)	are	resolved	out	of	Laravel’s	container,
-// which	means	anything	you	typehint	that	the	container	knows	how	to	resolve	will	be
-// automatically	injected.
-// As	a	nice	example,	what	if	you’d	prefer	having	an	instance	of	the	 Request 	object	instead	of
-// using	the	facade?	Just	typehint	 Illuminate\Http\Request 	in	your	method	parameters.
-
-// getting user input
-// Input facade
-$title = \Illuminate\Support\Facades\Input::get('title');
-// request object
-public function store(\Illuminate\Http\Request $request)
-{
-    $title = $request->input('title');
-}
-
-// Resource	Controllers
-// Sometimes	naming	the	methods	in	your	controllers	can	be	the	hardest	part	of	writing	a
-// controller.	Thankfully,	Laravel	has	some	conventions	for	all	of	the	routes	of	a	traditional
-// REST/CRUD	controller	(called	a	“resource	controller”	in	Laravel)
-Verb        URL                 Controller method   Name            Description
-GET         tasks               index()             tasks.index     Show	all	tasks
-GET         tasks/create        create()            tasks.create    Show	the	create	task	form
-POST        tasks               store()             tasks.store     Accept	form	submission	from	the	create	task	form
-GET         tasks/{task}        show()              tasks.show      Show	one	task
-GET         tasks/{task}/edit   edit()              tasks.edit      Edit	one	task
-PUT/PATCH   tasks/{task}        update()            tasks.update    Accept	form	submission	from	the	edit	task	form
-DELETE      tasks/{task}        destroy()           tasks.destroy   Delete	one	task
-
-
-
-
-
-
-
-
-
-Often	it’s	clearer	and	more	direct	to	attach	middleware	to	your	routes	in	the	controller	instead	of	at	the	route
-definition.	You	can	do	this	by	calling	the	 middleware() 	method	in	the	constructor	of	your	controller.	The	string
-you	pass	to	the	 middleware() 	method	is	the	name	of	the	middleware,	and	you	can	optionally	chain	modifier
-methods	( only() 	and	 except() )	to	define	which	methods	will	receive	that	middleware:
-class	DashboardController	extends	Controller
-{
-    public	function	__construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('admin-auth')
-            ->only('admin');
-        $this->middleware('team-member')
-            ->except('admin');
-    }
-}
-
-##################################################################################################
-##################################################################################################
-##################################################################################################
-
+- It may be tempting to cram all of the application’s logic into the controllers, but it’s better to
+	think of controllers as the traffic cops that route HTTP requests around your application.
+	Since there are other ways requests can come into your application — cron jobs, Artisan
+	command-line calls, queue jobs, etc. — it’s wise to not rely on controllers for much behavior.
+	This means a controller’s primary job is to capture the intent of an HTTP request and pass it
+	on to the rest of the application.
+- Injecting Dependencies into Controllers
+	Laravel’s facades present a simple interface to the most useful classes in Laravel’s codebase.
+	You can get information about the current request and user input, the session, caches, and
+	much more.
+	But if you prefer to inject your dependencies, or if you want to use a service that doesn’t have
+	a facade, you’ll need to find some way to bring instances of these classes into your controller.
+	This is our first exposure to Laravel’s service container. For now, if this is unfamiliar, you
+	can think about it as a little bit of Laravel magic; or, if you want to know more about how it’s
+	actually functioning, you can skip ahead to Chapter 11.
+	All controller methods (including the constructors) are resolved out of Laravel’s container,
+	which means anything you typehint that the container knows how to resolve will be
+	automatically injected.
+	As a nice example, what if you’d prefer having an instance of the Request object instead of
+	using the facade? Just typehint Illuminate\Http\Request in your method parameters.
 CREATE CONTROLLER
 	php artisan make:controller TasksController
 CREATE RESTFUL CONTROLLER
 	php artisan make:controller TasksController -r
+NAMING CONVENTIONS
+	Verb        URL                 Controller method   Name            Description
+	GET         tasks               index()             tasks.index     Show all tasks
+	GET         tasks/create        create()            tasks.create    Show the create task form
+	POST        tasks               store()             tasks.store     Accept form submission from the create task form
+	GET         tasks/{task}        show()              tasks.show      Show one task
+	GET         tasks/{task}/edit   edit()              tasks.edit      Edit one task
+	PUT/PATCH   tasks/{task}        update()            tasks.update    Accept form submission from the edit task form
+	DELETE      tasks/{task}        destroy()           tasks.destroy   Delete one task
 ROUTE-MODEL-BINDING
 	Route::get('/tasks/{task}', 'TasksController@show');	// "task" muss genauso heißen, wie die Parameter-Variable im Controller!!
 	class TasksController extends Controller
@@ -82,17 +39,4 @@ ROUTE-MODEL-BINDING
 		{						// intern mach Laravel daraus: $task = Task::find([WILDCARD]);
 			return $task;
 		}
-	}
-SERVERSEITIGE FORM-VALIDATION
-	public function store()
-	{
-		// validate the request
-		$this->validate(request(), [
-			// alle zu validierenden Felder des Requests
-			'title'	=>'required|min:5',	// "title" muss ausgefüllt sein und mindestens 5 characters haben
-			'body'	=>'required|max:500',
-		]);
-		Post::create(request(['title', 'body']));
-		return redirect('/');
-		// ACHTUNG die Validation-Fehler werden im HTML des Formulars ausgegeben! SIEHE FORM
 	}
