@@ -3,10 +3,6 @@
 - you should not but you can use plain PHP in blade templates (using it is a sign for having logic which
 	should not be contained in a view)
 
-{{ $variable }}			<?php echo htmlentities($variable); ?>
-{!! $variable !!}		<?php echo $variable; ?>
-@{{ $variable }}		<?php echo '{{ $variable }}'; ?>
-
 FILE STRUCTURE
 	-+ views
 	--+ emails
@@ -38,6 +34,10 @@ FILE STRUCTURE
 	---- profile.blade.php
 	---- settings.blade.php
 	--+ vendor
+ECHO
+	{{ $variable }}			<?php echo htmlentities($variable); ?>
+	{!! $variable !!}		<?php echo $variable; ?>
+	@{{ $variable }}		<?php echo '{{ $variable }}'; ?>
 CONDITIONALS
 	IF
 		@if ($condition)			<?php if ($condition): ?>
