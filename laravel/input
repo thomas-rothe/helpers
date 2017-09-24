@@ -1,0 +1,10 @@
+GETTING USER INPUT
+    INPUT FACADE
+        $title = \Illuminate\Support\Facades\Input::get('title');
+    REQUEST OBJECT
+        public function store(\Illuminate\Http\Request $request)
+        {
+            $title = $request->title;
+            
+            $title = $request->input('title');
+        }
