@@ -8,14 +8,36 @@
 @{{ $variable }}		<?php echo '{{ $variable }}'; ?>
 
 FILE STRUCTURE
-	-+views
-	--+layouts
-	----footer.blade.php
-	----master.blade.php		or: main.blade.php, layout.blade.php
-	----nav.blade.php
-	--+tasks
-	----index.blade.php
-	----show.blade.php
+	-+ views
+	--+ emails
+	---- html
+	----- signup.blade.php
+	---- text
+	----- signup.blade.php
+	--+ layouts
+	---- head.blade.php
+	---- header.blade.php
+	---- footer.blade.php
+	---- master.blade.php		or: main.blade.php, layout.blade.php, app.blade.php, site.blade.php
+	---- nav.blade.php
+	--+ tasks			application specific resources get an own folder each
+	---+ partials			partials which are not reusable but specific for this resource
+	----- thumbnail.blade.php
+	---- create.blade.php
+	---- destroy.blade.php
+	---- edit.blade.php
+	---- index.blade.php
+	---- show.blade.php
+	---- store.blade.php
+	---- update.blade.php
+	--+ partials			partials which are reusable for other applications
+	---- errors.blade.php
+	---- messages.blade.php
+	---- thumbnail.blade.php
+	--+ user
+	---- profile.blade.php
+	---- settings.blade.php
+	--+ vendor
 CONDITIONALS
 	IF
 		@if ($condition)			<?php if ($condition): ?>
@@ -168,91 +190,3 @@ SECTIONS
                 case,	each	element	in	the	 $modules 	array)	will	be	passed	to	the	view	as.	And	the	optional
                 fourth	parameter	is	the	view	to	show	if	the	array	or	collection	is	empty	(or,	optionally,	you
                 can	pass	a	string	in	here	that	will	be	used	as	your	template).
-
-    templates
-        master
-            <!--	resources/views/layouts/master.blade.php	-->
-            <html>
-                <head>
-                    <title>My Site | @yield('title', 'Home Page')</title>
-                </head>
-                <body>
-                    <div class="container">
-                        @yield('content')
-                    </div>
-                    @section('footerScripts')
-                        <script	src="app.js"></script>
-                    @show
-                </body>
-            </html>
-
-	PFADE alle folgenden Beispiel sind ident:
-		view('tasks/show');
-		view('tasks.show'); // more common in Laravel
-	view ist eine globale helper function; folgende Aufrufe sind völlig ident vom Resultat her:
-
-		view('about', ['key' => 'value', 'bla' => 'blu']);
-
-		view('about')->with('key', 'value')->with('bla', 'blu');
-
-		$key = 'value';
-		$bla = 'blu';
-		view('about', compact($key, $bla));
-
-	in about.blade.php ist folgendes wieder ident vom Resultat her:
-
-		Hallo <?php echo $key; ?>
-
-		Hallo <?= $key; ?> 
-
-		Hallo {{ $key }}
-
-		Hallo {!! $key !!}
-		########################################################
-		<?php foreach ($hudri as $wudri) : ?>
-			<li><?= $wudri; ?></li>
-		<?php endforeach; ?>
-
-		@foreach ($hudri as $wudri)
-			<li>{{ $wudri }}</li>
-		@endforeach
-		########################################################
-		weitere:
-			@if
-			@endif
-
-			@while
-			@endwhile
-
-			etc.
-	LAYOUT
-		####################################
-		resources/views/layout.blade.php:
-		<!DOCTYPE html>
-			<html>
-			<head>
-				<title>My App</title>
-			</head>
-			<body>
-				@include('layouts.nav')
-				@yield('content')
-				@yield('another_content')
-			</body>
-		</html>
-		####################################
-		resources/views/posts/index.blade.php:
-		@extends('layout')
-
-		@section ('another_content')
-			bla
-		@endsection
-
-		@section ('another_content')
-			<script src="/js/file.js"></script>
-		@endsection
-		####################################
-		resources/views/layouts/nav.blade.php:
-		<nav>
-			...Menü...
-		</nav>
-		####################################
