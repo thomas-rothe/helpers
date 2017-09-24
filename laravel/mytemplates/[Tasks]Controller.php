@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\[Task];
+
+class TasksController extends Controller
+{
+    public function __construct()
+    {
+//        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        return view('[tasks].index')
+            ->with('[tasks]', [Task]::all());
+    }
+
+    public function create()
+    {
+        return view('[tasks].create');
+    }
+
+    public function store(Request $request)
+    {
+        [$task] = new [Task];
+        [$task]->title          = $request->input('title');
+        [$task]->description    = $request->input('description');
+        [$task]->save();
+
+        return redirect('[tasks]');
+
+//        // validate
+//        // read more on validation at http://laravel.com/docs/validation
+//        $rules = array(
+//            'name'       => 'required',
+//            'email'      => 'required|email',
+//            'nerd_level' => 'required|numeric'
+//        );
+//        $validator = Validator::make(Input::all(), $rules);
+//
+//        // process the login
+//        if ($validator->fails()) {
+//            return Redirect::to('nerds/create')
+//                ->withErrors($validator)
+//                ->withInput(Input::except('password'));
+//        } else {
+//            // store
+//            $nerd = new Nerd;
+//            $nerd->name       = Input::get('name');
+//            $nerd->email      = Input::get('email');
+//            $nerd->nerd_level = Input::get('nerd_level');
+//            $nerd->save();
+//
+//            // redirect
+//            Session::flash('message', 'Successfully created nerd!');
+//            return Redirect::to('nerds');
+//        }
+    }
+
+    public function show([Task] [$task])
+    {
+        return view('[tasks].show')
+            ->with('[task]', [$task]);
+    }
+
+    public function edit([Task] [$task])
+    {
+        return view('[tasks].edit')
+            ->with('[task]', [$task]);
+    }
+
+    public function update([Task] [$task], Request $request)
+    {
+        [$task]->title          = $request->input('title');
+        [$task]->description    = $request->input('description');
+        [$task]->save();
+
+        return redirect('[tasks]');
+    }
+
+    public function destroy([Task] [$task])
+    {
+        [$task]->delete();
+
+//        Session::flash('message', 'Successfully deleted!');
+
+        return Redirect::to('[tasks]');
+    }
+}
