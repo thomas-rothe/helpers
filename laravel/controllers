@@ -83,27 +83,6 @@ ROUTE-MODEL-BINDING
 			return $task;
 		}
 	}
-STORE()
-	public function store()
-	{
-		$post = new Post;
-		// get data from POST request
-		$post->title = request('title');
-		$post->body = request('body');
-			// alternativ zu den zwei obigen letzten Zeilen:
-			Post::create([
-				'title'	=> request('title'),
-				'body'	=> request('body')
-			]);
-		// save to DB
-		$post->save();
-		// redirect
-		return redirect('/');
-
-		// oder alternativ, am besten so (mit Parent-Klasse):
-		Post::create(request(['title', 'body']));
-		return redirect('/');
-	}
 SERVERSEITIGE FORM-VALIDATION
 	public function store()
 	{
