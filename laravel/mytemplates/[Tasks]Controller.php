@@ -7,9 +7,14 @@ use App\[Task];
 
 class TasksController extends Controller
 {
+    const VALIDATION_RULES = [
+        'title'		=>'required|min:5',
+        'description'	=>'required|max:500',
+    ];
+
     public function __construct()
     {
-//        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index()
@@ -27,39 +32,22 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        [Task]::create($request([
-                'title',
-                'description',
-	]));
-
-        return redirect('[tasks]');
-
-//        // validate
-//        // read more on validation at http://laravel.com/docs/validation
-//        $rules = array(
-//            'name'       => 'required',
-//            'email'      => 'required|email',
-//            'nerd_level' => 'required|numeric'
-//        );
-//        $validator = Validator::make(Input::all(), $rules);
-//
-//        // process the login
-//        if ($validator->fails()) {
-//            return Redirect::to('nerds/create')
-//                ->withErrors($validator)
-//                ->withInput(Input::except('password'));
-//        } else {
-//            // store
-//            $nerd = new Nerd;
-//            $nerd->name       = Input::get('name');
-//            $nerd->email      = Input::get('email');
-//            $nerd->nerd_level = Input::get('nerd_level');
-//            $nerd->save();
-//
-//            // redirect
-//            Session::flash('message', 'Successfully created nerd!');
-//            return Redirect::to('nerds');
-//        }
+        $this->validate(request(), self::VALIDATION_RULES);
+	
+	if ($validator->fails()) {
+                return redirect('tasks.create')
+                    ->withErrors($validator)
+                    ->withInput(/*Input::except('password')*/);
+	} else {
+                [Task]::create($request([
+                    'title',
+                    'description',
+                ]));
+		
+                // Session::flash('message', 'Successfully created!');
+		
+                return redirect('[tasks]');
+	}
     }
 
     public function show([Task] [$task])
@@ -78,19 +66,29 @@ class TasksController extends Controller
 
     public function update([Task] [$task], Request $request)
     {
-        [$task]->fill($request([
-                'title',
-                'description',
-	]));
-
-        return redirect('[tasks]');
+        $this->validate(request(), self::VALIDATION_RULES);
+	
+	if ($validator->fails()) {
+                return redirect('tasks.edit')
+                    ->withErrors($validator)
+                    ->withInput(/*Input::except('password')*/);
+	} else {
+		[$task]->fill($request([
+			'title',
+			'description',
+		]));
+		
+		// Session::flash('message', 'Successfully created!');
+		
+		return redirect('[tasks]');
+	}
     }
 
     public function destroy([Task] [$task])
     {
         [$task]->delete();
 
-//        Session::flash('message', 'Successfully deleted!');
+	// Session::flash('message', 'Successfully deleted!');
 
         return redirect('[tasks]');
     }
