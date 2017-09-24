@@ -126,37 +126,38 @@ LOOPS
 		</ul>
 SECTIONS
 	INCLUDING
-		some page:
-		<div class="content" data-page-name="{{ $pageName }}">
-			<p>Here's why you should sign up for our app: <strong>It's Great.</strong></p>
-			@include('sign-up-button', ['text' => 'See just how great it is'])
-		</div>
+		INCLUDE
+			some page:
+			<div class="content" data-page-name="{{ $pageName }}">
+				<p>Here's why you should sign up for our app: <strong>It's Great.</strong></p>
+				@include('sign-up-button', ['text' => 'See just how great it is'])
+			</div>
 
-		sign-up-button.blade.php:
-		<a class="button button--callout" data-page-name="{{ $pageName }}">
-			<i class="exclamation-icon"></i> {{ $text }}
-		</a>
-	EACH
-		- loops over array or collection and makes an @include for every item
-		- parameters:
-			- name of the view partial
-			- array or collection
-			- variable name that each item will be passed to the view as
-			- the optional fourth parameter is the view to show if the array or collection is empty (or you can pass a string in here that will be used as your template)
-		some page:
-		<div class="sidebar">
-			@each('partials.module', $modules, 'module', 'partials.empty-module')
-		</div>
+			sign-up-button.blade.php:
+			<a class="button button--callout" data-page-name="{{ $pageName }}">
+				<i class="exclamation-icon"></i> {{ $text }}
+			</a>
+		EACH
+			- loops over array or collection and makes an @include for every item
+			- parameters:
+				- name of the view partial
+				- array or collection
+				- variable name that each item will be passed to the view as
+				- the optional fourth parameter is the view to show if the array or collection is empty (or you can pass a string in here that will be used as your template)
+			some page:
+			<div class="sidebar">
+				@each('partials.module', $modules, 'module', 'partials.empty-module')
+			</div>
 
-		partials/module.blade.php:
-		<div class="sidebar-module">
-			<h1>{{	$module->title	}}</h1>
-		</div>
+			partials/module.blade.php:
+			<div class="sidebar-module">
+				<h1>{{	$module->title	}}</h1>
+			</div>
 
-		partials/empty-module.blade.php: 
-		<div class="sidebar-module">
-			No modules!
-		</div>
+			partials/empty-module.blade.php: 
+			<div class="sidebar-module">
+				No modules!
+			</div>
 	EXTENDING
 		YIELD
 			- first parameter is a name for the section
