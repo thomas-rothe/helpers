@@ -1,138 +1,120 @@
-
-// model
-
-// customizing the route key for an eloquent model ##################################################################
-// Any	time	an	Eloquent	model	is	looked	up	via	a	URL	segment	(usually	because	of	route	model	binding),	the
-// default	column	Eloquent	will	look	it	up	by	is	its	primary	key	(ID).
-// To	change	the	column	your	Eloquent	model	uses	for	URL	lookups,	add	a	method	to	your	model	named
-// getRouteKeyName() :
-public function getRouteKeyName()
-{
-    return	'slug';
-}
-// Now,	a	URL	like	 conferences/{conference} 	will	expect	to	get	the	slug	instead	of	the	ID,	and	will	perform	its
-// lookups	accordingly.
-
-####################################################################################################
-####################################################################################################
-####################################################################################################
-
-ELOQUENT-MODEL -> Eloquent is Laravel's active record implementation
-	neue Datei app/Task.php erzeugen:
-		OHNE MIGRATION
-			php artisan make:model Task	// nach Konvention ist Model großgeschrieben und Singular, 
-							// DB-Tabelle kleingeschrieben und Plural, 
-							// Controller groß und Plural und "Controller" hinten dran: "TasksController"
-							// View klein und Plural: "TasksController": "posts.index"
-		MIT MIGRATION (m) UND CONTROLLER (c)
-			php artisan make:model Post -mc
-			IST GENAU DASSELBE WIE:
-			php artisan make:controller PostsController
-			php artisan make:model Post
-			php artisan make:migration create_posts_table --create=posts
-	METHODS
-		FETCH ALL (von einem Model)
-			>>> App\Task::all();
-			$tasks = App\Task::all();
-		FETCH ID 1
-			>>> App\Task::find(1);
-		FETCH WHERE ID 2
-			>>> App\Task::where('id', 2)->get();
-		FETCH ALL WHERE ID > 2
-			>>> App\Task::where('id', '>', 2)->get();
-		FETCH ALL BUT ONLY COLUMN 'body'
-			>>> App\Task::pluck('body');
-		FETCH ALL LIMIT 1
-			>>> App\Task::all()->first();
-		CREATE NEW
-			>>> $task = new App\Task;
-			>>> $task->body = 'fill body column';
-			>>> $task->save();
-	CUSTOM METHODS
-		class Task extends Model
-		{
-			public function myMethod() {}
+ELOQUENT
+	- Eloquent is Laravel's active record implementation
+	- naming convention:
+		- first letter big, singular					Task
+		- DB table first letter small, plural				create_tasks_table
+		- controller first letter big, plural, append "Controller"	TasksController
+		- view first letter small, plural				tasks.index
+CREATE MODEL
+	php artisan make:model Task
+	WITH MIGRATION (m) AND CONTROLLER (c)
+		php artisan make:model Post -mc
+		= php artisan make:controller PostsController; php artisan make:model Post; php artisan make:migration create_posts_table --create=posts
+METHODS
+	FETCH ALL RESOURCES
+		Task::all();
+	FETCH ID 1
+		Task::find(1);
+	FETCH WHERE ID 2
+		Task::where('id', 2)->get();
+	FETCH ALL WHERE ID > 2
+		Task::where('id', '>', 2)->get();
+	FETCH ALL BUT ONLY COLUMN 'body'
+		Task::pluck('body');
+	FETCH ALL LIMIT 1
+		Task::all()->first();
+	CREATE NEW
+		$task = Task::create([
+			'title' => 'My task',
+			'body' => 'Foo bar foo.',
+		]);
+		IS THE SAME AS
+			$task = new Task;
+			$task->body = 'fill body column';
+			$task->save();
+CUSTOM METHODS
+	public function isComplete()
+	{
+		return false;
+	}
+	
+	public static function incomplete()
+	{
+		return static::where('completed', 0)->get();
+	}
+	
+	public function getComments()
+	{
+		return $this->hasMany(Comment::class);
+	}
+	public function addComment($body)
+	{
+		$this->getComments()->create(compact('body'));
+	}
+	
+	public function user()
+	{
+		retrun $this->belongsTo(User::class);
+	}
+	
+	public function scopeFilter($query, $filters)
+	{
+		if ($month = $filters['month']) {
+			$query->whereMonth('created_at', Carbon::parse($month)->month);
 		}
-
-		IS
-			// aktueller Task (ist hier immer "uncompleted")
-			public function isComplete()
-			{
-				return false;
-			}
-			>>> $task = App\Task::find(1);
-			>>> $task->isComplete(); // gibt aus: false
-
-			// alle Tasks
-			public static function incomplete()
-			{
-				return static::where('completed', 0)->get();
-			}
-			>>> App\Task::incomplete();
-		DB
-			
-			Post extends Model
-			{
-				public function getComments()
-				{
-					return $this->hasMany(Comment::class);
-				}
-				public function addComment($body)
-				{
-					$this->getComments()->create(compact('body'));
-				}
-				########################################################
-				public function user()
-				{
-					retrun $this->belongsTo(User::class);
-				}
-				########################################################
-				public function scopeFilter($query, $filters)
-				{
-					if ($month = $filters['month']) {
-						$query->whereMonth('created_at', Carbon::parse($month)->month);
-					}
-				}
-				########################################################
-				public static function getArchive()
-				{
-					return static::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-						->groupBy('year', 'month')
-						->orderByRaw('min(created_at) desc')
-						->get()
-						->toArray();
-					);
-				}
-			}
-		QUERY SCOPE wrapper around a particular query
-			public function scopeIncomplete($query)
-			{
-				return $query->where('completed', 0);
-			}
-			>>> App\Task::incomplete()->get();
-			>>> App\Task::incomplete()where('id', '>=', 2)->get();
-	MASS ASSIGNEMENT
-		class Post extends Model
+	}
+	
+	public static function getArchive()
+	{
+		return static::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+			->groupBy('year', 'month')
+			->orderByRaw('min(created_at) desc')
+			->get()
+			->toArray();
+		);
+	}
+	
+	QUERY SCOPE wrapper around a particular query
+		public function scopeIncomplete($query)
 		{
-			// bei neuen posts per POST request sind aus Sicherheitsgründen nur die gelisteten Felder erlaubt
-			protected $fillable = ['title', 'body'];
-			// oder gleichbedeutend umgekehrt (also die gelisteten Felder sind NICHT erlaubt):
-			protected $guarded = ['user_id'];
+			return $query->where('completed', 0);
 		}
-		so wie oben kann man das für alle Klassen machen, die Model extenden oder wie folgt mit einer Zwischenklasse, 
-		also einer Parent-Klasse die Model extended und die von allen weiteren Model-Klassen extended wird:
-			namespace App;
-			use Illuminate\Database\Eloquent\Model as Eloquent;
-			class Model extends Eloquent
-			{
-				protected $guarded = ['user_id', 'bla'];
-			}
-			und:
-			class Post extends Eloquent
-			{
-				...
-				Post::create(request()->all());
-				oder am besten:
-				Post::create(request(['title', 'body']));
-				...
-			}
+		
+		Task::incomplete()->get();
+		Task::incomplete()->where('id', '>=', 2)->get();
+MASS ASSIGNEMENT
+	class Task extends Model
+	{
+		// bei neuen tasks per POST request sind aus Sicherheitsgründen nur die gelisteten Felder erlaubt
+		protected $fillable = ['title', 'body'];
+		// oder gleichbedeutend umgekehrt (also die gelisteten Felder sind NICHT erlaubt):
+		protected $guarded = ['user_id'];
+	}
+	so wie oben kann man das für alle Klassen machen, die Model extenden oder wie folgt mit einer Zwischenklasse, 
+	also einer Parent-Klasse die Model extended und die von allen weiteren Model-Klassen extended wird:
+		namespace App;
+		use Illuminate\Database\Eloquent\Model as Eloquent;
+		class Model extends Eloquent
+		{
+			protected $guarded = ['user_id', 'bla'];
+		}
+		und:
+		class Post extends Eloquent
+		{
+			...
+			Post::create(request()->all());
+			oder am besten:
+			Post::create(request(['title', 'body']));
+			...
+		}
+CUSTOMIZING THE ROUTE KEY FOR AN ELOQUENT MODEL (FOR ROUTE MODEL BINDING)
+	- any time an Eloquent model is looked up via a URL segment (usually because of route model binding), the
+		default column Eloquent will look it up by is its primary key
+	- to change the column your Eloquent model uses for URL lookups, add a method to your model named getRouteKeyName()
+	
+		public function getRouteKeyName()
+		{
+		    return	'slug';
+		}
+	- now, a URL like conferences/{conference} will expect to get the slug instead of the ID, and will perform its
+		lookups accordingly
