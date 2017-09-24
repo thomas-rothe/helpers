@@ -7,11 +7,6 @@ use App\[Task];
 
 class TasksController extends Controller
 {
-    const VALIDATION_RULES = [
-        'title'		=>'required|min:5',
-        'description'	=>'required|max:500',
-    ];
-
     public function __construct()
     {
         // $this->middleware('auth');
@@ -30,21 +25,11 @@ class TasksController extends Controller
         return view('[tasks].create');
     }
 
-    public function store(Request $request)
-    {
-        $this->validate(request(), self::VALIDATION_RULES);
-	
-	if ($validator->fails()) {
-                return redirect('tasks.create')
-                    ->withErrors($validator)
-                    ->withInput(/*Input::except('password')*/);
-	} else {
-                [Task]::create( $request()->all() );
+    public function store(Store[Task] $request)
+    {	
+        [Task]::create( $request()->all() );
 		
-                // Session::flash('message', 'Successfully created!');
-		
-                return redirect('[tasks]');
-	}
+        return redirect('[tasks]');
     }
 
     public function show([Task] [$task])
@@ -61,28 +46,16 @@ class TasksController extends Controller
         ));
     }
 
-    public function update([Task] [$task], Request $request)
-    {
-        $this->validate(request(), self::VALIDATION_RULES);
-	
-	if ($validator->fails()) {
-                return redirect('tasks.edit')
-                    ->withErrors($validator)
-                    ->withInput(/*Input::except('password')*/);
-	} else {
-		[$task]->fill( $request()->all() );
+    public function update([Task] [$task], Store[Task] $request)
+    {	
+	[$task]->fill( $request()->all() );
 		
-		// Session::flash('message', 'Successfully created!');
-		
-		return redirect('[tasks]');
-	}
+	return redirect('[tasks]');
     }
 
     public function destroy([Task] [$task])
     {
         [$task]->delete();
-
-	// Session::flash('message', 'Successfully deleted!');
 
         return redirect('[tasks]');
     }
