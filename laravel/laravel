@@ -1,3 +1,20 @@
+
+3 command-line tools
+    artisan
+    tinker
+    installer
+components focused on generating frontend code
+    PHP helpers
+        pagination
+        message bags
+    non-PHP
+        elixir
+        conventions around non-PHP assets
+
+####################################################################################################
+####################################################################################################
+####################################################################################################	
+
 INSTALLATION
 	WITH COMPOSER
 		composer create-project laravel/laravel projectname
