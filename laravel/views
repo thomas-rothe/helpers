@@ -1,0 +1,23 @@
+- about.php will be rendered with the PHP engine, and about.blade.php will be rendered with the Blade engine.
+RENDER VIEWS
+    there are 3 identical ways to render a view
+        view()
+        View::make()
+        injecting the Illuminate\View\ViewFactory
+PASSING VARIABLES
+    there are 3 identical ways to  pass variables to a view
+        $name = 'Franz';
+        $age = 50;
+        
+        view('name.show', [
+            'name' => $name,
+            'age'  => $age,
+        ])
+        
+        view('name.show')->with('name', $name)->with('age', $age)
+        
+        view('name.show', compact( 'name', 'age' )
+PATH TO A VIEW
+    there are 2 identical ways to get the path to a view
+        view('tasks/show');
+        view('tasks.show'); // more common in Laravel
