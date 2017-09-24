@@ -28,8 +28,8 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         [$task] = new [Task];
-        [$task]->title          = $request->input('title');
-        [$task]->description    = $request->input('description');
+        [$task]->title          = $request->title;
+        [$task]->description    = $request->description;
         [$task]->save();
 
         return redirect('[tasks]');
@@ -78,8 +78,8 @@ class TasksController extends Controller
 
     public function update([Task] [$task], Request $request)
     {
-        [$task]->title          = $request->input('title');
-        [$task]->description    = $request->input('description');
+        [$task]->title          = $request->title;
+        [$task]->description    = $request->description;
         [$task]->save();
 
         return redirect('[tasks]');
