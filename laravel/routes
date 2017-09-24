@@ -1,0 +1,150 @@
+- the first matching route (from top till bottom) will be used for the request
+- if no route matches, a 404 error will be returned
+- returns something which will be processed further (a string mostly; can be just a string, JSON or HTML (HTML mostly is produced by views))
+
+WITH FACADE
+Route::get('/test', function () {});
+WITHOUT FACADE
+$router->get('/test', function () {});
+
+SECOND PARAMETER CAN BE CLOSURE ...
+Route::get('/test', function () {
+    return 'Test!';
+    return view('foo');
+});
+OR A CONTROLLER METHOD
+Route::get('/test', 'FooController@bar');
+
+// HTTP verbs ###########################################################################################
+Route::get('/',	function ()	{});
+Route::post('/', function () {});
+Route::put('/',	function () {});
+Route::delete('/', function () {});
+Route::any('/', function () {});
+Route::match(['get', 'post'], '/', function () {});
+
+CONVENTION WHEN CREATING A RESOURCE
+Verb        URL                 Controller method   Route name      Description
+GET         tasks               index()             tasks.index     Show	all	tasks
+GET         tasks/create        create()            tasks.create    Show	the	create	task	form
+POST        tasks               store()             tasks.store     Accept	form	submission	from	the	create	task	form
+GET         tasks/{task}        show()              tasks.show      Show	one	task
+GET         tasks/{task}/edit   edit()              tasks.edit      Edit	one	task
+PUT/PATCH   tasks/{task}        update()            tasks.update    Accept	form	submission	from	the	edit	task	form
+DELETE      tasks/{task}        destroy()           tasks.destroy   Delete	one	task
+
+// route parameters ###########################################################################################
+// identical naming is only a very useful convention (as long as it's not route model binding)
+Route::get('users/{foo}/comments/{bar}', function ($valueOfFoo, $valueOfBar) {});
+// optional route parameter (should have a default value)
+Route::get('users/{id?}', function ($id = 'fallbackId') {});
+
+// routes that only are used if the regex matches ################################################################
+Route::get('users/{id}', function ($id) {})->where('id', '[0-9]+');
+Route::get('users/{username}', function ($username)	{})->where('username', '[A-Za-z]+');
+Route::get('posts/{id}/{slug}', function ($id,	$slug)	{})->where(['id' => '[0-9]+', 'slug' => '[A-Za-z]+']);
+
+// route names ###########################################################################################
+// are not needed for routing but if you use it everywhere else to refer to a route, you can easily change an URL for example
+Route::get('members/{id}', 'MembersController@show')->name('members.show');
+    
+    // the same in 5.1
+    Route::get('members/{id}',	[
+        'as'	=>	'members.show',
+        'uses'	=>	'MembersController@show'
+    ]);
+    
+// route groups ###########################################################################################
+Route::group([], function () {
+    Route::get('hello',	function () {
+        return 'Hello';
+    });
+    Route::get('world', function () {
+        return 'World';
+    });
+});
+// middleware: Probably the most common use for route groups is to apply middleware to a group of routes
+Route::group(['middleware' => 'auth'], function () { // users have to be logged in to view dashboard and account
+    Route::get('dashboard', function () {});
+    Route::get('account', function () {});
+});
+// path prefixes
+Route::group(['prefix' => 'api'], function () {
+    Route::get('/',	function ()	{});        // /api
+    Route::get('users', function () {});    // /api/users
+});
+// namespace prefixes
+Route::group(['namespace' => 'API'], function () {
+    Route::get('api/', 'ControllerB@index');    // App\Http\Controllers\API\ControllerB
+});
+// route name prefixes
+Route::group(['as' => 'users.', 'prefix' => 'users'], function () {
+    Route::group(['as'	=>	'comments.',	'prefix'	=>	'comments'],	function	()	{
+        Route::get('{id}', function () {})->name('show'); // name: users.comments.show
+    });
+});
+// Subdomain routing
+Route::group(['domain' => 'api.myapp.com'],	function ()	{
+    Route::get('/',	function () {});
+});
+// Parameterized subdomain routing
+Route::group(['domain' => '{account}.myapp.com'], function () {
+    Route::get('/',	function ($account)	{});
+    Route::get('users/{id}', function ($account, $id) {});
+});
+
+// route model binding ###########################################################################################
+// Laravel looks if the Method show() has a parameter named $task; if it
+// has and if it is type hinted, then it will use the value of {task} to
+// find the Task-object with the primary key with the value of {task}:
+// Task::find( {task} );
+
+// implicit route model binding (since 5.2)
+Route::get('/tasks/{task}', 'TasksConstroller@show');
+public function show(Task $task)
+{
+    return view('tasks.show', compact('task'));
+}
+
+// explicit route model binding
+// To	manually	configure	route	model	bindings,	add	a	line to	the
+// boot() 	method	in	 App\Providers\RouteServiceProvider .
+public function boot(Router	$router)
+{
+    //	Just	allows	the	parent's	boot()	method	to	still	run
+    parent::boot($router);
+    //	Perform	the	binding
+    $router->model('event',	Conference::class);
+}
+//You’ve	now	defined	that	whenever	a	route	has	a	parameter	in	its	definition	named	 {event}, the
+//route	resolver	will	return	an	instance	of	the	 Conference class with the ID of that URL parameter.
+Route::get('events/{event}', function (Conference $event)	{
+    return	view('events.show')->with('event',	$event);
+});
+
+// resource controller binding ###########################################################################################
+// Thankfully, you don’t have to generate routes for each of the conventional resource controller methods by hand.
+Route::resource('tasks', 'TasksController');
+// This	will	automatically	bind	all	of	the	routes	for	this	resource	to	the	appropriate	method
+// names	on	the	specified	controller.	It’ll	also	name	these	routes	appropriately;	for	example,	the
+// index() 	method	on	the	 tasks 	resource	controller	will	be	named	 tasks.index .
+
+// route caching ###########################################################################################
+//If	you’re	looking	to	squeeze	every	millisecond	out	of	your	load	time,	you	may	want	to	take	a
+//look	at	route	caching.	One	of	the	pieces	of	Laravel’s	bootstrap	that	can	take	anywhere	from	a
+//few	dozen	to	a	few	hundred	milliseconds	is	parsing	the	routes/*	files,	and	route	caching
+//speeds	up	this	process	dramatically.
+//To	cache	your	routes	file,	you	need	to	be	using	all	controller	and	resource	routes	(no	route
+//closures).	If	your	app	isn’t	using	any	route	closures,	you	can	run	 php	artisan	route:cache ,
+//Laravel	will	serialize	the	results	of	your	routes/*	files.	If	you	want	to	delete	the	cache,	run	 php
+//artisan	route:clear .
+//Here’s	the	drawback:	Laravel	will	now	match	routes	against	that	cached	file	instead	of	your
+//actual	routes/*	files.	You	can	make	endless	changes	to	those	files,	and	they	won’t	take	effect
+//until	you	run	 route:cache 	again.	This	means	you’ll	have	to	recache	every	time	you	make	a
+//change,	which	introduces	a	lot	of	potential	for	confusion.
+//Here’s	what	I	would	recommend	instead:	since	Git	ignores	the	route	cache	file	by	default
+//anyway,	consider	only	using	route	caching	on	your	production	server,	and	run	the	 php
+//artisan	route:cache 	command	every	time	you	deploy	new	code	(whether	via	a	Git	post-
+//deploy	hook,	a	Forge	deploy	command,	or	as	a	part	of	whatever	other	deploy	system	you
+//use).	This	way	you	won’t	have	confusing	local	development	issues,	but	your	remote
+//environment	will	still	benefit	from	route	caching.
