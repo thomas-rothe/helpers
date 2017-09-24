@@ -1,138 +1,59 @@
-
-// forms ###########################################################################################
-Form	Method	Spoofing
-Sometimes,	you	need	to	manually	define	which	HTTP	verb	a	form	should	send	as.	HTML
-forms	only	allow	for	 GET 	or	 POST ,	so	if	you	want	any	other	sort	of	verb,	you’ll	need	to
-specify	that	yourself.
-
-An	Introduction	to	HTTP	Verbs
-We’ve	talked	about	the	 GET 	and	 POST 	HTTP	verbs	already.	If	you’re	not	familiar	with	HTTP
-verbs,	the	other	two	most	common	ones	are	 PUT 	and	 DELETE ,	but	there’s	also	 HEAD ,	 OPTIONS ,
-PATCH ,	and	two	others	that	are	pretty	much	never	used	in	normal	web	development,	 TRACE 	and
-CONNECT .
-Here’s	the	quick	rundown:	 GET 	requests	a	resource	and	 HEAD 	asks	for	a	headers-only	version
-of	the	 GET ,	 POST 	creates	a	resource,	 PUT 	overwrites	a	resource	and	 PATCH 	modifies	a	resource,
-DELETE 	deletes	a	resource,	and	 OPTIONS 	asks	the	server	which	verbs	are	allowed	at	this	URL.
-
-HTTP	Verbs	in	Laravel
-As	we’ve	shown	already,	you	can	define	which	verbs	a	route	will	match	in	the	route	definition
-using	 Route::get() ,	 Route::post() ,	 Route::any() ,	or	 Route::match() .	You	can	also	match
-with	 Route::patch() ,	 Route::put() ,	and	 Route::delete() .
-But	how	does	one	send	a	request	other	than	 GET 	with	a	web	browser?	First,	the	 method 	attribute
-in	an	HTML	form	determines	its	HTTP	verb:	if	your	form	has	a	 method 	of	 "GET" ,	it	will
-submit	via	query	parameters	and	a	 GET 	method;	if	the	form	has	a	 method 	of	 "POST" ,	it	will
-submit	via	the	post	body	and	a	 POST 	method.
-JavaScript	frameworks	make	it	easy	to	send	other	requests,	like	 DELETE 	and	 PATCH .	But	if	you
-find	yourself	needing	to	submit	HTML	forms	in	Laravel	with	verbs	other	than	 GET 	or	 POST ,
-you’ll	need	to	use	form	method	spoofing,	which	is	spoofing	the	HTTP	method	in	an	HTML
-form.
-
-HTTP	Method	Spoofing	in	HTML	Forms
-To	inform	Laravel	that	the	form	you’re	currently	submitting	should	be	treated	as	something
-other	than	 POST ,	add	a	hidden	variable	named	 _method 	with	the	value	of	either	 "PUT" ,	 "PATCH" ,
-or	 "DELETE" ,	and	Laravel	will	match	and	route	that	form	submission	as	if	it	were	actually	a
-request	with	that	verb.
-The	form	in	Example	3-31,	since	it’s	passing	Laravel	the	method	of	 "DELETE" ,	will	match
-routes	defined	with	 Route::delete() 	but	not	those	with	 Route::post() .
-Example	3-31.	Form	method	spoofing
-<form	action="/tasks/5"	method="POST">
-				<input	type="hidden"	name="_method"	value="DELETE">
-</form>
-
-CSRF	Protection
-If	you’ve	tried	to	create	and	submit	a	form	in	a	Laravel	application	already	—	including	the
-form	in	Example	3-31	—	you’ve	likely	run	into	the	dreaded	 TokenMismatchException .
-By	default,	all	routes	in	Laravel	except	“read-only”	routes	(those	using	 GET ,	 HEAD ,	or
-OPTIONS )	are	protected	against	cross-site	request	forgery	(CSRF)	attacks	by	requiring	a	token,
-in	the	form	of	an	input	named	 _token ,	to	be	passed	along	with	each	request.	This	token	is
-generated	at	the	start	of	every	session,	and	every	non–read-only	route	compares	the	submitted
-_token 	against	the	session	token.
-
-You	have	two	options	for	getting	around	this.	The	first,	and	preferred,	method	is	to	add	the
-_token 	input	to	each	of	your	submissions.	In	HTML	forms,	that’s	simple;	look	at	Example	3-
-32.
-Example	3-32.	CSRF	tokens
-<form	action="/tasks/5"	method="POST">
-				<?php	echo	csrf_field();	?>
-<!--	or:	-->
-<input	type="hidden"	name="_token"	value="<?php	echo	csrf_token();	?>">
-</form>
-In	JavaScript	applications,	it’s	a	bit	more	work,	but	not	much.	The	most	common	solution	for
-sites	using	JavaScript	frameworks	is	to	store	the	token	on	every	page	in	a	 <meta> 	tag	like	this
-one:
-<meta	name="csrf-token"	content="<?php	echo	csrf_token();	?>"	id="token">
-Storing	the	token	in	a	 <meta> 	tag	makes	it	easy	to	bind	it	to	the	correct	HTTP	header,	which
-you	can	do	once	globally	for	all	requests	from	your	JavaScript	framework,	like	in
-Example	3-33.
-Example	3-33.	Globally	binding	a	header	for	CSRF
-//	in	jQuery:
-$.ajaxSetup({
-headers:	{
-'X-CSRF-TOKEN':	$('meta[name="csrf-token"]').attr('content')
-}
-});
-//	in	Vue:
-Vue.http.interceptors.push((request,	next)	=>	{
-request.headers['X-CSRF-TOKEN']	=
-document.querySelector('#token').getAttribute('content');
-next();
-});
-Laravel	will	check	the	 X-CSRF-TOKEN 	on	every	request,	and	valid	tokens	passed	there	will
-mark	the	CSRF	protection	as	satisfied.
-Note	that	the	Vue	syntax	for	CSRF	in	this	example	is	not	necessary	if	you’re	working	with	the
-5.3	Vue	bootstrap;	it	already	does	this	work	for	you.
-
-
-#####################################################################################################################
-#####################################################################################################################
-#####################################################################################################################
-#####################################################################################################################
-
-
-HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
-	Beispiel-HTML_Formular:
-	<form method="POST" action="/posts">
-		{{ csrf_field() }}
-		<div class="form-group">
-			<label for="title">Titel</label>
-			<input type="text" class="form-control" id="title" name="title">
-		</div>
-		<div class="form-group">
-			<label for="body">Body</label>
-			<textarea id="body" name="body" class="form-control"></textarea>
-		</div>
-		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Publish</button>
-		</div>
+FORM METHOD SPOOFING
+	- HTML forms only allow GET and POST verbs (determined by the "method" attribute) but Laravel allows to specify additional verbs for HTML forms
+	- often used for PUT and DELETE (also possible are: HEAD, OPTIONS, PATCH and the rarely used: TRACE, CONNECT)
+		GET	requests a resource
+		HEAD	asks for a headers-only version of GET
+		POST 	creates a resource
+		PUT 	overwrites a resource
+		PATCH 	modifies a resource
+		DELETE 	deletes a resource
+		OPTIONS	asks the server which verbs are allowed at this URL
+	- works by adding a hidden variable named "_method" with a value like "PUT", "PATCH" or "DELETE"; Laravel will
+		match and route that form submission as if it was actually a request with that verb
+		
+	<form action="/tasks/5" method="POST">
+		<input type="hidden" name="_method" value="DELETE">
 	</form>
-	VALIDATION
-		mit HTML 5 automatisch:
-			z.B. darf "title" nicht NULL sein in der DB, dafür HTML 5 keyword "required":
-			<input type="text" class="form-control" id="title" name="title" required>
-		oder wegen älteren Browsern, die HTML 5 nicht supporten, braucht man stattdessen serverseitige validation:
-			SIEHE CONTROLLER
-			Ausgabe der Validation-Fehler:
-			<form>
-				...
-				@if (count($errors))
-					<div class="form-group">
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)	// $errors-Variable gibt es immer; wenn keine Fehler ist es leer; man kann es also immer schreiben
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					</div>
-				@endif
+CSRF PROTECTION
+	- if you try to send a form without a CSRF token Laravel will fail and throw an TokenMismatchException
+	- by default, all routes except the "read-only" routes (GET, HEAD, OPTIONS) are protected against CSRF attacks
+		by requiring a token, in the form of an input named "_token", to be passed along with each request
+	- the token is generated at the start of every session, and every non–read-only route compares the submitted
+		"_token" against the session token
+	- so you have to add the "_token" input to each of your submissions
+			<form action="/tasks/5" method="POST">
+				{{ csrf_field() }}
+			
+				<?php echo csrf_field(); ?>
+				
+				<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 			</form>
-			oder übersichtlicher ist es, das in ein partial auszulagern und dieses immer zu includen, wenn nötig:
-			<form>
-				...
-				@include('layouts.errors')
-			</form>
-			mit einer neuen Datei:
-			resources/views/layouts/errors.blade.php:
+	- Laravel will check the X-CSRF-TOKEN on every request, and valid tokens passed there will mark the CSRF
+		protection as satisfied
+	- in JavaScript applications: store the token on every page in a <meta> tag
+		<meta name="csrf-token" content="<?php echo csrf_token(); ?>" id="token">
+		
+		JQUERY
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		
+		VUE
+		Vue.http.interceptors.push((request, next) => {
+			request.headers['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
+			next();
+		});
+VALIDATION
+	mit HTML 5 automatisch:
+		z.B. darf "title" nicht NULL sein in der DB, dafür HTML 5 keyword "required":
+		<input type="text" class="form-control" id="title" name="title" required>
+	oder wegen älteren Browsern, die HTML 5 nicht supporten, braucht man stattdessen serverseitige validation:
+		SIEHE CONTROLLER
+		Ausgabe der Validation-Fehler:
+		<form>
+			...
 			@if (count($errors))
 				<div class="form-group">
 					<div class="alert alert-danger">
@@ -144,3 +65,22 @@ HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
 					</div>
 				</div>
 			@endif
+		</form>
+		oder übersichtlicher ist es, das in ein partial auszulagern und dieses immer zu includen, wenn nötig:
+		<form>
+			...
+			@include('layouts.errors')
+		</form>
+		mit einer neuen Datei:
+		resources/views/layouts/errors.blade.php:
+		@if (count($errors))
+			<div class="form-group">
+				<div class="alert alert-danger">
+					<ul>
+						@foreach ($errors->all() as $error)	// $errors-Variable gibt es immer; wenn keine Fehler ist es leer; man kann es also immer schreiben
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			</div>
+		@endif
