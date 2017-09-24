@@ -1,5 +1,6 @@
 ELOQUENT
 	- Eloquent is Laravel's active record implementation
+	- think of each Eloquent model as a powerful query builder allowing you to fluently query the database table associated with the model
 	- naming convention:
 		- first letter big, singular					Task
 		- DB table first letter small, plural				create_tasks_table
@@ -11,27 +12,51 @@ CREATE MODEL
 		php artisan make:model Post -mc
 		= php artisan make:controller PostsController; php artisan make:model Post; php artisan make:migration create_posts_table --create=posts
 METHODS
-	FETCH ALL RESOURCES
-		Task::all();
-	FETCH ID 1
-		Task::find(1);
-	FETCH WHERE ID 2
+	COLLECTION OF OBJECTS
+		ALL
+			Task::all()
+		GET (FOR SELECTIONS)
+			Task::where('id', 2)->get()
+		FIND
+			Task::find([1, 2, 3]);
+		PLUCK (like all but only 'body')
+			Task::pluck('body');
+	SINGLE OBJECT
+		FIND
+			Task::find(1)
+		FIND OR FAIL
+			Task::findOrFail(1)
+		FIRST OR FAIL
+			Task::firstOrFail(1)
+		FIRST (LIMIT 1)
+			Task::all()->first()
+	AGGREGATES
+		Task::where('active', 1)->count();
+		Task::where('active', 1)->max('price');
+	WHERE
 		Task::where('id', 2)->get();
-	FETCH ALL WHERE ID > 2
-		Task::where('id', '>', 2)->get();
-	FETCH ALL BUT ONLY COLUMN 'body'
-		Task::pluck('body');
-	FETCH ALL LIMIT 1
-		Task::all()->first();
+		Task::where('id', '>', 2)
+			->orderBy('name', 'desc')
+               		->take(10)
+			->get();
 	CREATE NEW
 		$task = Task::create([
 			'title' => 'My task',
 			'body' => 'Foo bar foo.',
 		]);
-		IS THE SAME AS
-			$task = new Task;
-			$task->body = 'fill body column';
-			$task->save();
+	FILL (FOR AN EXISTING OBJECT)
+		$task->fill([
+			'title' => 'My task',
+			'body' => 'Foo bar foo.',
+		]);
+	SAVE
+		$task = new Task;
+		$task->body = 'fill body column';
+		$task->save();
+	DELETE
+		$flight->delete()
+	DESTROY
+		Task::destroy([1, 2, 3])
 CUSTOM METHODS
 	public function isComplete()
 	{
