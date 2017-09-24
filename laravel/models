@@ -107,31 +107,6 @@ CUSTOM METHODS
 		
 		Task::incomplete()->get();
 		Task::incomplete()->where('id', '>=', 2)->get();
-MASS ASSIGNEMENT
-	class Task extends Model
-	{
-		// bei neuen tasks per POST request sind aus Sicherheitsgründen nur die gelisteten Felder erlaubt
-		protected $fillable = ['title', 'body'];
-		// oder gleichbedeutend umgekehrt (also die gelisteten Felder sind NICHT erlaubt):
-		protected $guarded = ['user_id'];
-	}
-	so wie oben kann man das für alle Klassen machen, die Model extenden oder wie folgt mit einer Zwischenklasse, 
-	also einer Parent-Klasse die Model extended und die von allen weiteren Model-Klassen extended wird:
-		namespace App;
-		use Illuminate\Database\Eloquent\Model as Eloquent;
-		class Model extends Eloquent
-		{
-			protected $guarded = ['user_id', 'bla'];
-		}
-		und:
-		class Post extends Eloquent
-		{
-			...
-			Post::create(request()->all());
-			oder am besten:
-			Post::create(request(['title', 'body']));
-			...
-		}
 CUSTOMIZING THE ROUTE KEY FOR AN ELOQUENT MODEL (FOR ROUTE MODEL BINDING)
 	- any time an Eloquent model is looked up via a URL segment (usually because of route model binding), the
 		default column Eloquent will look it up by is its primary key
