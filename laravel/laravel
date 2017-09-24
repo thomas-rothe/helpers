@@ -92,61 +92,6 @@ FETCH FROM DB (query builder; besser ist aber wahrscheinlich immer, dasselbe mit
 		$tasks = DB::table('tasks')->find($id);
 	ORDER BY date
 		$tasks = DB::table('tasks')->latest()->get();
-HTML-FORM (MIT TWITTER BOOTSTRAP-KLASSEN) für einen Blog-Pst mit Titel und Body
-	Beispiel-HTML_Formular:
-	<form method="POST" action="/posts">
-		{{ csrf_field() }}
-		<div class="form-group">
-			<label for="title">Titel</label>
-			<input type="text" class="form-control" id="title" name="title">
-		</div>
-		<div class="form-group">
-			<label for="body">Body</label>
-			<textarea id="body" name="body" class="form-control"></textarea>
-		</div>
-		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Publish</button>
-		</div>
-	</form>
-	VALIDATION
-		mit HTML 5 automatisch:
-			z.B. darf "title" nicht NULL sein in der DB, dafür HTML 5 keyword "required":
-			<input type="text" class="form-control" id="title" name="title" required>
-		oder wegen älteren Browsern, die HTML 5 nicht supporten, braucht man stattdessen serverseitige validation:
-			SIEHE CONTROLLER
-			Ausgabe der Validation-Fehler:
-			<form>
-				...
-				@if (count($errors))
-					<div class="form-group">
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)	// $errors-Variable gibt es immer; wenn keine Fehler ist es leer; man kann es also immer schreiben
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					</div>
-				@endif
-			</form>
-			oder übersichtlicher ist es, das in ein partial auszulagern und dieses immer zu includen, wenn nötig:
-			<form>
-				...
-				@include('layouts.errors')
-			</form>
-			mit einer neuen Datei:
-			resources/views/layouts/errors.blade.php:
-			@if (count($errors))
-				<div class="form-group">
-					<div class="alert alert-danger">
-						<ul>
-							@foreach ($errors->all() as $error)	// $errors-Variable gibt es immer; wenn keine Fehler ist es leer; man kann es also immer schreiben
-								<li>{{ $error }}</li>
-							@endforeach
-						</ul>
-					</div>
-				</div>
-			@endif
 FAVICON
 	1.
 	<head>
