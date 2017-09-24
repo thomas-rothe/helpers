@@ -14,8 +14,10 @@ class TasksController extends Controller
 
     public function index()
     {
-        return view('[tasks].index')
-            ->with('[tasks]', [Task]::all());
+		[$task] = [Task]::all();
+		return view('[tasks].index', compact(
+            '[task]'
+        ));
     }
 
     public function create()
@@ -62,14 +64,16 @@ class TasksController extends Controller
 
     public function show([Task] [$task])
     {
-        return view('[tasks].show')
-            ->with('[task]', [$task]);
+		return view('[tasks].show', compact(
+            '[task]'
+        ));
     }
 
     public function edit([Task] [$task])
     {
-        return view('[tasks].edit')
-            ->with('[task]', [$task]);
+		return view('[tasks].edit', compact(
+            '[task]'
+        ));
     }
 
     public function update([Task] [$task], Request $request)
@@ -87,6 +91,6 @@ class TasksController extends Controller
 
 //        Session::flash('message', 'Successfully deleted!');
 
-        return Redirect::to('[tasks]');
+        return redirect('[tasks]');
     }
 }
