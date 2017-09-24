@@ -1,0 +1,87 @@
+// 2 ways: global helper function or facade; parameter is a valid internal path
+redirect('login') // is shortcut for: redirect()->to('login')
+\Illuminate\Http\RedirectResponse\Redirect::to('login')
+
+    redirect()->to()
+        points to a path; signature:
+        function	to($to	=	null,	$status	=	302,	$headers	=	[],	$secure	=	null)
+            $to 	is	a	valid	internal	path
+            $status 	is	the	HTTP	status	(defaulting	to	 302	FOUND )
+            $headers allows	you	to	define	which	HTTP	headers	to	send	along	with	your	redirect
+            $secure allows you to override the default choice of http versus https (which is normally set based
+            on	your	current	request	URL)
+        Route::get('redirect',	function	()	{
+            return	redirect()->to('home');
+            //	or	same,	using	the	shortcut:
+            return	redirect('home');
+        });
+    redirect()->route()
+        points to a route name; signature:
+        function	route($to	=	null,	$parameters	=	[],	$status	=	302,	$headers	=	[])
+        Route::get('redirect',	function	()	{
+            return	redirect()->route('conferences.show',	['conference'	=>	99]);
+        });
+    redirect()->back()
+        Because	of	some	of	the	built-in	conveniences	of	Laravel’s	session	implementation,	your
+        application	will	always	have	knowledge	of	what	the	user ’s	previously	visited	page	was.	That
+        opens	up	the	opportunity	for	a	 redirect()->() 	redirect,	which	simply	redirects	the	user	to
+        whatever	page	she	came	from.	There’s	also	a	global	shortcut	for	this:	 back() .
+    redirect()->home() 	redirects	to	a	route	named	 home .
+    redirect()->refresh() 	redirects	to	the	same	page	the	user	is	currently	on.
+    redirect()->away() 	allows	for	redirecting	to	an	external	URL	without	the	default	URL	validation.
+    redirect()->secure() 	is	like	 to() 	with	the	 secure 	parameter	set	to	 "true" .
+    redirect()->action('MyController@myMethod') 	allows	you	to	link	to	a	controller	and	method
+    redirect()->guest() 	is	used	internally	by	the	auth	system	(discussed	in	Chapter	9);	when	a	user	visits
+        a	route	he’s	not	authenticated	for,	this	captures	the	“intended”	route	and	then	redirects	the
+        user	(usually	to	a	login	page).
+    redirect()->intended() 	is	also	used	internally	by	the	auth	system;	after	a	successful	authentication,
+        this	grabs	the	“intended”	URL	stored	by	the	 guest() 	method	and	redirects	the	user	there.
+    redirect()->with()
+        When	you’re	redirecting	users	to	different	pages,	you	often	want	to	pass	certain	data	along
+        with	them.	You	could	manually	flash	the	data	to	the	session,	but	Laravel	has	some	convenience
+        methods	to	help	you	with	that.
+        Most	commonly,	you	can	pass	along	either	an	array	of	keys	and	values	or	a	single	key	and
+        value	using	 with()
+        Route::get('redirect-with-key-value',	function	()	{
+            return	redirect('dashboard')
+                ->with('error',	true);
+        });
+        Route::get('redirect-with-array',	function	()	{
+            return	redirect('dashboard')
+                ->with(['error'	=>	true,	'message'	=>	'Whoops!']);
+        });
+    redirect()->withInput()
+        to	redirect	with	the	user ’s	form	input
+        flashed;	this	is	most	common	in	the	case	of	a	validation	error,	where	you	want	to	send	the
+        user	back	to	the	form	she	just	came	from.
+        Redirect	with	form	input:
+        Route::get('form',	function	()	{
+            return	view('form');
+        });
+        Route::post('form',	function	()	{
+            return	redirect('form')
+                ->withInput()
+                ->with(['error'	=>	true,	'message'	=>	'Whoops!']);
+        });
+        The	easiest	way	to	get	the	flashed	input	that	was	passed	with	 withInput() 	is	using	the	 old()
+        helper,	which	can	be	used	to	get	all	old	input	( old() )	or	just	the	value	for	a	particular	key
+        ( old('username') ,	with	the	second	parameter	as	the	default	if	there	is	no	old	value).	You’ll
+        commonly	see	this	in	views,	which	allows	this	HTML	to	be	used	both	on	the	“create”	and	the
+        “edit”	view	for	this	form:
+        <input	name="username"	value="<?=
+        old('username',	'Default	username	instructions	here');
+        ?>">
+        Speaking	of	validation,	there	is	also	a	useful	method	for	passing	errors	along	with	a	redirect
+        response:	 withErrors() .	You	can	pass	it	any	“provider”	of	errors,	which	may	be	an	error
+        string,	an	array	of	errors,	or,	most	commonly,	an	instance	of	the	Illuminate	 Validator ,	which
+        we’ll	cover	in	Chapter	10.	Example	3-40	shows	an	example	of	its	use.
+        Route::post('form',	function	()	{
+            $validator	=	Validator::make($request->all()),	$this->validationRules);
+            if	($validator->fails())	{
+                return	redirect('form')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        });
+        withErrors() 	automatically	shares	an	 $errors 	variable	with	the	views	of	the	page	it’s
+        redirecting	to,	for	you	to	handle	however	you’d	like.
