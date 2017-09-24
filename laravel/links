@@ -1,0 +1,10 @@
+URL HELPER
+  <a href="<?php echo url('/'); ?>">                                  <a href="http://myapp.com/">
+ROUTE NAME
+  - better use route name than URL helper (cause you can change URLs later much easier)
+  <a href="<?php echo route('members.show', ['id'	=> 14]); ?>">       <a href="http://myapp.com/members/14">
+  
+  route('users.comments.show', [1,	2])                               http://myapp.com/users/1/comments/2
+  route('users.comments.show', ['userId' => 1, 'commentId' => 2])     http://myapp.com/users/1/comments/2
+  route('users.comments.show', ['commentId' => 2, 'userId' => 1])     http://myapp.com/users/1/comments/2
+  route('users.comments.show', ['uId' => 1, 'cId' => 2, 'opt' => 'a'])http://myapp.com/users/1/comments/2?opt=a
