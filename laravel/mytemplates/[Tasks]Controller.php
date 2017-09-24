@@ -39,10 +39,7 @@ class TasksController extends Controller
                     ->withErrors($validator)
                     ->withInput(/*Input::except('password')*/);
 	} else {
-                [Task]::create($request([
-                    'title',
-                    'description',
-                ]));
+                [Task]::create( $request()->all() );
 		
                 // Session::flash('message', 'Successfully created!');
 		
@@ -73,10 +70,7 @@ class TasksController extends Controller
                     ->withErrors($validator)
                     ->withInput(/*Input::except('password')*/);
 	} else {
-		[$task]->fill($request([
-			'title',
-			'description',
-		]));
+		[$task]->fill( $request()->all() );
 		
 		// Session::flash('message', 'Successfully created!');
 		
