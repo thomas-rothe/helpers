@@ -14,4 +14,9 @@ class [Task] extends Model
     // const CREATED_AT         = '[custom_columnname]';
     // const UPDATED_AT         = '[custom_columnname]';
     // protected $connection    = '[custom_connectionname]';
+    protected $fillable = [
+        'title',
+        'body'
+    ];
+    // protected $guarded = ['price'];
 }
