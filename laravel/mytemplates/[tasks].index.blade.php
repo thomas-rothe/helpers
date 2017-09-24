@@ -7,7 +7,7 @@
   </div>
     
   <div class="row [tasks]">
-    @each('[tasks].show', [$tasks], '[task]', 'No [tasks] found!')
+    @each('[tasks].show-as-list-item', [$tasks], '[task]', 'No [tasks] found!')
   </div>
     
 @endsection
