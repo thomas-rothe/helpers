@@ -14,8 +14,8 @@ class TasksController extends Controller
 
     public function index()
     {
-		[$task] = [Task]::all();
-		return view('[tasks].index', compact(
+        [$task] = [Task]::all();
+        return view('[tasks].index', compact(
             '[task]'
         ));
     }
@@ -27,10 +27,10 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        [$task] = new [Task];
-        [$task]->title          = $request->title;
-        [$task]->description    = $request->description;
-        [$task]->save();
+        [Task]::create([
+                'title'        	= $request->title,
+                'description'  	= $request->description,
+	]);
 
         return redirect('[tasks]');
 
@@ -64,23 +64,24 @@ class TasksController extends Controller
 
     public function show([Task] [$task])
     {
-		return view('[tasks].show', compact(
+        return view('[tasks].show', compact(
             '[task]'
         ));
     }
 
     public function edit([Task] [$task])
     {
-		return view('[tasks].edit', compact(
+        return view('[tasks].edit', compact(
             '[task]'
         ));
     }
 
     public function update([Task] [$task], Request $request)
     {
-        [$task]->title          = $request->title;
-        [$task]->description    = $request->description;
-        [$task]->save();
+        [$task]->fill([
+                'title'        	= $request->title,
+                'description'  	= $request->description,
+	]);
 
         return redirect('[tasks]');
     }
