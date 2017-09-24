@@ -18,46 +18,6 @@ DEBUG
 	dd('bla'); // global helper function to 'dump' and 'die'
 STANDARD-LOGIN ERSTELLEN
 	php artisan make:auth
-ROUTES							routes/web.php
-	CLOSURE
-		Route::get('/about', function() {
-			return view('about');
-		});
-	CONTROLLER
-		Route::get('/about', 'PagesController@about');
-
-		Route::get('/tasks', 'TasksController@index');		// den Controller, der alle z.B. Tasks anzeigen soll, den nennt man nach Konvention meistens "index"
-		Route::get('/tasks/{task}', 'TasksController@show');	// den Controller, der einen einzelnen z.B. Task anzeigen soll, den nennt man nach Konvention meistens "index"
-	####################################################################
-	WILDCARD
-		Route::get('/task/{blabla_wird_eh_id}', function($id) {
-			dd($id);
-		});
-	####################################################################
-	RESTFUL CONVENTIONS (wichtig für einen "basic resourceful controller")
-		GET	/posts					= view all posts
-		public function index()				= controller method
-
-		GET	/posts/{id}				= view a single post
-		public function show($id)			= controller method
-		#####################################################################################################################
-		GET	/posts/create				= input form for new post
-		public function create()			= controller method
-
-		POST	/posts					= send newly created post
-		public function store(Request $request)		= controller method
-		<form method="POST" action="/posts">		= HTML
-		Route::post('/posts', 'PostController@store');	= Route und Controller: die Methode heißt nach Konvention "store"
-		#####################################################################################################################
-		GET	/posts/{id}/edit			= edit form for existing post
-		public function edit($id)			= controller method
-
-		PATCH	/posts/{id}				= send newly edited parts of existing post
-		public function update(Request $request, $id)	= controller method
-		#####################################################################################################################
-		DELETE	/posts/{id}				= deletes an existing post
-		public function destroy($id)			= controller method
-		#####################################################################################################################
 VIEWS
 	PFADE alle folgenden Beispiel sind ident:
 		view('tasks/show');
