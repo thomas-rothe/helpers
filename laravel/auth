@@ -1,0 +1,7 @@
+OUT OF THE BOX
+    - migration: create_users_table
+    - model: User
+    - controllers: RegisterController, LoginController, ForgotPasswordController, ResetPasswordController
+    - command: make:auth; it creates:
+        - authentication-related views
+        - authentication-related routes
