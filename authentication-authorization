@@ -1,0 +1,8 @@
+ATHENTICATION
+  verifying who someone is, and allowing them to act as that person in your system. This
+  includes the login and logout processes, and any tools that allow the users to identify themselves during their time
+  using the application
+AUTHORIZATION
+  means determining whether the authenticated user is allowed (authorized) to perform a specific
+  behavior. For example, an authorization system allows us to forbid any nonadministrators from viewing site’s
+  earnings.
