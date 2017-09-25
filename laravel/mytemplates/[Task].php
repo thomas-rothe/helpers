@@ -19,4 +19,5 @@ class [Task] extends Model
         'body'
     ];
     // protected $guarded = ['price'];
+    // protected $hidden = ['password', 'remember_token',];     // excluded from the model's JSON form
 }
