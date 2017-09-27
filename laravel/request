@@ -51,14 +51,40 @@ GET THE APP'S REQUEST OBJECT (DIFFERENT WAYS)
     
 COMMONLY USED METHODS (ORDERED BY ARBITRARY CATEGORIES)
     BASIC USER INPUT
-        all()                                     returns	an	array	of	all	user-provided	input.
-        input(fieldName)                          returns	the	value	of	a	single	user-provided	input	field.
-        only(fieldName|[array,of,field,names])    returns	an	array	of	all	user-provided	input
-        for	the	specified	field	name(s).
-        except(fieldName|[array,of,field,names])  returns	an	array	of	all	user-provided
-        input	except	for	the	specified	field	name(s).
-        exists(fieldName)                         returns	a	boolean	of	whether	or	not	the	field	exists	in	the	input.
-        has(fieldName)                            returns	a	boolean	of	whether	the	field	exists	in	the	input	and	is	not
-        empty (has	a	value).
-        json()                                    returns	a	 ParameterBag 	if	the	page	had	JSON	sent	to	it.
-        json(keyName)                             returns	the	value	of	the	given	key	from	JSON	sent	to	the	page.
+        all()                        returns an array of all user-provided input.
+        input(fieldName)             returns the value of a single user-provided input field.
+        only(fieldName|[foo,bar])    returns an array of all user-provided input for the specified field name(s).
+        except(fieldName|[foo,bar])  returns an array of user-provided input except for the specified field name(s).
+        exists(fieldName)            returns a boolean of whether or not the field exists in the input.
+        has(fieldName)               returns a boolean of whether the field exists in the input and is not empty (has a value).
+        json()                       returns a ParameterBag if the page had JSON sent to it.
+        json(keyName)                returns the value of the given key from JSON sent to the page.
+    USER AND REQUEST STATE
+        method()                     returns the method (GET , POST, PATCH, etc.) used to access this route.
+        path()                       returns the path (without the domain) used to access this page; e.g., for
+                                         http://www.myapp.com/abc/def it would return abc/def
+        url()                        returns the URL (with the domain) used to access this page; e.g., for
+                                         http://www.myapp.com/abc it would return http://www.myapp.com/abc
+        is()                         returns a boolean of whether or not the current page request fuzzy-matches a
+                                         provided string (e.g., /a/b/c would be matched by $request->is('*b*'), where * stands
+                                         for any characters). It uses a custom regex parser found in Str::is 
+        ip()                         returns the user’s IP address.
+        header()                     returns an array of headers (e.g., ['accept-language' => ['en-US,en;q=0.8']] ),
+	                                 or, if passed a header name as a parameter, returns just that header
+        server()                     returns an array of the variables traditionally stored in $_SERVER (e.g., REMOTE_ADDR),
+	                                 or, if passed a $_SERVER variable name, returns just that value.
+        secure()                     returns a boolean of whether this page was loaded using HTTPS.
+        pjax()                       returns a boolean of whether this page request was loaded using Pjax.
+        wantsJson()                  returns a boolean of whether this request has /json content types in its Accept headers.
+        isJson()                     returns a boolean of whether this page request has any /json content types in
+                                         its Content-Type header.
+        accepts()                    returns a boolean of whether this page request accepts a given content type.
+    FILES (Every file that’s uploaded will be an instance of Symfony\Component\HttpFoundation\File\UploadedFile, which provides a suite of tools for validating, processing, and storing uploaded files)
+        file()                       returns an array of all uploaded files, or, if a key is passed (the file upload field
+                                         name), returns just the one file.
+        hasFile()                    returns a boolean of whether a file was uploaded at the specified key.
+    
+    
+    
+    
+    
