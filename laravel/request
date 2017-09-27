@@ -1,0 +1,64 @@
+- all input and more information from every execution of the application (HTTP request, from command-line) gets
+  converted into a Request object at a very early stage of the code
+- then the Request crosses multiple layers
+- then the Request gets to the application itself
+- then the application generates a Response object
+- the Response passes multiple layers until the answer is sent to the user
+
+
+entry point is public/index.php; what happens now:
+- Composer's autoload
+- Laravel's cache gets loaded
+- Laravel's bootstrap starts: application container gets created
+- registering a few core services (kernel, etc.)
+- instance of kernel is created 
+    - either (for web requests) an instance of the web kernel
+    - or (for console, cron and artisan requests) an instance of the console kernel
+- request is created
+- request is passed to the kernels handle() method
+- kernel processes request throuh middleware (or "layers"; is middleware and layers the same here?)
+- kernel handles exceptions
+- kernel passes request to the page router
+- the kernels method handle() returns a response object which gets returned to user
+- page request is terminated
+
+kernel
+- determines environment the request is running in:
+  - staging
+  - local
+  - production
+  - etc.
+- runs all the service providers
+- defines the list of middleware that will wrap each request (e.g. core middleware for sessions and CSRF protection)
+
+CAPTURE YOUR OWN REQUEST (VERY RARELY USED)
+    $request = Illuminate\Http\Request::capture();
+GET THE APP'S REQUEST OBJECT (DIFFERENT WAYS)
+
+    class SomeController extends	Controller
+    {
+				public function index(Request	$request)
+				{
+            $request;
+				}
+    }
+    
+    $request	=	request();
+    
+    $request	=	app(Illuminate\Http\Request::class);
+    
+    $request	=	app('request');
+    
+COMMONLY USED METHODS (ORDERED BY ARBITRARY CATEGORIES)
+    BASIC USER INPUT
+        all()                                     returns	an	array	of	all	user-provided	input.
+        input(fieldName)                          returns	the	value	of	a	single	user-provided	input	field.
+        only(fieldName|[array,of,field,names])    returns	an	array	of	all	user-provided	input
+        for	the	specified	field	name(s).
+        except(fieldName|[array,of,field,names])  returns	an	array	of	all	user-provided
+        input	except	for	the	specified	field	name(s).
+        exists(fieldName)                         returns	a	boolean	of	whether	or	not	the	field	exists	in	the	input.
+        has(fieldName)                            returns	a	boolean	of	whether	the	field	exists	in	the	input	and	is	not
+        empty (has	a	value).
+        json()                                    returns	a	 ParameterBag 	if	the	page	had	JSON	sent	to	it.
+        json(keyName)                             returns	the	value	of	the	given	key	from	JSON	sent	to	the	page.
