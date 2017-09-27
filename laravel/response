@@ -1,0 +1,5 @@
+application	sends a response to	the	end	user,	complete	with
+  - headers,
+  - cookies,
+  - content,
+  - and	anything	else	used	for	sending	the	end	user ’s	browser	instructions	on	rendering	a	page.
