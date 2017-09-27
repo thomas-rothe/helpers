@@ -1,36 +1,3 @@
-- all input and more information from every execution of the application (HTTP request, from command-line) gets
-  converted into a Request object at a very early stage of the code
-- then the Request crosses multiple layers
-- then the Request gets to the application itself
-- then the application generates a Response object
-- the Response passes multiple layers until the answer is sent to the user
-
-
-entry point is public/index.php; what happens now:
-- Composer's autoload
-- Laravel's cache gets loaded
-- Laravel's bootstrap starts: application container gets created
-- registering a few core services (kernel, etc.)
-- instance of kernel is created 
-    - either (for web requests) an instance of the web kernel
-    - or (for console, cron and artisan requests) an instance of the console kernel
-- request is created
-- request is passed to the kernels handle() method
-- kernel processes request throuh middleware (or "layers"; is middleware and layers the same here?)
-- kernel handles exceptions
-- kernel passes request to the page router
-- the kernels method handle() returns a response object which gets returned to user
-- page request is terminated
-
-kernel
-- determines environment the request is running in:
-  - staging
-  - local
-  - production
-  - etc.
-- runs all the service providers
-- defines the list of middleware that will wrap each request (e.g. core middleware for sessions and CSRF protection)
-
 CAPTURE YOUR OWN REQUEST (VERY RARELY USED)
     $request = Illuminate\Http\Request::capture();
 GET THE APP'S REQUEST OBJECT (DIFFERENT WAYS)
