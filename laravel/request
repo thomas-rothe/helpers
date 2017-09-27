@@ -83,7 +83,16 @@ COMMONLY USED METHODS (ORDERED BY ARBITRARY CATEGORIES)
         file()                       returns an array of all uploaded files, or, if a key is passed (the file upload field
                                          name), returns just the one file.
         hasFile()                    returns a boolean of whether a file was uploaded at the specified key.
-    
+    PERSISTANCE
+        flash()                      flashes the current request’s user input to the session to be retrieved later.
+        flashOnly()                  flashes the current request’s user input for any keys in the provided array.
+        flashExcept()                flashes the current request’s user input, except for any keys in the provided array.
+        old()                        returns an array of all previously flashed user input, or, if passed a key, returns the
+                                         value for that key if it was previously flashed.
+        flush()                      wipes all previously flashed user input.
+        cookie()                     retrieves all cookies from the request, or, if a key is provided, retrieves just
+                                         that cookie.
+        hasCookie()                  returns a boolean of whether the request has a cookie for the given key.
     
     
     
