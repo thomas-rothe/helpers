@@ -1,0 +1,9 @@
+injecting objects from outside into classes rather than creating them inside a class
+3 ways:
+    - constructor injection (an object’s dependencies are injected when it’s created)
+    
+        public function __construct(Mailer $mailer) {}
+    
+    - setter injection (the class exposes a method specifically for injecting	a	given	dependency)
+    - method injection (one or more methods expect their dependencies to be injected when they’re called)
+    
