@@ -1,0 +1,6 @@
+- a tool to bind and resolve instances of classes and interfaces
+- a powerful and nuanced manager of a network of interrelated dependencies
+OTHER NAMES FOR "SERVICE CONTAINER"
+    - Application container
+    - IoC (inversion of control) container
+    - DI (dependency injection) container
