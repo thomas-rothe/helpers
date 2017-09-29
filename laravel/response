@@ -1,5 +1,5 @@
-application	sends a response to	the	end	user,	complete	with
+application sends a response to the end user, complete with (a Response object whcih gets converted to an HTTP response first)
   - headers,
   - cookies,
   - content,
-  - and	anything	else	used	for	sending	the	end	user ’s	browser	instructions	on	rendering	a	page.
+  - and anything else used for sending the end user’s browser instructions on rendering a page
