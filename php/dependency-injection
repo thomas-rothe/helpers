@@ -1,9 +1,27 @@
-injecting objects from outside into classes rather than creating them inside a class
-3 ways:
+- injecting objects from outside into classes rather than creating them inside a class
+- this means the dependent class expects an object to be injected from outside (which it can use in its methods)
+- primary benefits are
+    - that it gives us the freedom to change what we’re injecting
+    - mock dependencies for testing
+    - and instantiate shared dependencies just once for shared use in different classes
+3 WAYS
     - constructor injection (an object’s dependencies are injected when it’s created)
     
         public function __construct(Mailer $mailer) {}
     
     - setter injection (the class exposes a method specifically for injecting	a	given	dependency)
     - method injection (one or more methods expect their dependencies to be injected when they’re called)
-    
+INVERSION OF CONTROL
+    You	may	have	heard	the	phrase	“inversion	of	control”	used	in	conjunction	with	“dependency	injection,”	and	sometimes
+    Laravel’s	container	is	called	the	IoC	container.
+    The	two	concepts	are	very	similar.	Inversion	of	control	references	the	idea	that,	in	traditional	programming,	the	lowest-
+    level	code	—	specific	classes,	instances,	and	procedural	code	—	“controls”	which	instance	of	a	particular	pattern	or
+    interface	to	use.	For	example,	if	you’re	instantiating	your	mailer	in	each	class	that	needs	it,	each	class	gets	to	decide
+    whether	to	use	Mailgun	or	Mandrill	or	Sendgrid.
+    The	idea	of	inversion	of	control	refers	to	flipping	that	“control”	to	live	at	the	opposite	end	of	your	application.	Now	the
+    definition	of	which	mailer	to	use	lives	at	the	highest,	most	abstract	level	of	your	application,	often	in	configuration.	Every
+    instance,	every	piece	of	low-level	code,	looks	up	to	the	high-level	configuration	to	essentially	“ask”:	“Can	you	give	me
+    a	mailer?”	They	don’t	“know”	which	mailer	they’re	getting,	just	that	they’re	getting	one.
+    Dependency	injection	and	especially	DI	containers	provide	a	great	opportunity	for	inversion	of	control,	because	you	can
+    define	once	which	concrete	instance	of	the	 Mailer 	interface,	for	example,	to	provide	when	injecting	mailers	into	any	class
+    that	needs	them.
