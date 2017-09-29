@@ -1,0 +1,34 @@
+tests in Laravel live in the /tests folder, where there are 2 files:
+    - TestCase.php (base class intended to be extended by any application tests)
+    - ExampleTest.php (which is a ready-to-run application test that will return green on any new app)
+
+        <?php
+        use Illuminate\Foundation\Testing\WithoutMiddleware;
+        use Illuminate\Foundation\Testing\DatabaseMigrations;
+        use Illuminate\Foundation\Testing\DatabaseTransactions;
+        class ExampleTest extends TestCase
+        {
+                public function testBasicExample()
+                {
+                        $this->visit('/')->see('Laravel');
+                }
+        }
+        
+RUN TESTS
+    cd project-directory
+    ./vendor/bin/phpunit
+    
+NAMING TESTS (like in PHPUnit)
+    - by default, Laravel’s testing system will run any files in the tests directory whose names end with the word "Test"
+    - only the methods in your tests with names that start with the word test will be run — or methods with a @test docblock
+        
+        public function test_it_names_things_well() { // Runs }
+				
+        public function testItNamesThingsWell() { // Runs }
+				
+        /**	@test	*/
+				public function it_names_things_well() { //	Runs }
+        
+METHODS
+    $this->visit('/welcome')->see('Laravel');            crawls the DOM of the given URL of the application and checks
+                                                         for the word “Laravel”; if it finds it, the test will pass
