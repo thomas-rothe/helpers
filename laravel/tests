@@ -22,13 +22,45 @@ NAMING TESTS (like in PHPUnit)
     - by default, Laravel’s testing system will run any files in the tests directory whose names end with the word "Test"
     - only the methods in your tests with names that start with the word test will be run — or methods with a @test docblock
         
-        public function test_it_names_things_well() { // Runs }
+        public function test_it_names_things_well() {}
 				
-        public function testItNamesThingsWell() { // Runs }
+        public function testItNamesThingsWell() {}
 				
-        /**	@test	*/
-				public function it_names_things_well() { //	Runs }
-        
+        /** @test */
+	public function it_names_things_well() {}
+
+TRAITS TO PULL INTO TEST CLASSES
+	WithoutMiddleware
+		If	you	import	 Illuminate\Foundation\Testing\WithoutMiddleware 	into	your	test	class,	it
+		will	disable	all	middleware	for	any	test	in	that	class.	This	means	you	won’t	have	to	worry
+		about	the	authentication	middleware,	or	CSRF	protection,	or	anything	else	that	might	be
+		useful	in	the	real	application	but	distracting	in	a	test.
+	DatabaseMigrations
+		Laravel	provides	two	tools	out	of	the	box	to	keep	your	database	in	the	right	state	between
+		tests:	the	 DatabaseMigrations 	trait	and	the	 DatabaseTransactions 	trait.
+		If	you	import	the	 DatabaseMigrations 	trait,	it	will	run	your	entire	set	of	database	migrations
+		up	before	each	test	and	down	after	each	test.	Laravel	makes	this	happen	by	running	 php
+		artisan	migrate 	in	the	 setUp() 	method	before	every	test	runs	and	 php	artisan
+		migrate:rollback 	in	the	 tearDown() 	method	after	each	test	finishes.
+	DatabaseTransactions
+		DatabaseTransactions ,	on	the	other	hand,	expects	your	database	to	be	properly	migrated
+		before	your	tests	start.	Then,	it	wraps	every	test	in	a	database	transaction,	which	it	rolls	back	at
+		the	end	of	each	test.	This	means	that,	at	the	end	of	each	test,	your	database	will	be	returned	to
+		the	exact	same	state	it	was	in	prior	to	the	test.
+
+
 METHODS
     $this->visit('/welcome')->see('Laravel');            crawls the DOM of the given URL of the application and checks
                                                          for the word “Laravel”; if it finds it, the test will pass
+TESTING ENVIRONMENT
+    - when tests are run the environment is set to testing, like this: app()->environment('testing')
+    - .env doesn't get loaded, environment varibles are set in phpunit.xml in the <php> section like this:
+    
+        <env name="DB_CONNECTION" value="sqlite"/>
+	
+	if you need different environment varibales for different environments, create a .env.test file nad load it 
+	in /tests/TestCase.php in the createApplication() below the app = require(...) line:
+	
+	if (file_exists(dirname(__DIR__) . '/.env.test')) {
+		(new \Dotenv\Dotenv(dirname(__DIR__), '.env.test'))->load();
+	}
