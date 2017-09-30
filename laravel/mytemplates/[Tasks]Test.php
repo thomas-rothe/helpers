@@ -12,7 +12,6 @@ class TasksTest extends TestCase
      */
     public function test_tasks_index()
     {
-        $this->markTestIncomplete('This test is incomplete');
         $response = $this->call('GET', '/tasks');
         $this->assertEquals(200, $response->status());
     }
@@ -22,7 +21,6 @@ class TasksTest extends TestCase
      */
     public function test_tasks_create()
     {
-        $this->markTestIncomplete('This test is incomplete');
         $response = $this->call('GET', '/tasks/create');
         $this->assertEquals(200, $response->status());
     }
@@ -32,7 +30,6 @@ class TasksTest extends TestCase
      */
     public function test_tasks_store()
     {
-        $this->markTestIncomplete('This test is incomplete');
         $data = [];
         $response = $this->call('POST', '/tasks', $data);
         $this->assertEquals(200, $response->status());
@@ -43,7 +40,6 @@ class TasksTest extends TestCase
      */
     public function test_tasks_show()
     {
-        $this->markTestIncomplete('This test is incomplete');
         $response = $this->call('GET', '/tasks/{tasks}');
         $this->assertEquals(200, $response->status());
     }
@@ -53,7 +49,6 @@ class TasksTest extends TestCase
      */
     public function test_tasks_edit()
     {
-        $this->markTestIncomplete('This test is incomplete');
         $response = $this->call('GET', '/tasks/{tasks}/edit');
         $this->assertEquals(200, $response->status());
     }
@@ -63,7 +58,6 @@ class TasksTest extends TestCase
      */
     public function test_tasks_update()
     {
-        $this->markTestIncomplete('This test is incomplete');
         $data = [];
         $response = $this->call('PUT', '/tasks/{tasks}', $data);
         $this->assertEquals(200, $response->status());
@@ -74,7 +68,6 @@ class TasksTest extends TestCase
      */
     public function test_tasks_destroy()
     {
-        $this->markTestIncomplete('This test is incomplete');
         $data = [];
         $response = $this->call('DELETE', '/tasks/{tasks}', $data);
         $this->assertEquals(200, $response->status());
