@@ -1,81 +1,82 @@
-class UsersTest extends TestCase
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class TasksTest extends TestCase
 {
     /**
-     * @route users.index
+     * @route tasks.index
      */
-    public function test_users_index()
+    public function test_tasks_index()
     {
         $this->markTestIncomplete('This test is incomplete');
-        $response = $this->call('GET', '/users');
+        $response = $this->call('GET', '/tasks');
         $this->assertEquals(200, $response->status());
     }
 
-
     /**
-     * @route users.create
+     * @route tasks.create
      */
-    public function test_users_create()
+    public function test_tasks_create()
     {
         $this->markTestIncomplete('This test is incomplete');
-        $response = $this->call('GET', '/users/create');
+        $response = $this->call('GET', '/tasks/create');
         $this->assertEquals(200, $response->status());
     }
 
-
     /**
-     * @route users.store
+     * @route tasks.store
      */
-    public function test_users_store()
+    public function test_tasks_store()
     {
         $this->markTestIncomplete('This test is incomplete');
         $data = [];
-        $response = $this->call('POST', '/users', $data);
+        $response = $this->call('POST', '/tasks', $data);
         $this->assertEquals(200, $response->status());
     }
 
-
     /**
-     * @route users.show
+     * @route tasks.show
      */
-    public function test_users_show()
+    public function test_tasks_show()
     {
         $this->markTestIncomplete('This test is incomplete');
-        $response = $this->call('GET', '/users/{users}');
+        $response = $this->call('GET', '/tasks/{tasks}');
         $this->assertEquals(200, $response->status());
     }
 
-
     /**
-     * @route users.edit
+     * @route tasks.edit
      */
-    public function test_users_edit()
+    public function test_tasks_edit()
     {
         $this->markTestIncomplete('This test is incomplete');
-        $response = $this->call('GET', '/users/{users}/edit');
+        $response = $this->call('GET', '/tasks/{tasks}/edit');
         $this->assertEquals(200, $response->status());
     }
 
-
     /**
-     * @route users.update
+     * @route tasks.update
      */
-    public function test_users_update()
+    public function test_tasks_update()
     {
         $this->markTestIncomplete('This test is incomplete');
         $data = [];
-        $response = $this->call('PUT', '/users/{users}', $data);
+        $response = $this->call('PUT', '/tasks/{tasks}', $data);
         $this->assertEquals(200, $response->status());
     }
 
-
     /**
-     * @route users.destroy
+     * @route tasks.destroy
      */
-    public function test_users_destroy()
+    public function test_tasks_destroy()
     {
         $this->markTestIncomplete('This test is incomplete');
         $data = [];
-        $response = $this->call('DELETE', '/users/{users}', $data);
+        $response = $this->call('DELETE', '/tasks/{tasks}', $data);
         $this->assertEquals(200, $response->status());
     }
 }
