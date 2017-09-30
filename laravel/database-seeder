@@ -17,14 +17,14 @@ REGISTER NEW SEEDER
 RUN METHOD
     public function run()
     {
-        factory(App\User::class, 2)->create()->each(function($u) {
-            $u->issues()->save(factory(App\Issues::class)->make());
+        factory(User::class, 2)->create()->each(function($u) {
+            $u->issues()->save( factory(Issues::class)->make() );
         });
     }
 
 METHODS
     factory(User::class, 2)                 defines which model should be created and how many (without saving anything)
     ->create()                              build specified objects and save them to database
-    ->make()                              
-    ->save()                              
+    ->create('name' => 'John'))             build specified objects, override attribute and save them to database
+    ->make()                                create models but not save them to the database
     ->each(function($user) {})              for each created User do something
