@@ -21,3 +21,10 @@ RUN METHOD
             $u->issues()->save(factory(App\Issues::class)->make());
         });
     }
+
+METHODS
+    factory(User::class, 2)                 defines which model should be created and how many (without saving anything)
+    ->create()                              build specified objects and save them to database
+    ->make()                              
+    ->save()                              
+    ->each(function($user) {})              for each created User do something
