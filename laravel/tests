@@ -1,6 +1,7 @@
 tests in Laravel live in the /tests folder, where there are 2 files:
     - TestCase.php (base class intended to be extended by any application tests)
-    - ExampleTest.php (which is a ready-to-run application test that will return green on any new app)
+    - Feature/ExampleTest.php (which is a ready-to-run application test that will return green on any new app)
+    - Unit/ExampleTest.php (which is a ready-to-run application test that will return green on any new app)
 
         <?php
         use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -13,7 +14,12 @@ tests in Laravel live in the /tests folder, where there are 2 files:
                         $this->visit('/')->see('Laravel');
                 }
         }
-        
+	
+CREATE
+	php artisan make:test UserTest		Create a test in the Feature directory
+
+	php artisan make:test UserTest --unit	Create a test in the Unit directory
+	
 RUN TESTS
     cd project-directory
     ./vendor/bin/phpunit
