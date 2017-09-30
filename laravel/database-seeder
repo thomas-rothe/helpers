@@ -1,0 +1,23 @@
+CREATE
+    php artisan make:seeder UserTableSeeder
+    
+REGISTER NEW SEEDER
+    /database/seeds/DatabaseSeeder.php:
+    
+    public function run()
+    {
+        Model::unguard();
+
+        $this->call(UserTableSeeder::class);
+        $this->call(IssueTableSeeder::class);
+
+        Model::reguard();
+    }
+    
+RUN METHOD
+    public function run()
+    {
+        factory(App\User::class, 2)->create()->each(function($u) {
+            $u->issues()->save(factory(App\Issues::class)->make());
+        });
+    }
