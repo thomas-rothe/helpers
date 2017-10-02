@@ -3,3 +3,58 @@ application sends a response to the end user, complete with (a Response object w
   - cookies,
   - content,
   - and anything else used for sending the end user’s browser instructions on rendering a page
+
+SIMPLEST POSSIBLE HTTP RESPONSE
+    Route::get('route',	function	()	{
+        return	new	Illuminate\Http\Response('Hello!'); // beefore sending it gets converted to a HTTP response
+    });
+
+CREATE OBJECT
+    new	Illuminate\Http\Response('Hello!')
+    
+    response('Hello!')
+
+STATUS CODE (is just the 2. parameter)
+    response('Some error!', 400)
+HEADERS
+  	response('Some error!', 400)->header('X-Header-Name', 'header-value')
+		response('Some error!', 400)->cookie('cookie-name', 'cookie-value')
+RESPONSE TYPES (for views, downloads, files, and JSON)
+    VIEW RESPONSE
+        - if you need to customize headers, HTTP status, or anything else when returning a view, you can use the view() response type
+        Route::get('/',	function	(XmlGetterService	$xml)	{
+                $data	=	$xml->get();
+                return	response()
+                        ->view('xml-structure',	$data)
+                        ->header('Content-Type',	'text/xml');
+        });
+    DOWNLOAD RESPONSE
+        - if you want your application to force the user’s browser to download a file
+        public	function	export()
+        {
+                return	response()
+                        ->download('path/to/file.csv', 'myfilename.csv', ['header' => 'value']);
+        }
+    FILE RESPONSE
+        - allows the browser to display the file instead of forcing a download. This is most common with images and PDFs
+        public	function	invoice($id)
+        {
+                return	response()->file("./invoices/{$id}.pdf",	['header'	=>	'value']);
+        }
+    JSON RESPONSE
+        - JSON responses are so common that, even though they’re not really particularly complex to program, there’s a custom response for them as well
+        public	function	contacts()
+        {
+                return	response()->json(Contact::all());
+        }
+        public	function	jsonpContacts(Request	$request)
+        {
+                return	response()
+                        ->json(Contact::all())
+                        ->setCallback($request->input('callback'));
+        }
+        public	function	nonEloquentContacts()
+        {
+                return	response()->json(['Tom',	'Jerry']);
+        }
+Redirect responses
