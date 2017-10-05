@@ -7,7 +7,7 @@ $factory->define(App\Task::class, function (Faker $faker) {
     	'disposer_id' => function () {
     	    return factory(App\User::class)->create()->id;
 	    },
-		'type' => $faker->numberBetween(0, 10),
-		'to_pick_at' => $faker->dateTime(),
+    	'type' => $faker->numberBetween(0, 10),
+    	'to_pick_at' => $faker->dateTime(),
     ];
 });
