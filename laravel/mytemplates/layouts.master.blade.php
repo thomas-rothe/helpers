@@ -1,4 +1,4 @@
-@include('partials.doctype.html5')
+@include('partials.doctype')
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
