@@ -5,6 +5,11 @@
 
 FILE STRUCTURE
 	-+ views
+	--+ assets
+	---- favicon.blade.php
+	---- fonts.blade.php
+	---- scripts.blade.php
+	---- styles.blade.php
 	--+ emails
 	---- html
 	----- signup.blade.php
