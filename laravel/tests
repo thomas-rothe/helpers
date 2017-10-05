@@ -14,11 +14,14 @@ tests in Laravel live in the /tests folder, where there are 2 files:
                         $this->visit('/')->see('Laravel');
                 }
         }
-	
+PHPSTORM
+	...
+	right click on "phpunit.xml" and choose run
 CREATE
-	php artisan make:test UserTest		Create a test in the Feature directory
-
-	php artisan make:test UserTest --unit	Create a test in the Unit directory
+	FEATURE
+		php artisan make:test UserTest		Create a test in the Feature directory
+	UNIT
+		php artisan make:test UserTest --unit	Create a test in the Unit directory
 	
 RUN TESTS
     cd project-directory
