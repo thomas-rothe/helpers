@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\[Task];
+use App\Task;
 
 class TasksController extends Controller
 {
@@ -18,49 +18,49 @@ class TasksController extends Controller
 
     public function index()
     {
-        [$task] = [Task]::all();
-        return view('[tasks].index', compact(
-            '[task]'
+        $tasks = Task::all();
+        return view('tasks.index', compact(
+            'tasks'
         ));
     }
 
     public function create()
     {
-        return view('[tasks].create');
+        return view('tasks.create');
     }
 
-    public function store(Store[Task] $request)
+    public function store(StoreTask $request)
     {	
-        [Task]::create( $request()->all() );
+        Task::create( $request()->all() );
 		
-        return redirect('[tasks]');
+        return redirect([tasks');
     }
 
-    public function show([Task] [$task])
+    public function show(Task $task)
     {
-        return view('[tasks].show', compact(
-            '[task]'
+        return view('tasks.show', compact(
+            'task'
         ));
     }
 
-    public function edit([Task] [$task])
+    public function edit(Task $task)
     {
-        return view('[tasks].edit', compact(
-            '[task]'
+        return view('tasks.edit', compact(
+            'task'
         ));
     }
 
-    public function update([Task] [$task], Store[Task] $request)
+    public function update(Task $task, StoreTask $request)
     {	
-	[$task]->fill( $request()->all() );
+	$task->fill( $request()->all() );
 		
-	return redirect('[tasks]');
+	return redirect('tasks');
     }
 
-    public function destroy([Task] [$task])
+    public function destroy(Task $task)
     {
-        [$task]->delete();
+        $task->delete();
 
-        return redirect('[tasks]');
+        return redirect('tasks');
     }
 }
