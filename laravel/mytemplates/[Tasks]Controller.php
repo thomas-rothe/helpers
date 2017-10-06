@@ -33,7 +33,7 @@ class TasksController extends Controller
     {	
         Task::create( $request()->all() );
 		
-        return redirect([tasks');
+        return redirect('tasks');
     }
 
     public function show(Task $task)
