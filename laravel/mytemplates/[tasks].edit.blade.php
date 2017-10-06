@@ -3,7 +3,7 @@
 @section('content')
 
   <form class="form-horizontal" method="POST" action="{{ route('[tasks]') }}">
-    @include('layouts.error')
+    @include('partials.errors')
 
     {{ csrf_field() }}
 
