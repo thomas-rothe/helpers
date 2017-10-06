@@ -31,7 +31,7 @@ class TasksController extends Controller
 
     public function store(StoreTask $request)
     {	
-        Task::create( $request()->all() );
+        Task::create( $request->all() );
 		
         return redirect('tasks');
     }
@@ -52,7 +52,7 @@ class TasksController extends Controller
 
     public function update(Task $task, StoreTask $request)
     {	
-	$task->fill( $request()->all() );
+	$task->fill( $request->all() );
 		
 	return redirect('tasks');
     }
