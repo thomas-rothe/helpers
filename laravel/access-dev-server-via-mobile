@@ -1,0 +1,4 @@
+RUN SERVER
+  php artisan serve --host 0.0.0.0 --port 80
+THEN VISIT IN BROWSER
+  http://10.10.10.108
