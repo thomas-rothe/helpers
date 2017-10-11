@@ -7,3 +7,34 @@ INPUT - ORDER OF ATTRIBUTES
 	6. All others (like checked, max-size, etc)
 	7. style
 	8. tabindex (I like 7 and 8 to be at the end as it's "non-relevant", in terms of the actual functionality, they are more styling/usability stuff, keep 'em out of the way!
+DEVICE ACCESS
+	FILE
+		<input type="file">
+	SPECIFIC FILETYPES
+		<input type="file" accept="image/*">
+		<input type="file" accept="audio/*" >
+		<input type="file" accept="video/*" >
+		IMAGE
+			FROM LOCAL GALLERY, CAMERA, ETC.
+				<input type="file" accept="image/*">
+			FROM CAMERA (WHICH GETS OPENED UP IMMEDIATELY)
+				<input type="file" accept="image/*" capture="camera">
+			MULTIPLE
+				<input type="file" accept="image/*" multiple>
+		VIDEO
+			FROM ANY VIDEO SOURCE (FILE SYSTEM, CAMCORDER, ETC.)
+				<input type="file" accept="video/*" >
+			FROM CAMCODER (WHICH GETS OPENED UP IMMEDIATELY)
+				<input type="file" accept="video/*" capture="camcorder">
+			FROM FILESYSTEM
+				<input type="file" accept="video/*" capture="filesystem">
+				OR
+				<input type="file" accept="video/*;capture=camcorder">
+SELECT
+	<select name="cars">
+		<option selected disabled hidden value>Please select!</option>
+		<option value="volvo">Volvo</option>
+		<option value="saab">Saab</option>
+		<option value="fiat">Fiat</option>
+		<option value="audi">Audi</option>
+	</select>
