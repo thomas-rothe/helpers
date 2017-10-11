@@ -55,11 +55,3 @@ JAVASCRIPT
 
 	HTML5: omit the attribute rather than provide a redundant MIME type -->
 		<script src="javascript.js"></script>
-FORM
-	SELECT
-		<select name="cars">
-			<option value="volvo">Volvo</option>
-			<option value="saab">Saab</option>
-			<option value="fiat">Fiat</option>
-			<option value="audi">Audi</option>
-		</select>
