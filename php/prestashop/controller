@@ -1,0 +1,13 @@
+OVERRIDE IN MODULE
+  [module]/override/controllers/admin/AdminCmsController.php:
+    <?php
+    class AdminCmsController extends AdminController
+    {
+        ...
+        return AdminController::renderForm(); // statt: return parent::renderForm();
+      }
+    }
+  
+  delete:
+    - override/controllers/admin/AdminCmsController.php
+    - app/cache/prod/class_index.php
