@@ -1,3 +1,4 @@
 CUSTOM HOOKS
   TEMPLATE
     {hook h='displaySlider'}
+    {hook h="displayAdminCustomers" id_customer=$customer->id}
