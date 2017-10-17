@@ -1,0 +1,2 @@
+VAR DUMP
+  <pre>{$urls|@var_dump}</pre>
