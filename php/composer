@@ -203,3 +203,15 @@ Lifecycle hooks and scripts
 			"php artisan optimize"
 		],
 	},
+To use your locally developed package create a composer.json:
+	{
+		"require": {
+		    "michaelkaefer/marc": "dev-master"
+		},
+		"repositories": [
+			{
+				"type": "vcs",
+				"url": "/var/www/html/marc"
+			}
+		]
+	}
