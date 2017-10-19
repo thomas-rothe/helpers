@@ -26,6 +26,15 @@
 				git remote add origin ssh://user@bitbucket.org/path/to/repo.git	<--sets an alias "origin"
 			HTTPS (better than via SSH, you don't have to bother about SSH keys)
 				git remote add origin https://bitbucket.org/user/repo		<--sets an alias "origin"
+### GITIGNORE ###
+	UNTRACK DIRECTORY
+		/public/uploads
+	UNTRACK FILE
+		file.txt
+	UNTRACK ALL FILES IN A DIRECTORY (BUT TRACK DIRECTORY)
+		add a .gitignore to the directory with:
+			*
+			!.gitignore
 ### CREATE REPO ###
 	INFO
 		- there are 2 ways of starting a new repo on your machine:
