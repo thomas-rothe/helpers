@@ -21,4 +21,12 @@ class StoreBlogPost extends FormRequest
             'title'     => 'required|unique:posts|max:255',
         ];
     }
+
+	public function messages()
+	{
+		return [
+            'title.required' => 'A title is required',
+			'rph.regex' => 'Stundensatz muss eine Zahl mit 2 Nachkommastellen sein, z.B. 0,01 oder 110,00',
+		];
+	}
 }
