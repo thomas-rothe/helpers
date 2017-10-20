@@ -131,12 +131,14 @@
 						<-- maybe same as: git fetch; git merge
 	FETCH
 		
-##### HELPER COMMANDS ###
-	RELEASE A VERSION
-		git tag -a 1.0.0 -m 'First version.'
+##### VIEW CHANGES ###
 	LOG
 		git log			<-- list of all commits
 		git log --oneline	<-- short list of all commits
+		git log -p -2		<-- show changes of the last two commits
+##### HELPER COMMANDS ###
+	RELEASE A VERSION
+		git tag -a 1.0.0 -m 'First version.'
 	REMOVE TRACKED FILES FROM REPO (for example after you added it to .gitignore)
 		git rm --cached file.txt
 ##############################################################################
