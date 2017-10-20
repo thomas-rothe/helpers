@@ -24,6 +24,11 @@ FILE STRUCTURE
 	--+ tasks			application specific resources get an own folder each
 	---+ partials			partials which are not reusable but specific for this resource
 	----- thumbnail.blade.php
+	---+ list
+	----- open.blade.php
+	----- closed.blade.php
+	----- with-image.blade.php
+	----- without-image.blade.php
 	---- create.blade.php
 	---- destroy.blade.php
 	---- edit.blade.php
