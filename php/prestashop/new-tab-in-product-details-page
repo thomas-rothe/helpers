@@ -1,0 +1,9 @@
+return parent::install() &&
+    ... &&
+    $this->registerHook('displayAdminProductsExtra');
+    
+public function hookDisplayAdminProductsExtra($params) {
+   return $this->display(__FILE__, 'tab-body.tpl');
+}
+
+create a template: [PrestaShop]\modules\[mymodule]\views\templates\hook\tab-body.tpl
