@@ -10,6 +10,8 @@ class [Mymodule] extends Module
 {
     protected $config_form = false;
 
+    private $myModelInstance;
+    
     public function __construct()
     {
         $this->name = '[mymodule]';
@@ -27,6 +29,9 @@ class [Mymodule] extends Module
         $this->description = $this->l('[Mymodule description]');
 
         $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
+        
+        // Models
+        $this->myModelInstance = new MyModel(Db::getInstance());
     }
 
     /***********************************************************************************************************************
