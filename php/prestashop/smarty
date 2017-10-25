@@ -1,2 +1,20 @@
 VAR DUMP
   <pre>{$urls|@var_dump}</pre>
+SELECT
+    <select disabled="disabled" id="gender" name="gender" class="form-control">
+        <option value="-"
+                {if isset($customer->gender) &&  $customer->gender === '-'}
+                    selected
+                {/if}
+        >-</option>
+        <option value="1"
+                {if isset($customer->gender) &&  $customer->gender === '1'}
+                    selected
+                {/if}
+        >männlich</option>
+        <option value="0"
+                {if isset($customer->gender) &&  $customer->gender === '0'}
+                    selected
+                {/if}
+        >weiblich</option>
+    </select>
