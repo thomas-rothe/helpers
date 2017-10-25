@@ -1,11 +1,13 @@
-################################# Array to string
-$string = '';
-$seperator = ', ';
-foreach( $list as $item ) {
-	$string .= $item->name . $seperator;
-}
-$string = trim( $string, $seperator );
-################################# DATE
+// Heutiges Datum und Datum von heute vor einer Woche
+$today = new DateTime();
+$lastWeek = new DateTime();
+$lastWeek = $lastWeek->sub(new DateInterval('P7D'));
+return array(
+    'ZIPPED_INVOICES_DOWNLOAD_DATE_FROM' => $lastWeek->format('Y-m-d'),
+    'ZIPPED_INVOICES_DOWNLOAD_DATE_TO' => $today->format('Y-m-d')
+);
+	
+	
 $d = new DateTime('2011-01-01T15:03:01.012345Z');
 $d->format('j')			// '1' <= ist der Tag ohne Null am Anfang
 $d->format('Y')			// '2011'
