@@ -1,0 +1,6 @@
+$string = '';
+$seperator = ', ';
+foreach( $list as $item ) {
+	$string .= $item->name . $seperator;
+}
+$string = trim( $string, $seperator );
