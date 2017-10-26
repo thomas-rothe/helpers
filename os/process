@@ -3,10 +3,17 @@ DEFINITION
     (there can be multiple running instances of the same program)
     (example: two processes of the "ls"-programm have different PIDs)
 MULTIPROGRAMABLE SYSTEM
-    - every process runs on the same physical CPU
-    - the processes alternate: each one gets the CPU for ca. 0,00001 to 0,0001 seconds, then the next one gets it 
+    every process runs on the same physical CPU, the processes alternate: each one gets the CPU for ca.
+        0,00001 to 0,0001 seconds, then the next one gets it 
+PSEUDOPARALLELISM vs. TRUE HARDWARE PARALLELISM
+    pseudoparallelism:
+        on machines with 1 CPU there's pseudoparallelism (it looks like if multiple processes run at the same time,
+        while in reality they alternate very quickly)
+    true hardware parallelism:
+        on multiprocessorsystems with 2 or more CPUs multiple processes can run at the same time
 COMPONENTS
-    - source code (compiled or not compiled)
+    - source code (compiled or not compiled; if there a multiple processes of the same program, the OS can manage it,
+        that they can share the same source code)
     - input
     - output
     - state, consists of:
