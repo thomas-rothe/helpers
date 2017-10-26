@@ -2,6 +2,10 @@ DEFINITION
     a running program
     (there can be multiple running instances of the same program)
     (example: two processes of the "ls"-programm have different PIDs)
+I/O
+    - a process can accept input on STDIN (file descriptor "0")
+    - a process can generate output on STDOUT (file descriptor "1")
+    - a process can generate error output on STDERR (file descriptor "2")
 MULTIPROGRAMABLE SYSTEM
     every process runs on the same physical CPU, the processes alternate: each one gets the CPU for ca.
         0,00001 to 0,0001 seconds, then the next one gets it 
@@ -55,6 +59,25 @@ PROCESS CREATION
             system call: creates new process and indicates which program to run in the new process
         - the user starts a new process (via mouse click or command line, etc.)
         - OS starts a periodical batch job (e.g. calculate the inventory costs every night)
+PROCESS TERMINATION
+    - if the parent terminates it does not affect the childs: on UNIX and Windows childs do not terminate when their
+        parent terminates
+    - there are 4 ways for a process to terminate
+        - normal exit       - if the process has finished execution it voluntarily terminates itsself with the execution of an
+                            appropriate system call (which tells the OS that the process has finished)
+                            - on UNIX the system call is "exit()", on Windows its "ExitProcess()"
+                            - the process usually returns "0" to tell the OS that it terminated successfully
+        - error exit        the process terminates voluntarily, e.g. if wrong parameters are provided the process
+                            terminates itself and returns an error to the OS
+        - fatal error       - the process gets terminated unvoluntarily
+                            - e.g. if there is a bug the process crashes (e.g. referencing nonexistent memory or 
+                            dividing by zero
+                            - with error handling you can tell the OS that the process should not crash but handle
+                            certain errors on its own -> the process does not get terminated but interrupted
+        - another process terminates the process
+                            - a process can tell the OS to terminate other process with a system call (if it has 
+                            got the permission to do so)                            
+                            - on UNIX the system call is "kill()", on Wondows its "TerminateProcess()"
 FOREGROUND vs. BACKGROUND
     foreground: processes which interact with human users
     background: processes which do not interact with users (they just run)
@@ -62,17 +85,42 @@ DAEMONS
     are background processes (no interaction with the human user, e.g.: waiting for emails, printing requests, web page requests)
 SYSTEM CALL TO CREATE A NEW PROCESS
     - the new process is called "child", the calling process is called "parent"
+    - parent and child each have a different address space:
+        - they cannot see what the other is writing to memory (the memory is copied but no writeable memory is shared 
+            (either the whole memory gets copied or parts are copied if needed via "copy-on-write"))
+    - sometimes the source code is shared bewtween parent and child
+    - parent and child share resources (e.g. open files)
     UNIX
         only one system call to create a new process: "fork"
-            1. "fork" creates an exact clone of the calling process with exact same:
+            1. "fork()" creates an exact clone of the calling process with exact same:
                 - memory image
                 - environment strings
                 - open files
             2. the child usually executes the
-                system call "execve" (or a similar system call); before "execve" the child changes its memory image (most
+                system call "execve()" (or a similar system call); before "execve" the child changes its memory image (most
                 important the file descriptors) and with "execve" it executes a new program 
     Windows
         the Win32 function call "CreateProcess"
             1. creates a process and
             2. loads a new program into the new process
+PROCESS HIERARCHIES
+    UNIX
+        PROCESS GROUP
+            - parent and all its childs form a process group
+            - if one process of a group gets a signal all the others get it too (e.g. keypress on a keyboard) if they 
+                have not terminated the assoziation with die signaling source; each process can handle the signal 
+                differently (e.g. ignore it, quit, etc.)
+            - when the system gets booted and UNIX initializes itself this happens:
+                - a special process, called "init", is present in the boot image
+                - "init" reads a file telling how many terminals there are
+                - "init" forks off a new process per terminal
+                - these new processes wait for someone to log in
+                - if a login is successful, the login process executes a shell to accept commands
+                - these commands may start up more processes, and so forth
+                - thus, all the processes in the whole system belong to a single tree, with init at the root
+    WINDOWS
+        there is no hierarchy, all processes are same (parents get a "token" to control their childs but they can give
+            the token to other processes)
+PROCESS STATES
     
+        
