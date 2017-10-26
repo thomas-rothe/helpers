@@ -1,3 +1,5 @@
+ALL INFO
+    echo phpinfo()
 SAPI (Server API)
     echo PHP_SAPI 
         - or the same: echo php_sapi_name()
@@ -34,3 +36,11 @@ PHP CONFIGURATION FILE PATH
         - outputs a string like:
             /etc/php/7.0/cli/php.ini        -> example for a CLI application
             /etc/php/7.0/apache2/php.ini    -> example for a web application
+    echo php_ini_scanned_files()
+        - outputs all .ini files which were read after "php.ini"
+    echo ini_get('display_errors')
+        - returns a value set in "php.ini"
+    if (!ini_get('display_errors')) {
+        ini_set('display_errors', '1');
+    }
+        - sets a .ini-value depending on its value
