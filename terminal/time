@@ -1,0 +1,12 @@
+EXAMPLE
+    time ls
+        outputs:
+            file1.php  file2.php
+
+            real	0m0.026s
+            user	0m0.004s
+            sys	  0m0.000s
+OUTPUT
+    real    Elapsed real (wall clock) time used by the process, in seconds.
+    user    Total number of CPU-seconds that the process used directly (in user mode), in seconds.
+    sys     Total number of CPU-seconds used by the system on behalf of the process (in kernel mode), in seconds.
