@@ -22,4 +22,22 @@ COMPONENTS
     - virtual CPU (every process thinks he got the CPU on its own while in fact the processes alternate on the 
         same physical CPU)
 INFORMATION THE OS PROVIDES ABOUT A PROCESSES
-    - PID, every process has an uniwue process identifier, e.g. "2145"
+    COMMANDS
+        LIST OF RUNNING PROCESSES
+            - on UNIX you get infos with the program "ps"
+            - on Windows with the the program "Task Manager"
+    AVAILABLE INFOS
+        - PID, every process has an uniwue process identifier, e.g. "2145"
+PROCESS CREATION
+    - devices on which only one process runs infinitely: they create this process on the start of the system (e.g. microwave)
+    - devices where different processes can run: there must be an OS which can start and terminate processes
+        - system initialization (on system start the OS usually creates multiple processes)
+        - a running process executes a process-creation system call (e.g. when the process needs the result of another process)
+        - the user starts a new process (via mouse click or command line, etc.)
+        - OS starts a periodical batch job (e.g. calculate the inventory costs every night)
+FOREGROUND vs. BACKGROUND
+    foreground: processes which interact with human users
+    background: processes which do not interact with users (they just run)
+DAEMONS
+    are background processes (no interaction with the human user, e.g.: waiting for emails, printing requests, web page requests)
+    
