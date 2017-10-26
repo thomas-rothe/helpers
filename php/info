@@ -1,0 +1,27 @@
+SAPI (Server API)
+    echo PHP_SAPI 
+        - or the same: echo php_sapi_name()
+        - returns one of these strings:
+            aolserver, 
+            apache, 
+            apache2filter, 
+            apache2handler, 
+            caudium, 
+            cgi (until PHP 5.3), 
+            cgi-fcgi, 
+            cli, 
+            cli-server, 
+            continuity, 
+            embed, 
+            fpm-fcgi, 
+            isapi, 
+            litespeed, 
+            milter, 
+            nsapi, 
+            phttpd, 
+            pi3web, 
+            roxen,
+            srv (for HHVM),
+            thttpd, 
+            tux, 
+            webjames
