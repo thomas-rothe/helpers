@@ -1,6 +1,57 @@
-LIST ALL PROCESSES OF ALL USERS
-  ps -e
-LIST ALL PROCESSES OF ALL USERS WITH DETAILS
-  ps -eF
-LIST ALL PROCESSES OF ALL USERS AS TREE
-  ps -ejH 
+PS
+     - outputs a list of the current processes
+     - captures the systems condition at a single time (a snapshot; if you want to have a repetitive updates in 
+          real time, you can use the top command)
+     - by default the list of processes is unsorted
+ALL PROCESSES
+    ps -e
+ALL PROCESSES WITH DETAILS
+    ps -eF
+ALL PROCESSES AS TREE
+    pstree
+    ps -ejH
+    
+    ps
+        PID TTY          TIME CMD
+      16764 pts/4    00:00:00 bash
+      27681 pts/4    00:00:00 ps
+      
+    ps -ax
+        PID TTY      STAT   TIME COMMAND
+          1 ?        Ss     0:02 /sbin/init splash
+          2 ?        S      0:00 [kthreadd]
+          4 ?        S<     0:00 [kworker/0:0H]
+          ...
+UPDATE LIST EVERY SECOND
+    watch -n 1 "ps -aux --sort -pmem"
+ALL PROCESSES OWNED BY A SPECIFIC USER
+    ps -u root
+        PID TTY          TIME CMD
+          1 ?        00:00:02 systemd
+          2 ?        00:00:00 kthreadd
+          4 ?        00:00:00 kworker/0:0H
+          ...
+u FOR ADDITIONAL INFORMATION
+    ps -aux
+        USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+        root         1  0.0  0.0 185316  4184 ?        Ss   Okt20   0:02 /sbin/init splash
+        root         2  0.0  0.0      0     0 ?        S    Okt20   0:00 [kthreadd]
+        root         4  0.0  0.0      0     0 ?        S<   Okt20   0:00 [kworker/0:0H]
+        ...
+SORT
+    BY CPU-USAGE
+      ps -aux --sort -pcpu
+          USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+          michael  20360 36.5  4.5 2250004 362792 ?      Sl   15:59 115:01 /usr/lib/firefox/firefox -contentproc -childID 
+          michael  20298 10.1  5.8 3182784 467484 ?      Sl   15:59  32:00 /usr/lib/firefox/firefox
+          michael  22517  5.2  1.8 948800 148108 ?       Sl   17:01  13:18 /opt/google/chrome/chrome --type=renderer --fie
+          ...
+    BY MEMORY-USAGE
+      ps -aux --sort -pmem
+          USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+          michael  15894  1.7  8.7 4683272 699620 ?      SLl  11:48   9:57 /home/michael/Schreibtisch/PhpStorm-172.4155.41
+          michael  20298 10.1  5.8 3182784 467484 ?      Sl   15:59  32:01 /usr/lib/firefox/firefox
+          michael  20360 36.3  4.5 2250004 363288 ?      Sl   15:59 115:06 /usr/lib/firefox/firefox -contentproc -childID
+          ...
+
+
