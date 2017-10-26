@@ -1,1 +1,18 @@
-
+DEFINITION
+    a running program
+    (there can be multiple running instances of the same program)
+    (example: two processes of the "ls"-programm have different PIDs)
+MULTIPROGRAMABLE SYSTEM
+    - every process runs on the same physical CPU
+    - the processes alternate: each one gets the CPU for ca. 0,00001 to 0,0001 seconds, then the next one gets it 
+COMPONENTS
+    - source code (compiled or not compiled)
+    - input
+    - output
+    - state, consists of:
+        - values of CPU registers (instruction address register, instruction register, status register, etc.)
+        - values of the variables
+    - virtual CPU (every process thinks he got the CPU on its own while in fact the processes alternate on the 
+        same physical CPU)
+INFORMATION THE OS PROVIDES ABOUT A PROCESSES
+    - PID, every process has an uniwue process identifier, e.g. "2145"
