@@ -122,5 +122,16 @@ PROCESS HIERARCHIES
         there is no hierarchy, all processes are same (parents get a "token" to control their childs but they can give
             the token to other processes)
 PROCESS STATES
-    
-        
+    there a 3 process states:
+        - running       actually using the CPU
+        - blocked       waiting for an external event to happen (e.g. a process is blocked until the awaited input created 
+                        from another process gets available (e.g. after fetching it from disk))        
+        - ready         the process does not use the CPU because another process has the CPU but the process could
+                        run (it is not blocked until a certain event occurs)
+    transitions between the 3 states:
+        - OS recognizes if a process wants to read  an input (e.g. from a pipe, a special file, a terminal, etc.) but
+            the input is not available; if so the OS sets the status of the waiting process to "blocked"
+        - a process sets its status to "blocked" via a system call like "pause()"
+        - the OS (its scheduler) decides that another process gets the CPU, so the running processes status is set to "ready"
+        - then the other process changes from "ready" to "running"
+        - if an event occurs which a process has been waiting for, the OS changes the processes state from "blocked" to "ready"
