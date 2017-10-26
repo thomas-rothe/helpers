@@ -11,6 +11,9 @@ PSEUDOPARALLELISM vs. TRUE HARDWARE PARALLELISM
         while in reality they alternate very quickly)
     true hardware parallelism:
         on multiprocessorsystems with 2 or more CPUs multiple processes can run at the same time
+INTERACTION WITH A PROCESS
+    - process waits for input (e.g. command line prompt)
+    - signals can be sent to processes
 COMPONENTS
     - source code (compiled or not compiled; if there a multiple processes of the same program, the OS can manage it,
         that they can share the same source code)
@@ -27,12 +30,29 @@ INFORMATION THE OS PROVIDES ABOUT A PROCESSES
             - on UNIX you get infos with the program "ps"
             - on Windows with the the program "Task Manager"
     AVAILABLE INFOS
-        - PID, every process has an uniwue process identifier, e.g. "2145"
+        - PID       every process has an unique process ID                                  3
+        - UID       user ID of the process owner                                            1
+        - PPID
+        - C
+        - SZ
+        - RSS
+        - PSR
+        - STIME
+        - TTY       is a place where the running command runs
+        - TIME      how much time is used by CPU while running the command
+        - CMD       command
+        - %CPU
+        - %MEM
+        - VSZ
+        - STAT
+        - START
 PROCESS CREATION
     - devices on which only one process runs infinitely: they create this process on the start of the system (e.g. microwave)
     - devices where different processes can run: there must be an OS which can start and terminate processes
         - system initialization (on system start the OS usually creates multiple processes)
-        - a running process executes a process-creation system call (e.g. when the process needs the result of another process)
+        - a running process executes a process-creation system call
+            (e.g. when the process needs the result of another process)
+            system call: creates new process and indicates which program to run in the new process
         - the user starts a new process (via mouse click or command line, etc.)
         - OS starts a periodical batch job (e.g. calculate the inventory costs every night)
 FOREGROUND vs. BACKGROUND
