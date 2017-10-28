@@ -1,6 +1,7 @@
 - no $_GET and
 - no $_POST arrays containing user-supplied data
-- PHP won’t output any HTTP headers by default
+- PHP won’t write any HTTP headers to the output by default
 - default settings are set to sensible values for local use (e.g. max_execution_time is set to 0 -> scripts won’t time out)
 - output buffering is turned off
 - and error messages are displayed in plain text rather than HTML
+- the current working directory is not the directory of the requested script but the cwd of time when the script was called
