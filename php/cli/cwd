@@ -1,0 +1,17 @@
+DIFFERENCE:
+    HTTP REQUEST
+        a request like:
+            GET /path/index.php HTTP/1.0
+            ...
+        can start a script like for example /var/www/html/path/index.php where
+            echo dirname(__FILE__);               outputs something like:       "/var/www/html/path"            and
+            echo getcwd();                        outputs exactly the same:     "/var/www/html/path"            and
+            file_put_contents('test.txt', 'foo'); creates a file like:          "/var/www/html/path/test.txt"
+    CLI
+        commands like:
+            $ cd /tmp
+            $ php /var/www/html/path/index.php
+        are going to execute the script /var/www/html/path/index.php where
+            echo dirname(__FILE__);               outputs:                      "/var/www/html/path"            and
+            echo getcwd();                        outputs something different:  "/tmp"                          and
+            file_put_contents('test.txt', 'foo'); creates a file like:          "/tmp/test.txt"
