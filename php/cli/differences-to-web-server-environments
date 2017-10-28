@@ -1,0 +1,6 @@
+- no $_GET and
+- no $_POST arrays containing user-supplied data
+- PHP won’t output any HTTP headers by default
+- default settings are set to sensible values for local use (e.g. max_execution_time is set to 0 -> scripts won’t time out)
+- output buffering is turned off
+- and error messages are displayed in plain text rather than HTML
