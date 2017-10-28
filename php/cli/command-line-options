@@ -1,0 +1,161 @@
+LIST ALL OPTIONS
+    php -h
+
+-f or --file: This allows you to specify the file name of the script to be run and is
+    optional. The -f option exists to allow compatibility with software and scripts such
+    as automation software, which can programmatically call command-line programs
+    but require file-name arguments to be formed in this way. It also allows default
+    file-type handlers to be easily set on Windows for PHP scripts. In most cases, the two
+    following lines are mostly equivalent:
+    ~$ php -f myscript.php
+    ~$ php myscript.php
+The only real difference in usage between the two versions of command come when
+    interpreting command-line arguments passed to the script, which you’ll look at in
+    the “Command-Line Arguments for Your Script” section.
+-a or --interactive: This runs PHP interactively, which allows you to type in PHP
+    code, line by line, rather than executing a saved PHP script. This mode of operation
+    is often called a REPL (read-eval-print loop). In addition to providing an interactive
+    interface for testing and developing code, it can act as an enhanced PHP-enabled
+    shell or command line, and Chapter 4 covers this more closely.
+-c or --php-ini: This specifies the php.ini file that PHP will use for this application.
+    This is particularly useful if you are also running web services using PHP on the
+    same machine. If it is not specified, PHP will look in various default locations for
+    php.ini and may end up using the same one as your web service. By providing one
+    specifically for your CLI applications, you can “open up” various restrictions that
+    make more sense for offline applications. Note that by using the CLI SAPI, PHP will
+    automatically override several php.ini settings regardless of whether you specify
+    a custom .ini file using this option. These overridden settings are those that affect
+    the behavior outlined previously in the “What’s Different About the CLI SAPI?”
+    section, and while the php.ini file is ignored in these cases, you can revert or change
+    these settings directly in your code by using the ini_set() function (or by similar
+    methods). You can also use the -d or --define option to set options (for example,
+    php -d max_execution_time=2000 myscript.php). If you are deploying software
+    onto machines that you do not control (for example, if you are selling software
+    for users to install on their own machines), it makes sense to use one of these
+    mechanisms to ensure that PHP will be running with the settings you expect, not the
+    settings the user may happen to have. See -n next as well.
+-n or --no-php-ini: This tells PHP not to load a php.ini file at all. This can be useful
+    if you do not want to ship one with your application and instead set all of the settings
+    directly within your code by using ini_set() (or something similar). PHP will use
+    its default settings if no .ini file is provided, and it is worth remembering that these
+    default settings may change from version to version of PHP (and indeed have done
+    so in the past). You shouldn’t rely on the current defaults being suitable for your
+    application. You can use php --ini to show the default path that PHP will use to
+    look for .ini files when the -n option isn’t used and -c isn’t used to specify a file.
+-e or --profile-info: This puts PHP into Extended Information Mode (EIM). EIM
+    generates extra information for use by profilers and debuggers. If you’re not using a
+    profiler or debugger that requires this mode, you should not enable it because it can
+    degrade performance. You can find more information on profilers and debuggers in
+    Chapter 4.
+-i or --info: This calls the phpinfo() function and prints the output. This outputs
+    a large range of information about the PHP installation, in plain-text format rather
+    than the usual HTML (it detects that you are calling it from the CLI SAPI). This can
+    be useful in tracking down issues with the installation, as well as giving you version
+    information, lists of extensions installed, relevant file paths, and so on. As with any
+    other shell command, the output can be piped to other commands, such as grep. So
+    if you wanted to check whether IPv6 was enabled in your PHP binary, for instance,
+    on Linux or macOS, you could try the following:
+    ~$ php -i | grep -i "ipv6"
+•	
+On Windows, you could try the following:
+    > php -i | findstr /I ipv6
+-l or --syntax-check: This option parses the file, checking for syntax errors. This
+    is a basic lint-type checker; more-advanced static code analysis tools are discussed
+    in Chapter 4. Be aware that this option checks only for basic syntax errors—the sort
+    that cause the PHP engine to fail. Subtler bugs, problems in your program logic, and
+    errors that are created at runtime will not be detected. Your code is not executed, so
+    this option can help pick up basic errors before you run code that may alter data and
+    cause problems if it fails. Even when you run such code in a testing environment,
+    resetting data and setting up for another test can take time, so a quick check for basic
+    syntax errors first can be a time-saver. Some integrated development environments
+    (IDEs) and text editors run php -l in the background to highlight syntax errors as
+    you type. For instance, the linter-php package in GitHub’s Atom editor uses this
+    method for live linting of PHP code.
+-m or --modules: This lists all the loaded PHP and Zend modules/extensions. These
+    are modules that PHP has been compiled with and may include things such as core,
+    mysql, PDO, json, and more. This is useful for checking that the PHP installation
+    has the functionality that your application requires. You can also check from within
+    your scripts by using the extension_loaded() function or by calling the phpinfo()
+    function. -m provides a subset of the information given with the -i flag described
+    earlier, and -i (or the phpinfo() function) will return more information about the
+    configuration, version, and so on, of the modules.
+-r or --run: This runs a line of PHP code supplied as the argument, rather than
+    executing it from a file. The line of code should be enclosed by single quotes when
+    using shells such as Bash, as they will try to interpolate PHP variables as if they
+    were shell variables if you use double quotes. However, on Windows you should use
+    double quotes to avoid errors due to single quotes on the command line. The -r
+    option performs a similar role to the -a interactive mode, except that PHP’s “state”
+    is cleared after each line is executed. This means that the line of code supplied is
+    treated as the whole script to be executed, and execution is terminated after it has
+    been run. Here’s an example that prints out 4 followed by a newline character:
+    ~$ php -r "echo (2+2).\"\n\";"
+Note that the line must be well-formed, syntactically correct PHP, so don’t miss the
+    semicolon at the end! I return to -r later in this chapter, in the section “The Many
+    Ways to Call PHP Scripts.”
+-B or --process-begin
+    -R or --process-code
+    -F or --process-file
+    -E or --process-end: These four arguments allow you to specify PHP code to
+    be executed before, during, and after input from STDIN is processed by PHP. -B
+    specifies a line of code to execute before the input is processed, -R specifies a line
+    of code to execute for every line of input, and -F specifies a PHP file to execute for
+    each line. Finally, -E executes a line of code at the end of the input process. In -R
+    and -F, two special variables are available: $argn contains the text of the line
+    being processed, and $argi contains the number of the line being processed.
+    This is mainly useful when using PHP directly in shell scripts. For instance, to
+    print a text file with line numbers, you can do something like this:
+    ~$ more my_text_file.txt | php\
+    -B "echo \"Let's add line numbers...\n\";"\
+    -R "echo \"$argi: $argn\n\";"\
+    -E "echo \"That's the end folks\n\";"
+    This code will output something like this:
+    Let's add line numbers...
+    1: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+    2: eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+    3: minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    4: ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    That's the end folks
+-s or --syntax-highlight: This outputs an HTML version of the PHP script, with
+    colored syntax highlighting. The PHP script is not executed or validated; it’s simply
+    made “pretty.” The pretty HTML is printed to STDOUT and can be useful when
+    pouring over code looking for errors, issues, and optimizations. This works only
+    with PHP in files, not with code provided by the -r option. Most modern IDEs and
+    code editors provide syntax highlighting by default; however, this can be useful if
+    your only access to a machine is on the command line and the editor you are using
+    doesn’t do syntax highlighting. In this case, use -s to create a colored version of your
+    script and either download it or view it through your web browser if the machine has
+    a web server installed.
+-v or --version: This outputs the PHP version information. This can also be found in
+    the output of the -i option described earlier. Be careful when assuming a particular
+    format; some package repositories (Ubuntu, for instance) include their name and
+    their own build numbers in the version string, so don’t just filter it for any numerics.
+    17Chapter 3 ■ Understanding the CLI SAPI, and Why You Need To
+-w or --strip: This outputs the contents of the source code with any unnecessary
+    white space and any comments removed. This can be used only with code files (not
+    with lines of code supplied by -r) and does not work with the syntax highlighting
+    option shown earlier. This is used to minify a file—in other words, reduce the file
+    size. Contrary to popular opinion, this will not speed up most scripts; the overhead
+    of parsing comments and white space is extremely negligible. You should also be
+    wary of support and debugging issues, even if a copy of the “full” code is kept, as line
+    numbers in error reports will no longer match between the original and stripped
+    versions. It also does not minify identifiers such as variable names and so cannot be
+    used to obfuscate your code. There are few reasons to use this option these days. To
+    make a file smaller for distribution, using proper compression (for example, adding
+    it to a zip file) is usually a better method.
+-z or --zend-extension: This specifies the file name/path for a Zend extension to be
+    loaded before your script is run. This allows dynamic loading of extensions, which
+    can alternatively be specified in the php.ini file if they are always to be loaded.
+--rf or --rfunction
+    --rc or --rclass
+    --re or --rextension
+    --rz or --rzendextension
+    --ri or --rextinfo: These options allow you to explore PHP structures by using
+    reflection. Reflection is the process by which PHP can perform runtime introspection,
+    which is a way to allow you to look into elements and structures of your code
+    at runtime. The first three options print reflection information about a named
+    function, class, or extension. The last two print basic information about a Zend
+    extension or a standard extension, as returned by the phpinfo() function. This
+    reflection information, which is very detailed, is available only if PHP is compiled
+    with reflection support. These options can be used as a quick but precise reference
+    guide to the entities listed earlier and are particularly useful in interrogating
+    unknown code written by others.
