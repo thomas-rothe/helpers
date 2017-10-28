@@ -21,3 +21,12 @@ if you want to end early, you can call the exit (or equivalent die) language con
                     example, 128 + 2 = 130)
                 137: in the case of kill -9 myscript.php, it should return code 137 (which is 128+9)
         any other positive integer is generally construed as exiting because of an unspecified error
+As with web scripts, you can register functions to be executed when your PHP script exits by using the
+register_shutdown_function() function. One use for this may be to check that all is well and evaluate
+which exit code should be returned. The exit code used as the parameter to exit or die within a registered
+shutdown function overrides the code used in the initial exit call that initiated shutdown. This means you
+can happily exit with exit(0) everywhere and then exit with exit(76) from your shutdown function if you
+detect that “the foo conflaganation isn’t aligned with the bar initispations in your metaspacialatific object”.
+Or similar. 76 is one of the general unspecified errors, so you should ensure that your program
+documentation details the actual meaning, and ideally output some informative text (ideally to STDERR)
+from your shutdown function to make sure the user knows what happened.
