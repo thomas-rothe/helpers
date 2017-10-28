@@ -1,9 +1,17 @@
-HTTP RELATED
+USER INPUT
     - no $_GET and
     - no $_POST arrays containing user-supplied data
+    - the variables $argc and $argv, which describe any command-line arguments
+    passed to your script, are automatically set
+HTTP RELATED
     - PHP won’t write any HTTP headers to the output by default
 CONFIGURATION AND DEFUALT-BEHAVIOR RELATED
-    - default settings are set to sensible values for local use (e.g. max_execution_time is set to 0 -> scripts won’t time out)
+    - default settings are set to sensible values for local use
+        - max_execution_time is set to 0 -> scripts won’t time out
+            Explanation: There is no execution time limit set. Your script will run continuously until it exits of
+            its own volition; PHP will not terminate it even if it hangs. If you want to set a time
+            limit to rein in misbehaving scripts, you can do so from within the script by using the
+            set_time_limit() function.
     - output buffering is turned off, instead PHP implicitly “flushes” all output immediately
         Explanation: Online performance can often be harmed by sending output straight to a browser, so instead
         output is buffered and sent in optimal-sized chunks when each chunk is full. Offline,
@@ -12,6 +20,10 @@ CONFIGURATION AND DEFUALT-BEHAVIOR RELATED
         flush() to clear a buffer when you are waiting for further output. You can still use
         PHP’s output buffering functions to capture and control output if you want; see the
         “Output Control Functions” section in the PHP manual for more information.
+    - PHP defines the constants STDIN, STDOUT, and STDERR, relating to the standard
+        streams of the same name, and automatically opens input/output (I/O) streams
+        for them. These give your application instant access to standard input (STDIN),
+        standard output (STDOUT), and standard error (STDERR) streams.
 HTML RELATED
     - error and warning messages are displayed in plain text rather than HTML; you can override this by setting the
         runtime configuration like this:
