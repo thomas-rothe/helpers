@@ -1,0 +1,23 @@
+like web-based PHP scripts, CLI scripts will terminate happily when you hit the end of the script file and will
+    - close resources such as database connections
+    - releasing used memory
+if you want to end early, you can call the exit (or equivalent die) language construct as usual; to let other
+    programs know what happened it is best practise to provide an exit code as a parameter to exit() like:
+        exit(2);
+    exit codes:
+        0: success; all this 3 ways return exit code 0:
+            exit();
+            exit(0);
+            letting the script exit by itself (without exit())
+        1: general error; this is usually used for application- or language-specific errors and syntax errors
+        2: Incorrect usage
+            if you decide that the command-line arguments provided by your user are not in the
+            correct format, you should terminate your script by using exit(2)
+        126: command is not executable; this is usually permissions related.
+        127: command is not found
+        128+N (up to 165): command terminated by POSIX signal number N 
+            examples:
+                130: command terminated by Ctrl+C (Ctrl+C is POSIX code 2, so, using the previous
+                    example, 128 + 2 = 130)
+                137: in the case of kill -9 myscript.php, it should return code 137 (which is 128+9)
+        any other positive integer is generally construed as exiting because of an unspecified error
