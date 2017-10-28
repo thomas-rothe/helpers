@@ -56,7 +56,6 @@ The only real difference in usage between the two versions of command come when
     if you wanted to check whether IPv6 was enabled in your PHP binary, for instance,
     on Linux or macOS, you could try the following:
     ~$ php -i | grep -i "ipv6"
-•	
 On Windows, you could try the following:
     > php -i | findstr /I ipv6
 -l or --syntax-check: This option parses the file, checking for syntax errors. This
