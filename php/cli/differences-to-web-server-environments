@@ -4,9 +4,17 @@ HTTP RELATED
     - PHP won’t write any HTTP headers to the output by default
 CONFIGURATION AND DEFUALT-BEHAVIOR RELATED
     - default settings are set to sensible values for local use (e.g. max_execution_time is set to 0 -> scripts won’t time out)
-    - output buffering is turned off
+    - output buffering is turned off, instead PHP implicitly “flushes” all output immediately
+        Explanation: Online performance can often be harmed by sending output straight to a browser, so instead
+        output is buffered and sent in optimal-sized chunks when each chunk is full. Offline,
+        this is not likely to be an issue, so blocks of HTML and other output from constructs
+        such as print and echo are sent to the shell straightaway. There is no need to use
+        flush() to clear a buffer when you are waiting for further output. You can still use
+        PHP’s output buffering functions to capture and control output if you want; see the
+        “Output Control Functions” section in the PHP manual for more information.
 HTML RELATED
     - error and warning messages are displayed in plain text rather than HTML; you can override this by setting the
         runtime configuration like this:
             ini_set('html_errors', 1);
     - the current working directory is not the directory of the requested script but the cwd of time when the script was called
+
