@@ -1,0 +1,3 @@
+HTACCES FOR DIRECTORY WHERE LOG FILES ARE STORED
+    Order deny,allow
+    Deny from all
