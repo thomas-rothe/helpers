@@ -51,11 +51,6 @@ components focused on generating frontend code
 ####################################################################################################
 ####################################################################################################	
 
-INSTALLATION
-	WITH COMPOSER
-		composer create-project laravel/laravel projectname
-	WITH LARAVEL INSTALLER
-		laravel new projectname
 START A LOCAL SERVER FOR DEVELOPMENT AT http://127.0.0.1:8000
 	php artisan serve
 WICHTIGE KOMMANDOS, DIE MAN STÄNDIG BRAUCHT
