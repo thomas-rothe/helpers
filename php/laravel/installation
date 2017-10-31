@@ -1,0 +1,4 @@
+WITH COMPOSER
+    composer create-project laravel/laravel projectname
+WITH LARAVEL INSTALLER
+    laravel new projectname
