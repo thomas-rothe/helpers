@@ -1,18 +1,20 @@
 STDOUT
-    - some functions automatically write their STDOUT to STDOUT of the calling program
+    some functions automatically write their STDOUT to STDOUT of the calling program
+
+        # system('ls');         STDOUT is sent to STDOUT of calling program
+        bar.txt
+        foo.txt
+
+        # passthru('ls');       STDOUT is sent to STDOUT of calling program
+        bar.txt
+        foo.txt
     
-    # exec('ls');           nothing is sent to STDOUT of calling program
-    
-    # shell_exec('ls');     nothing is sent to STDOUT of calling program
-    
-    # system('ls');         STDOUT is sent to STDOUT of calling program
-    bar.txt
-    foo.txt
-    
-    # passthru('ls');       STDOUT is sent to STDOUT of calling program
-    bar.txt
-    foo.txt
-    
+    and some don't
+
+        # exec('ls');           nothing is sent to STDOUT of calling program
+
+        # shell_exec('ls');     nothing is sent to STDOUT of calling program
+
 RETURN VALUES
 
     # var_dump(exec('ls'));         last line of STDOUT
@@ -28,3 +30,46 @@ RETURN VALUES
 
     # var_dump(passthru('ls'));     NULL
     NULL
+
+WAITING
+    by default all functions wait till the called program finished execution
+    
+        # exec('sleep 3');              waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # shell_exec('sleep 3');        waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # system('sleep 3');            waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # passthru('sleep 3');          waits till program "sleep" finished execution (which will take 3 seconds)
+        
+    running them in  background does not make any difference..
+    
+        # exec('sleep 3 &');            waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # shell_exec('sleep 3 &');      waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # system('sleep 3 &');          waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # passthru('sleep 3 &');        waits till program "sleep" finished execution (which will take 3 seconds)
+        
+    and redirecting STDOUT and STDERR does not make any difference..
+    
+        # exec('sleep 3 > /dev/null 2>/dev/null');            waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # shell_exec('sleep 3 > /dev/null 2>/dev/null');      waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # system('sleep 3 > /dev/null 2>/dev/null');          waits till program "sleep" finished execution (which will take 3 seconds)
+
+        # passthru('sleep 3 > /dev/null 2>/dev/null');        waits till program "sleep" finished execution (which will take 3 seconds)
+        
+    redirecting STDOUT and STDERR and running them in background does make a difference
+    
+        # exec('sleep 3 > /dev/null 2>/dev/null &');          does not wait till program "sleep" finished execution (which would take 3 seconds)
+
+        # shell_exec('sleep 3 > /dev/null 2>/dev/null &');    does not wait till program "sleep" finished execution (which would take 3 seconds)
+
+        # system('sleep 3 > /dev/null 2>/dev/null &');        does not wait till program "sleep" finished execution (which would take 3 seconds)
+
+        # passthru('sleep 3 > /dev/null 2>/dev/null &');      does not wait till program "sleep" finished execution (which would take 3 seconds)
+        
+    
