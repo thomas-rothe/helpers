@@ -1,0 +1,30 @@
+STDOUT
+    - some functions automatically write their STDOUT to STDOUT of the calling program
+    
+    # exec('ls');           nothing is sent to STDOUT of calling program
+    
+    # shell_exec('ls');     nothing is sent to STDOUT of calling program
+    
+    # system('ls');         STDOUT is sent to STDOUT of calling program
+    bar.txt
+    foo.txt
+    
+    # passthru('ls');       STDOUT is sent to STDOUT of calling program
+    bar.txt
+    foo.txt
+    
+RETURN VALUES
+
+    # var_dump(exec('ls'));         last line of STDOUT
+    string(7) "foo.txt"
+
+    # var_dump(shell_exec('ls'));   all of STDOUT
+    string(16) "bar.txt
+    foo.txt
+    "
+
+    # var_dump(system('ls'));       last line of STDOUT
+    string(7) "foo.txt"
+
+    # var_dump(passthru('ls'));     NULL
+    NULL
