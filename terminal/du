@@ -1,3 +1,5 @@
 du -s
 
 du -sh
+
+du -sh *
