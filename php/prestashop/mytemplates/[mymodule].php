@@ -103,6 +103,7 @@ class [Mymodule] extends Module
                     'icon' => 'icon-cogs',
                 ),
                 'input' => array(
+                    // Text
                     array(
                         'type' => 'text',
                         'label' => $this->l('My var'),
@@ -110,6 +111,26 @@ class [Mymodule] extends Module
                         'desc' => $this->l('Please put in a value.'),
                         'col' => 5,
                     ),
+                    // Select
+                    array(
+                        'type' => 'select',
+                        'label' => $this->l('My other var'),
+                        'name' => 'MY_OTHER_VAR',
+                        'options' => array(
+                            'query' => array(
+                                array(
+                                    'selectId'   => 1,
+                                    'selectName' => 'My first option',
+                                ),
+                                array(
+                                    'selectId'   => 2,
+                                    'selectName' => 'My second option',
+                                ),
+                            ),
+                            'id' => 'selectId',
+                            'name' => 'selectName'
+                        )
+                    )
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
