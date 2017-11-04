@@ -1,3 +1,5 @@
+SUMMARY
+    curl -s -o /dev/null -v https://example.com/
 VERSION
     curl --version
 HTTP-REQUESTS
@@ -6,7 +8,7 @@ HTTP-REQUESTS
     IMPORTANT OPTIONS
         -v 
             - same as "--verbose"
-            - shows more information about the request and the response
+            - shows more information (HTTP method, version, headers, etc.) about the request and the response
             e.g.:
                 curl -v www.google.com
         -X [request method]
@@ -34,5 +36,8 @@ HTTP-REQUESTS
         -b [filename]
             - if we got a file with cookies, we can send the cookies in a request
                 url -b cookiejar.txt http://requestb.in/example
-
+        -s 
+            - silent: Don't show progress meter or error messages
+        -o [filename]
+            - output: write response body of HTTP request to the specified file instead of to STDOUT
 
