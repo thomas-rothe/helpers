@@ -1,0 +1,46 @@
+
+################################################################### DB erstellen und löschen
+	CREATE DATABASE `DB_NAME`;
+	DROP DATABASE `DB_NAME`;
+################################################################### Insert admin user to wp-db (ACHTUNG Tabellenpräfix ist wichtig für: 'wp_capabilities' und 'wp_user_level'
+INSERT INTO `MW_users` (
+	`ID`,
+	`user_login`,
+	`user_pass`,
+	`user_nicename`,
+	`user_email`,
+	`user_status`,
+	`display_name`
+) VALUES (
+	'5000', 
+	'myname', 
+	MD5('uw$1$G0Z%%Eubl.asdfOTRN0Z'), 
+	'nice username', 
+	'test@test.at', 
+	'0', 
+	'name'
+);
+INSERT INTO `MW_usermeta` (
+	`umeta_id`,
+	`user_id`,
+	`meta_key`,
+	`meta_value`
+) VALUES (
+	NULL,
+	'5000',
+	'wp_capabilities',
+	'a:1:{s:13:"administrator";b:1;}'
+);
+INSERT INTO `MW_usermeta` (
+	`umeta_id`,
+	`user_id`,
+	`meta_key`,
+	`meta_value`
+) VALUES (
+	NULL,
+	'5000',
+	'wp_user_level',
+	'10'
+);
+################################################################### Alle Menüs ausgeben
+SELECT * FROM mwd_terms AS t LEFT JOIN mwd_term_taxonomy AS tt ON tt.term_id = t.term_id WHERE tt.taxonomy = 'nav_menu';
