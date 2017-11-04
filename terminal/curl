@@ -42,13 +42,12 @@ HTTP-REQUESTS
             - output: write response body of HTTP request to the specified file instead of to STDOUT
 SYNCHRONOUS AND ASYNCHRONOUS
     SYNCHRONOUS
-        FILE
+        foreground.sh
             #!/bin/bash
             curl -s -o /dev/null http://example.com/ && echo "done1"
             curl -s -o /dev/null http://example.com/ && echo "done2"
             curl -s -o /dev/null http://example.com/ && echo "done3"
             wait
-            
         time bash foreground.sh 
             done1
             done2
@@ -57,13 +56,12 @@ SYNCHRONOUS AND ASYNCHRONOUS
             user	0m0.028s
             sys	0m0.020s
     ASYNCHRONOUS
-        FILE
+        background.sh 
             #!/bin/bash
             curl -s -o /dev/null http://example.com/ && echo "done1" &
             curl -s -o /dev/null http://example.com/ && echo "done2" &
             curl -s -o /dev/null http://example.com/ && echo "done3" &
-            wait
-            
+            wait 
         time bash background.sh 
             done3
             done1
