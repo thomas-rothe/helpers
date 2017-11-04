@@ -1,46 +1,69 @@
+INSERT ADMIN USER
+	INSERT INTO `wp_users` (
+		`ID`,
+		`user_login`,
+		`user_pass`,
+		`user_nicename`,
+		`user_email`,
+		`user_status`,
+		`display_name`
+	) VALUES (
+		'5000', 
+		'myname', 
+		MD5('uw$1$G0Z%%Eubl.asdfOTRN0Z'), 
+		'nice username', 
+		'test@test.at', 
+		'0', 
+		'name'
+	);
+	INSERT INTO `wp_usermeta` (
+		`umeta_id`,
+		`user_id`,
+		`meta_key`,
+		`meta_value`
+	) VALUES (
+		NULL,
+		'5000',
+		'wp_capabilities',
+		'a:1:{s:13:"administrator";b:1;}'
+	);
+	INSERT INTO `wp_usermeta` (
+		`umeta_id`,
+		`user_id`,
+		`meta_key`,
+		`meta_value`
+	) VALUES (
+		NULL,
+		'5000',
+		'wp_user_level',
+		'10'
+	);
+ALL MENUES
+	SELECT *
+	FROM mwd_terms AS t 
+	LEFT JOIN mwd_term_taxonomy AS tt ON tt.term_id = t.term_id 
+	WHERE tt.taxonomy = 'nav_menu';
+SET A TEMPLATE FOR A PAGE OF WHICH YOU KNOW THE post_id
+	UPDATE mwd_postmeta 
+	SET meta_value = "templates/tpl-weiterleitung.php" 
+	WHERE post_id = 15 AND meta_key = "_wp_page_template";
+https://stackoverflow.com/questions/4705413/where-does-wordpress-store-custom-menus
+	SELECT *  FROM mwd_term_taxonomy as tax  LEFT JOIN mwd_terms as t ON tax.term_id = t.term_id  WHERE taxonomy = 'nav_menu' and name like '%n%';
+	+------------------+---------+----------+-------------+--------+-------+---------+---------------------+---------------------+------------+
+	| term_taxonomy_id | term_id | taxonomy | description | parent | count | term_id | name                | slug                | term_group |
+	+------------------+---------+----------+-------------+--------+-------+---------+---------------------+---------------------+------------+
+	|                2 |       2 | nav_menu |             |      0 |    27 |       2 | Header Menü         | header-menue        |          0 |
+	|                6 |       6 | nav_menu |             |      0 |     2 |       6 | Footer Menü links   | footer-menue-links  |          0 |
+	|                7 |       7 | nav_menu |             |      0 |     4 |       7 | Footer Menü rechts  | footer-menue-rechts |          0 |
+	+------------------+---------+----------+-------------+--------+-------+---------+---------------------+---------------------+------------+
 
-################################################################### DB erstellen und löschen
-	CREATE DATABASE `DB_NAME`;
-	DROP DATABASE `DB_NAME`;
-################################################################### Insert admin user to wp-db (ACHTUNG Tabellenpräfix ist wichtig für: 'wp_capabilities' und 'wp_user_level'
-INSERT INTO `MW_users` (
-	`ID`,
-	`user_login`,
-	`user_pass`,
-	`user_nicename`,
-	`user_email`,
-	`user_status`,
-	`display_name`
-) VALUES (
-	'5000', 
-	'myname', 
-	MD5('uw$1$G0Z%%Eubl.asdfOTRN0Z'), 
-	'nice username', 
-	'test@test.at', 
-	'0', 
-	'name'
-);
-INSERT INTO `MW_usermeta` (
-	`umeta_id`,
-	`user_id`,
-	`meta_key`,
-	`meta_value`
-) VALUES (
-	NULL,
-	'5000',
-	'wp_capabilities',
-	'a:1:{s:13:"administrator";b:1;}'
-);
-INSERT INTO `MW_usermeta` (
-	`umeta_id`,
-	`user_id`,
-	`meta_key`,
-	`meta_value`
-) VALUES (
-	NULL,
-	'5000',
-	'wp_user_level',
-	'10'
-);
-################################################################### Alle Menüs ausgeben
-SELECT * FROM mwd_terms AS t LEFT JOIN mwd_term_taxonomy AS tt ON tt.term_id = t.term_id WHERE tt.taxonomy = 'nav_menu';
+	SELECT p.ID, p.post_title, p.post_name, p.menu_order, n.post_name as n_name, n.post_title as n_title, m.meta_value, pp.meta_value as menu_parent
+	FROM mwd_9_term_relationships as txr
+	INNER JOIN mwd_9_posts as p ON txr.object_id = p.ID 
+	LEFT JOIN mwd_9_postmeta as m ON p.ID = m.post_id 
+	LEFT JOIN mwd_9_postmeta as pl ON p.ID = pl.post_id AND pl.meta_key = '_menu_item_object_id' 
+	LEFT JOIN mwd_9_postmeta as pp ON p.ID = pp.post_id AND pp.meta_key = '_menu_item_menu_item_parent' 
+	LEFT JOIN mwd_9_posts as n ON pl.meta_value = n.ID 
+	WHERE txr.term_taxonomy_id = 2 AND p.post_status='publish' 
+	    AND p.post_type = 'nav_menu_item' AND m.meta_key = '_menu_item_url' 
+	ORDER BY p.menu_order;
