@@ -1,0 +1,28 @@
+INITIALIZING
+    $client = new \GuzzleHttp\Client([
+        'base_uri' => 'http://httpbin.org', // Base URI is used with relative requests
+        'timeout'  => 3.14,                 // Timeout if the server doesn' respond after after specified seconds (it's a float)
+    ]);
+REQUEST
+    SYNCHRONOUS
+        GET
+            $response = $client->get('http://httpbin.org/');   // same as: $response = $client->request('GET', '/');
+            $response = $client->get('http://httpbin.org/ip'); // same as: $response = $client->request('GET', '/ip');
+RESPONSE
+    $code = $response->getStatusCode();                         // 200
+    $reason = $response->getReasonPhrase();                     // OK
+    if ($response->hasHeader('Content-Length')) {               // true or false
+        echo "Header Content-Length exists";
+    }
+    $contentLength = $response->getHeader('Content-Length');    // 135
+    foreach ($response->getHeaders() as $name => $values) {     // array of all headers
+        echo $name . ': ' . implode(', ', $values) . "\r\n";
+    }
+    $body = $response->getBody();                               // get body object
+        echo $body;                                             // implicit cast to string
+        $stringBody = (string) $body;                           // explicit cast to string
+        $tenBytes = $body->read(10);                            // Read 10 bytes from the body
+        $remainingBytes = $body->getContents();                 // Read the remaining contents of the body as a string
+
+
+
