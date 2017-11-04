@@ -40,4 +40,34 @@ HTTP-REQUESTS
             - silent: Don't show progress meter or error messages
         -o [filename]
             - output: write response body of HTTP request to the specified file instead of to STDOUT
-
+SYNCHRONOUS AND ASYNCHRONOUS
+    SYNCHRONOUS
+        FILE
+            #!/bin/bash
+            curl -s -o /dev/null http://example.com/ && echo "done1"
+            curl -s -o /dev/null http://example.com/ && echo "done2"
+            curl -s -o /dev/null http://example.com/ && echo "done3"
+            wait
+            
+        time bash foreground.sh 
+            done1
+            done2
+            done3
+            real	0m1.379s
+            user	0m0.028s
+            sys	0m0.020s
+    ASYNCHRONOUS
+        FILE
+            #!/bin/bash
+            curl -s -o /dev/null http://example.com/ && echo "done1" &
+            curl -s -o /dev/null http://example.com/ && echo "done2" &
+            curl -s -o /dev/null http://example.com/ && echo "done3" &
+            wait
+            
+        time bash background.sh 
+            done3
+            done1
+            done2
+            real	0m0.389s
+            user	0m0.012s
+            sys	0m0.016s
