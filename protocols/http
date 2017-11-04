@@ -10,7 +10,7 @@ TOOLS
 request and response messages consist of:
 	1) an initial line,
 	2) zero or more header lines,
-	3) a blank line (i.e. a CRLF by itself), and
+	3) a blank line (a CRLF), and
 	4) an optional message body (e.g. a file, or query data, or query output).
 	
 	1) Bsp:
