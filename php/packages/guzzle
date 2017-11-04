@@ -6,8 +6,18 @@ INITIALIZING
 REQUEST
     SYNCHRONOUS
         GET
-            $response = $client->get('http://httpbin.org/');   // same as: $response = $client->request('GET', '/');
-            $response = $client->get('http://httpbin.org/ip'); // same as: $response = $client->request('GET', '/ip');
+            $response = $client->get('http://httpbin.org/');        // same as: $response = $client->request('GET', '/');
+            $response = $client->get('http://httpbin.org/ip');      // same as: $response = $client->request('GET', '/ip');
+            OR CREATE REQUEST AT DIFFERENT PLACE AND SEN LATER
+                $request = new Request('GET', 'http://httpbin.org/put');
+                $response = $client->send($request, ['timeout' => 2]);
+        OTHER HTTP VERBS
+            $response = $client->delete('http://httpbin.org/');     // same as: $response = $client->request('DELETE', '/');
+            $response = $client->head('http://httpbin.org/');       // same as: $response = $client->request('HEAD', '/');
+            $response = $client->options('http://httpbin.org/');    // same as: $response = $client->request('OPTIONS', '/');
+            $response = $client->patch('http://httpbin.org/');      // same as: $response = $client->request('PATCH', '/');
+            $response = $client->post('http://httpbin.org/');       // same as: $response = $client->request('POST', '/');
+            $response = $client->put('http://httpbin.org/');        // same as: $response = $client->request('PUT', '/');
 RESPONSE
     $code = $response->getStatusCode();                         // 200
     $reason = $response->getReasonPhrase();                     // OK
