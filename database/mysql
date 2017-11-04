@@ -1,11 +1,11 @@
-################################################################### From terminal
-REMOVE MQSYL
-	sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-5.5 mysql-client-core-5.5
-	sudo rm -rf /etc/mysql /var/lib/mysql
-	sudo apt-get autoremove
-	sudo apt-get autoclean
-INSTALL MYSQL SERVER (ALSO INSTALLS MYSQL CLIENT)
-	sudo apt-get install mysql-server
+INSTALL AND DELETE
+	INSTALL MYSQL SERVER (ALSO INSTALLS MYSQL CLIENT)
+		sudo apt-get install mysql-server
+	REMOVE MQSYL
+		sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-5.5 mysql-client-core-5.5
+		sudo rm -rf /etc/mysql /var/lib/mysql
+		sudo apt-get autoremove
+		sudo apt-get autoclean
 OPEN AS ROOT
 	WITH PASSWORD PROMPT
 		mysql -uroot -p
@@ -18,57 +18,12 @@ CHANGE PASSWORD OF ROOT
 	mysqladmin -u root -p'myoldpw' password 'mynewpw'
 EXECUTE SQL
 	mysql -u'root' --password='mypassword' -e'CREATE DATABASE somedb'
-################################################################### Export & Import
-EXPORT
-	mysqldump -u DB_USER -p DATABASE_NAME > db_backup.sql
-IMPORT
-	cd C:\xampp\mysql\bin
-	mysql -uroot -p
-	source c:/xampp/htdocs/meinec_db1.sql
+IMPORT AND EXPORT
+	IMPORT
+		cd C:\xampp\mysql\bin
+		mysql -uroot -p
+		source c:/xampp/htdocs/my-db.sql
 
-	mysql -u DB_USER -p DATABASE < db_backup.sql 	(ACHTUNG: nicht mysqldump sondern mysql!)
-################################################################### DB erstellen und löschen
-	CREATE DATABASE `DB_NAME`;
-	DROP DATABASE `DB_NAME`;
-################################################################### Insert admin user to wp-db (ACHTUNG Tabellenpräfix ist wichtig für: 'wp_capabilities' und 'wp_user_level'
-INSERT INTO `MW_users` (
-	`ID`,
-	`user_login`,
-	`user_pass`,
-	`user_nicename`,
-	`user_email`,
-	`user_status`,
-	`display_name`
-) VALUES (
-	'5000', 
-	'myname', 
-	MD5('uw$1$G0Z%%Eubl.asdfOTRN0Z'), 
-	'nice username', 
-	'test@test.at', 
-	'0', 
-	'name'
-);
-INSERT INTO `MW_usermeta` (
-	`umeta_id`,
-	`user_id`,
-	`meta_key`,
-	`meta_value`
-) VALUES (
-	NULL,
-	'5000',
-	'wp_capabilities',
-	'a:1:{s:13:"administrator";b:1;}'
-);
-INSERT INTO `MW_usermeta` (
-	`umeta_id`,
-	`user_id`,
-	`meta_key`,
-	`meta_value`
-) VALUES (
-	NULL,
-	'5000',
-	'wp_user_level',
-	'10'
-);
-################################################################### Alle Menüs ausgeben
-SELECT * FROM mwd_terms AS t LEFT JOIN mwd_term_taxonomy AS tt ON tt.term_id = t.term_id WHERE tt.taxonomy = 'nav_menu';
+		mysql -u DB_USER -p DATABASE < db_backup.sql
+	EXPORT WITH MYSQLDUMP
+		mysqldump -u DB_USER -p DATABASE_NAME > db_backup.sql
