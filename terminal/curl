@@ -1,4 +1,4 @@
-SUMMARY
+MOST USEFUL
     curl -s -o /dev/null -v https://example.com/
 VERSION
     curl --version
