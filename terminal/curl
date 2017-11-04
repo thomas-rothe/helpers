@@ -52,8 +52,8 @@ SYNCHRONOUS AND ASYNCHRONOUS
             done1
             done2
             done3
-            real	0m1.379s
-            user	0m0.028s
+            real    0m1.379s
+            user    0m0.028s
             sys	    0m0.020s
     ASYNCHRONOUS
         background.sh 
@@ -66,6 +66,6 @@ SYNCHRONOUS AND ASYNCHRONOUS
             done3
             done1
             done2
-            real	0m0.389s
-            user	0m0.012s
+            real    0m0.389s
+            user    0m0.012s
             sys	    0m0.016s
