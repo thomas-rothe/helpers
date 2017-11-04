@@ -1,5 +1,14 @@
-du -s
-
-du -sh
-
-du -sh *
+MOST USEFUL
+    du -sh *
+      1,2G	  app
+      13M	    bin
+      127M	  boot
+    
+    du -sh app/ bin/
+      1,2G	  app/
+      13M	    bin/
+IMPORTANT OPTIONS
+    -s 
+        - summarize: loop through directory, summarize sizes and output only the sizes of the specified files
+    -h
+        - show sizes in human readable measures
