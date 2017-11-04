@@ -1,0 +1,12 @@
+receive request and create request object
+--> Middleware 1 (can use request object)
+--> Middleware 2 (can use request object)
+--> Middleware 3 (can use request object)
+--> Middleware 4 (can use request object)
+--> Core (can use request object and usually creates response object)
+--> Application (can use request object and response object)
+--> Middleware 4 (can use response object)
+--> Middleware 3 (can use response object)
+--> Middleware 2 (can use response object)
+--> Middleware 1 (can use response object)
+send response
