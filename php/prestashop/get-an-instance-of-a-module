@@ -1,0 +1,4 @@
+BY NAME
+    $abraSetDocs = Module::getInstanceByName('abra');
+BY ID
+    $abraSetDocs = Module::getInstanceByName(3);
