@@ -109,8 +109,6 @@ MAGIC METHODS
                             
     __wakeup()                  void __wakeup ( void )
     
-    public function __wakeup()
-        
         class Foo
         {
             public function __wakeup()
