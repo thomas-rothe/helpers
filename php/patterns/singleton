@@ -1,1 +1,27 @@
+<?php
 
+namespace Foo\Bar;
+
+class MyDebugger
+{
+    private static $instance = null;
+    
+    protected function __construct() {}         // prevents from instanziating
+    
+    public static function getInstance()
+    {
+        if(self::$instance === null) {
+            self::$instance = new MyDebugger;
+        }
+        return self::$instance;
+    }
+    
+    public function error($message)
+    {
+        echo $message;
+    }
+    
+    private function __clone() {}               // prevents from cloning
+}
+$myDebugger = MyDebugger::getInstance();
+$myDebugger->error('My message.');
