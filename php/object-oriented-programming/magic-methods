@@ -1,38 +1,67 @@
 MAGIC METHODS
     are called internally by PHP if they were coded by the programmer and if certain events happen to an instance
-    
-    class Foo
-    {
-    
-    }
-    
-    __construct()
-        $foo = new Foo();
-        void __construct ([ mixed $args = "" [, $... ]] )
-        if a new instance is created
-    __destruct()
-        unset($foo); --- or automatically if PHP destroys an object
-        void __destruct ( void )
-        if an instance is destroyed
-    __call()
-        $foo->something($arguments);
-        public mixed __call ( string $name , array $arguments )
-        if a not accessible method is called on an instance
-    __callStatic()
-        Foo::something($arguments);
-        public static mixed __callStatic ( string $name , array $arguments )
-        if a not accessible method is called on a class
-    __get()
         
-        public mixed __get ( string $name )
+    __construct()               void __construct ([ mixed $args = "" [, $... ]] )
         
-    __set()
-    __isset()
-    __unset()
-    __sleep()
-    __wakeup()
-    __toString()
-    __invoke()
-    __set_state()
-    __clone()
-    __debugInfo() 
+        class Foo
+        {
+            public function __construct($name)
+            {
+                // called after a new instance is created
+            }
+        }
+        $foo = new Foo($name);
+        
+    __destruct()                void __destruct ( void )
+        
+        class Foo
+        {
+            public function __destruct()
+            {
+                // called before an instance is destroyed
+            }
+        }
+        $foo = new Foo($name);
+        exit; // automatically if PHP destroys an object; or to do this manually: unset($foo);
+        
+    __call()                    public mixed __call ( string $name , array $arguments )
+        
+        class Foo
+        {
+
+        }
+        $foo->something($arguments); // if a not accessible method is called on an instance
+        
+    __callStatic()              public static mixed __callStatic ( string $name , array $arguments )
+        
+        class Foo
+        {
+
+        }
+        Foo::something($arguments); // if a not accessible method is called on a class
+        
+    __get()                     public mixed __get ( string $name )
+        
+        class Foo
+        {
+
+        }
+        $name = $foo->name; // if a not accessible property is read
+        
+    __set()                     public void __set ( string $name , mixed $value )
+        
+        class Foo
+        {
+
+        }
+        $foo->name = 'bar'; // if writing to a not accessible property
+        
+    __isset()                   public bool __isset ( string $name )
+    __unset()                   public void __unset ( string $name )
+    __sleep()                   public array __sleep ( void )
+    __wakeup()                  void __wakeup ( void )
+    __toString()                public string __toString ( void )
+    __invoke()                  mixed __invoke ([ $... ] )
+    __set_state()               static object __set_state ( array $properties )
+    __clone()                   void __clone ( void )
+    __debugInfo()               array __debugInfo ( void )
