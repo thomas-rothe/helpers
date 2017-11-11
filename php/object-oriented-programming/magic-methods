@@ -87,9 +87,80 @@ MAGIC METHODS
         unset($foo->name); // triggered by calling unset() on inaccessible properties
         
     __sleep()                   public array __sleep ( void )
+        
+        class Foo
+        {
+            protected $name;
+            public function __sleep()
+            {
+                $this->name = 'bar';
+                return $this;
+            }
+        }
+        $foo = new Foo();
+        serialize($foo);    // serialize() checks if your class has a function with the magic name __sleep(). If 
+                            // so, that function is executed prior to any serialization. It can clean up the 
+                            // object and is supposed to return an array with the names of all variables of that 
+                            // object that should be serialized. If the method doesn't return anything then NULL 
+                            // is serialized and E_NOTICE is issued.
+                            // The intended use of __sleep() is to commit pending data or perform similar cleanup 
+                            // tasks. Also, the function is useful if you have very large objects which do not 
+                            // need to be saved completely.
+                            
     __wakeup()                  void __wakeup ( void )
+    
+    public function __wakeup()
+        
+        class Foo
+        {
+            public function __wakeup()
+            {
+                $this->connect();
+            }
+        }
+        $foo = new Foo();
+        serialize($foo);    // unserialize() checks for the presence of a function with the magic name 
+                            // __wakeup(). If present, this function can reconstruct any resources that the object 
+                            // may have.
+                            // The intended use of __wakeup() is to reestablish any database connections that may 
+                            // have been lost during serialization and perform other reinitialization tasks.
+                            
     __toString()                public string __toString ( void )
+        
+        class Foo
+        {
+            $protected $firstname;
+            $protected $lastname;
+            public function __toString()
+            {
+                return $this->firstname . ' ' . $this->lastname;;
+            }
+        }
+        $foo = new Foo();
+        echo $foo;  // Triggered if an instance is treated like a string. This method must return a string, as 
+                    // otherwise a fatal E_RECOVERABLE_ERROR
+                    
     __invoke()                  mixed __invoke ([ $... ] )
+        
+        class Foo
+        {
+            public function __invoke($expression)
+            {
+                echo $expression;
+            }
+        }
+        $foo = new Foo();
+        $foo('bar');    // Triggered if you call an object as a function.
+        
     __set_state()               static object __set_state ( array $properties )
+        This static method is called for classes exported by var_export()
+        
     __clone()                   void __clone ( void )
+        Once the cloning is complete, if a __clone() method is defined, then the newly created 
+        object's __clone() method will be called, to allow any necessary properties that need 
+        to be changed.
+        
     __debugInfo()               array __debugInfo ( void )
+        This method is called by var_dump() when dumping an object to get the properties that 
+        should be shown. If the method isn't defined on an object, then all public, protected 
+        and private properties will be shown.
