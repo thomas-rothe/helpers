@@ -1,0 +1,38 @@
+MAGIC METHODS
+    are called internally by PHP if they were coded by the programmer and if certain events happen to an instance
+    
+    class Foo
+    {
+    
+    }
+    
+    __construct()
+        $foo = new Foo();
+        void __construct ([ mixed $args = "" [, $... ]] )
+        if a new instance is created
+    __destruct()
+        unset($foo); --- or automatically if PHP destroys an object
+        void __destruct ( void )
+        if an instance is destroyed
+    __call()
+        $foo->something($arguments);
+        public mixed __call ( string $name , array $arguments )
+        if a not accessible method is called on an instance
+    __callStatic()
+        Foo::something($arguments);
+        public static mixed __callStatic ( string $name , array $arguments )
+        if a not accessible method is called on a class
+    __get()
+        
+        public mixed __get ( string $name )
+        
+    __set()
+    __isset()
+    __unset()
+    __sleep()
+    __wakeup()
+    __toString()
+    __invoke()
+    __set_state()
+    __clone()
+    __debugInfo() 
