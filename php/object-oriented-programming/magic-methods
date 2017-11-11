@@ -28,37 +28,56 @@ MAGIC METHODS
         
         class Foo
         {
-
+            public function __call($methodname, $arguments)
+            {
+                // if an inaccessible method is called on an instance
+            }
         }
         $foo = new Foo();
-        $foo->something($arguments); // if an inaccessible method is called on an instance
+        $foo->something($arguments);
         
     __callStatic()              public static mixed __callStatic ( string $name , array $arguments )
         
         class Foo
         {
-
+            public static function __callStatic($methodname, $arguments)
+            {
+                // if an inaccessible method is called on a class
+            }
         }
         $foo = new Foo();
-        Foo::something($arguments); // if an inaccessible method is called on a class
+        Foo::something($arguments);
         
     __get()                     public mixed __get ( string $name )
         
         class Foo
         {
-
+            protected $firstname;
+            public function __get($propertyname)
+            {
+                if ($propertyname === 'firstname') {    // if an inaccessible property is read
+                    return $this->firstname;
+                }
+                return false;
+            }
         }
         $foo = new Foo();
-        $name = $foo->name; // if an inaccessible property is read
+        $name = $foo->name;                             // returns: boolean(false)
         
     __set()                     public void __set ( string $name , mixed $value )
         
         class Foo
         {
-
+            protected $firstname;
+            public function __set($propertyname, $value)
+            {
+                if ($propertyname === 'firstname') {    // if writing to an inaccessible property
+                    $this->firstname = $value;
+                }
+            }
         }
         $foo = new Foo();
-        $foo->name = 'bar'; // if writing to an inaccessible property
+        $foo->name = 'bar';
         
     __isset()                   public bool __isset ( string $name )
         
