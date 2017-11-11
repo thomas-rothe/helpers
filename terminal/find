@@ -1,3 +1,6 @@
-find . -name index.php
-find . -name 'i*x.php'
+FIND FILE INCURRENT WORKING DIRECTORY
+    find . -name index.php
+    find . -name '*i*x.php'
+FIND FILE IN ROOT DIRECTORY AND SURPRESS ERRORS
+    find / -name index.php 2>/dev/null
 
