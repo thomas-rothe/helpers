@@ -21,7 +21,7 @@ MAGIC METHODS
                 // called before an instance is destroyed
             }
         }
-        $foo = new Foo($name);
+        $foo = new Foo();
         exit; // automatically if PHP destroys an object; or to do this manually: unset($foo);
         
     __call()                    public mixed __call ( string $name , array $arguments )
@@ -30,7 +30,8 @@ MAGIC METHODS
         {
 
         }
-        $foo->something($arguments); // if a not accessible method is called on an instance
+        $foo = new Foo();
+        $foo->something($arguments); // if an inaccessible method is called on an instance
         
     __callStatic()              public static mixed __callStatic ( string $name , array $arguments )
         
@@ -38,7 +39,8 @@ MAGIC METHODS
         {
 
         }
-        Foo::something($arguments); // if a not accessible method is called on a class
+        $foo = new Foo();
+        Foo::something($arguments); // if an inaccessible method is called on a class
         
     __get()                     public mixed __get ( string $name )
         
@@ -46,7 +48,8 @@ MAGIC METHODS
         {
 
         }
-        $name = $foo->name; // if a not accessible property is read
+        $foo = new Foo();
+        $name = $foo->name; // if an inaccessible property is read
         
     __set()                     public void __set ( string $name , mixed $value )
         
@@ -54,10 +57,35 @@ MAGIC METHODS
         {
 
         }
-        $foo->name = 'bar'; // if writing to a not accessible property
+        $foo = new Foo();
+        $foo->name = 'bar'; // if writing to an inaccessible property
         
     __isset()                   public bool __isset ( string $name )
+        
+        class Foo
+        {
+            protected $name;
+            public function __isset($name)
+            {
+                return isset($this->name);
+            }
+        }
+        $foo = new Foo();
+        isset($foo->name); // triggered by calling isset() or empty() on inaccessible properties
+        
     __unset()                   public void __unset ( string $name )
+        
+        class Foo
+        {
+            protected $name;
+            public function __unset($name)
+            {
+                return unset($this->name);
+            }
+        }
+        $foo = new Foo();
+        unset($foo->name); // triggered by calling unset() on inaccessible properties
+        
     __sleep()                   public array __sleep ( void )
     __wakeup()                  void __wakeup ( void )
     __toString()                public string __toString ( void )
