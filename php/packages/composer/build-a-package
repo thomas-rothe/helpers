@@ -1,3 +1,6 @@
+TEMPLATE FOR NEW PACKAGES
+	https://github.com/thephpleague/skeleton
+	https://packagist.org/packages/buonzz/composer-library-template
 Conventional file structure of a Composer package
 	+ src/
 	+ tests/
