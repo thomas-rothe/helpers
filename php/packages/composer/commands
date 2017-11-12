@@ -1,0 +1,22 @@
+composer install
+	1. checks if the file "composer.lock" exists
+	2.	- if it exists it reads it and installs the dependencies listed there
+		- if not it does the same as "composer update"
+composer update
+	1. checks if the file "composer.json" exists
+	2. reads the file and for every package it remembers the latest possible version 
+	3. if the file exists it reads "composer.lock" and compares the remembered latest possible version from "composer.json" with the version currently installed
+	4. if the remembered version is newer tha the one in "composer.lock" it installs the newer version
+	5. creates or updates the file "composer.lock"
+	
+	--dev
+		- braucht man nicht setzen: ist default und installiert auch alle packages unter "require-dev"
+		- für die Produktivversion braucht man zB keine Tests und kann die Installation von "require-dev"-packages 
+		ausschließen mit: --no-dev (diese Option löscht sogar alle zuvor installierten "require-dev"-packages 
+		physisch vom Rechner)
+composer require [vendorname/packagename]
+	1. creates a composer.json file if it not exists
+	2. in composer.json it adds the package to the "require" section (or to "require-dev" section)
+	3. if it not exists creates a folder "vendor"
+	4. installs the package under "vendor/"
+	5. creates or updates composer.lock with the package, its version and its dependencies
