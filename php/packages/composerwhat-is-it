@@ -1,0 +1,15 @@
+Package
+	- a (rather small) PHP library containing PHP source code
+Packagist
+	- is a repository for public PHP packages and is the default repo used by Composer
+Composer
+	- is a dependency manager
+	- is used for autoloading (because it has its own autoloader)
+	(- does compiler optimization)
+	(- custom hooks into lifecycle events, such as application installed, updated, or first created)
+	(- stability checking)
+Dependency
+	- applications and packages can have libraries they depend on: dependencies
+	- dependencies also may have their own dependencies (and so on)
+	- if you tell Composer that your application or package depends on a package,
+	it will also make sure that you have all the dependencies of your dependency-package
