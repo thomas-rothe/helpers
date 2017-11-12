@@ -1,0 +1,81 @@
+DEFINITION
+	- is a file you create in the root directory of your project
+	- you write the packages you want into this file, the version can be a range, e.g.: any version from 2.4.X to 3.X
+	- you can
+		- write it manually
+		- create it with: composer init
+		- create or append it with: composer require somevendor/somepackage
+EXAMPLES
+	Example 1)
+	a minimal composer.json only has to contain valid JSON:
+		{}
+		
+	Example 2)
+	a rather minimal composer.json only lists dependencies of your project:
+		"composer require michaelKaefer/oauth2-wrike" creates:
+		{
+		    "require": {
+			"michaelKaefer/oauth2-wrike": "^1.0"
+		    }
+		}
+		
+	Example 3)
+	a more useful composer.json for a package example which
+		- defines the package "symfony/process" v3.3 or higher for the package in production mode and
+		- "symfony/var-dumper" for the package in development mode
+		- several other infos which are mainly used by packagist.org to catalog packages
+		{
+			"name": "me/mypackage",
+			"description": "A package to play with Composer",
+			"authors": [
+				{
+					"name": "michaelKaefer",
+					"email": "michael.kaefer@something.at"
+				}
+			],
+			"keywords": ["testing", "playing"],
+			"license": "MIT",
+			"require": {
+				"symfony/process": "^3.3"
+			},
+			"require-dev": {
+				"symfony/var-dumper": "^3.3"
+			}
+		}
+PROPERTIES
+	Stability
+		you can define branches instead of version(ranges)
+		but if the branch is not stable you have to explicitly allow Composer to install it (the default stability is "stable")
+			{
+				"require": {
+					"somevendor/somepackage": "dev-master"
+				},
+				"minimum-stability": "dev"
+			}
+	Conflicting packages
+		if there are packages that do not work with your apllication or package you can prevent installing them ever
+		{
+			"conflict": {
+				"somevendor/somepackage": "1.0.0"
+			}
+		}
+	Suggestions
+		packages that enhance your packages functionality can be suggested to users of the package while
+		they install your package
+		{
+			"suggest": {
+				"somevendor/somepackage": "1.0.0"
+			}
+		}
+VERSION RULES
+		exact versions				1.0.2
+		wildcard			*	1.0.*			equivalent of >=1.0,<1.1
+		ranges of valid versions	>	<2.0
+						>=	>=1.0
+						<	<1.1
+						<=	<=1.0
+						!=	!=1.0
+						,	>=1.0,<2.0		, is like logical AND (defines multiple ranges)
+						|	>=1.0,<1.1 | >=1.2	| is like logical OR
+						, has higher precedence than |
+		tilde operator			∼1.2				equivalent to >=1.2,<2.0.
