@@ -1,0 +1,58 @@
+Autoloading
+	- by default Composer automatically creates a file "vendor/autoload"
+	- if you require this file to your code you can autoload all classes of your dependencies
+		<?php
+		require 'vendor/autoload.php';
+		use [namespace\path\to\classname];
+		$var = [classname]::[method]([params]);
+	- if you want to configure autoloading yourself Composer offers differten methods of autoloading
+		files
+			when you require "vendor/autoload.php" Composer will load a list of files
+			{
+				"autoload": {
+					"files": [
+						"projectroot/path/file.php",
+						"projectroot/otherpath/file.php"
+					]
+				}
+			}
+		classmap
+			- when generating its autoloader code Composer iterates all listed directories and 
+			maps every PHP class it can find in the files to the path of the file of the class
+			- when you use a previously undefined class Composer will load it from the file
+			- big downside: if you add a new file with a new class to any of the pathes you have
+			to tell Composer to refresh its classmap with: composer dump-autoload
+			{
+				"autoload": {
+					"classmap": [
+						"projectroot/path",
+						"projectroot/otherpath"
+					]
+				}
+			}
+		psr-0
+			if you have a file "src/Me/Some/Namespace/File.php":
+				<?php
+				namespace Me\Some\Namespace;
+				class File { ... }
+			then you can load it like that:
+			{
+				"autoload": {
+					"psr-0": {
+						"Me\\Some\\Namespace\\File": "src/"
+					}
+				}
+			}
+		psr-4
+			if you have a file "src/Something/File.php":
+				<?php
+				namespace Me\Namespace\Something;
+				class File { ... }
+			then you can load it like that:
+			{
+				"autoload": {
+					"psr-4": {
+						"Me\\Namespace\\": "src/"
+					}
+				}
+			}
