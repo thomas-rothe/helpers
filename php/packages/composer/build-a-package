@@ -3,3 +3,15 @@ Conventional file structure of a Composer package
 	+ tests/
 	+ docs/
 	- composer.json
+To use your locally developed package create a composer.json:
+	{
+		"require": {
+		    "michaelkaefer/marc": "dev-master"
+		},
+		"repositories": [
+			{
+				"type": "vcs",
+				"url": "/var/www/html/marc"
+			}
+		]
+	}
