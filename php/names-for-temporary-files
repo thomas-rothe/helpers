@@ -1,1 +1,3 @@
+string tempnam ( string $dir , string $prefix )
+
 $tempFileName = tempnam(sys_get_temp_dir(), 'zi');
