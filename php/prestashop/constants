@@ -1,0 +1,45 @@
+DIRECTORIES
+    _PS_ROOT_DIR_
+
+    _PS_CACHE_DIR_
+    _PS_CLASS_DIR_
+    _PS_CONFIG_DIR_
+    _PS_CONTROLLER_DIR_
+    _PS_ADMIN_CONTROLLER_DIR_
+    _PS_FRONT_CONTROLLER_DIR_
+    _PS_DOWNLOAD_DIR_
+    _PS_MAIL_DIR_
+    _PS_MODULE_DIR_
+    _PS_OVERRIDE_DIR_
+    _PS_PDF_DIR_
+    _PS_ALL_THEMES_DIR_
+    _PS_TOOL_DIR_
+    _PS_TRANSLATIONS_DIR_
+    _PS_UPLOAD_DIR_
+    _PS_VENDOR_DIR_
+URLs
+    _PS_BASE_URL_
+    __PS_BASE_URI__
+    _PS_BASE_URL_ . __PS_BASE_URI__
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
