@@ -21,6 +21,9 @@ URLs
     _PS_BASE_URL_
     __PS_BASE_URI__
     _PS_BASE_URL_ . __PS_BASE_URI__
+DEFAULT LANGUAGE
+    var_dump(Configuration::get('PS_LANG_DEFAULT'));        // string(1) "1"
+    var_dump((int) Configuration::get('PS_LANG_DEFAULT'));  // int(1)
 
 
 
