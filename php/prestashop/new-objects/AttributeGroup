@@ -1,10 +1,10 @@
-$defaultLanguageID = (int) Configuration::get('PS_LANG_DEFAULT');
+$defaultLanguageId = (int) Configuration::get('PS_LANG_DEFAULT');
 
 $newAttGroup = new AttributeGroup();
 
 // Required
-$newAttGroup->name[$defaultLanguageID] = 'sample name';
-$newAttGroup->public_name[$defaultLanguageID] = 'sample name';
+$newAttGroup->name[$defaultLanguageId] = 'sample name';
+$newAttGroup->public_name[$defaultLanguageId] = 'sample name';
 $newAttGroup->group_type = 'test';
 // Optional
 $newAttGroup->is_color_group = 0;
