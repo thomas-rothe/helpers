@@ -1,0 +1,10 @@
+  $newAttGroup = new AttributeGroupCore();
+
+  $newAttGroup->name[0] = 'sample name';
+  $newAttGroup->public_name[0] = 'sample name';
+
+  $newAttGroup->is_color_group = 0;
+  $newAttGroup->group_type = 'test';
+  $newAttGroup->position = AttributeGroupCore::getHigherPosition() + 1;
+
+  $newAttGroup->add();
