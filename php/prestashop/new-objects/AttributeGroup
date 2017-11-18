@@ -1,10 +1,13 @@
-  $newAttGroup = new AttributeGroupCore();
+$defaultLanguageID = (int) Configuration::get('PS_LANG_DEFAULT');
 
-  $newAttGroup->name[0] = 'sample name';
-  $newAttGroup->public_name[0] = 'sample name';
+$newAttGroup = new AttributeGroup();
 
-  $newAttGroup->is_color_group = 0;
-  $newAttGroup->group_type = 'test';
-  $newAttGroup->position = AttributeGroupCore::getHigherPosition() + 1;
+// Required
+$newAttGroup->name[$defaultLanguageID] = 'sample name';
+$newAttGroup->public_name[$defaultLanguageID] = 'sample name';
+$newAttGroup->group_type = 'test';
+// Optional
+$newAttGroup->is_color_group = 0;
+$newAttGroup->position = AttributeGroupCore::getHigherPosition() + 1;
 
-  $newAttGroup->add();
+$newAttGroup->add();
