@@ -1,0 +1,17 @@
+INSTALL
+    composer require filp/whoops
+CONFIGURATION
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->register();
+    
+    OTHER HANDLERS
+        PrettyPageHandler     pretty error page
+        PlainTextHandler      plain text message for use in CLI applications
+        CallbackHandler       Wraps a closure or other callable as a handler. You do not need to use this handler 
+                              explicitly, whoops will automatically wrap any closure or callable you pass to 
+                              Whoops\Run::pushHandler
+        JsonResponseHandler   Captures exceptions and returns information on them as a JSON string. Can be used 
+                              to, for example, play nice with AJAX requests.
+        XmlResponseHandler    Captures exceptions and returns information on them as a XML string. Can be used to, 
+                              for example, play nice with AJAX requests.
