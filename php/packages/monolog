@@ -25,13 +25,18 @@ CONFIGURATION
             $log->pushHandler($streamHandler);
         }
     WITH LINE FORMATTER
-        $lineFormatter = new \Monolog\Formatter\LineFormatter();
+        $formatter = new \Monolog\Formatter\LineFormatter(); // a bit senseless cause it is the default formatter
         $streamHandler = new \Monolog\Handler\StreamHandler('my-debug-log-file', \Monolog\Logger::DEBUG);
-        $streamHandler->setFormatter($lineFormatter);
+        $streamHandler->setFormatter($formatter);
         $log = new \Monolog\Logger('my-logger-name');
         $log->pushHandler($streamHandler);
         
-        CUSTOMIZE LINE FORMATTER
+        OTHER AVAILABLE FORMATTERS
+            $formatter = new \Monolog\Formatter\HtmlFormatter();
+            $formatter = new \Monolog\Formatter\JsonFormatter();
+            ...
+            
+        CUSTOMIZE THE LINE FORMATTER
             // the default date format is "Y-m-d H:i:s"
             $dateFormat = "Y n j, g:i a";
             // the default output format is "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
