@@ -1,0 +1,41 @@
+LOG
+    $log->debug('My log record');
+    $log->info('My log record');
+    $log->notice('My log record');
+    $log->warning('My log record');
+    $log->error('My log record');
+    $log->critical('My log record');
+    $log->alert('My log record');
+    $log->emergency('My log record');
+CONFIGURATION
+    MINIMAL
+        $streamHandler = new \Monolog\Handler\StreamHandler('path/my-debug-log-file', \Monolog\Logger::DEBUG);
+        $log = new \Monolog\Logger('my-logger-name');
+        $log->pushHandler($streamHandler);
+    MULTIPLE STREAMS
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-debug-log-file', \Monolog\Logger::DEBUG);
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-info-log-file', \Monolog\Logger::INFO);
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-notice-log-file', \Monolog\Logger::NOTICE);
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-warning-log-file', \Monolog\Logger::WARNING);
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-error-log-file', \Monolog\Logger::ERROR);
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-critical-log-file', \Monolog\Logger::CRITICAL);
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-alert-log-file', \Monolog\Logger::ALERT);
+        $streamHandlers[] = new \Monolog\Handler\StreamHandler('my-emergency-log-file', \Monolog\Logger::EMERGENCY);
+        foreach ($streamHandlers as $streamHandler) {
+            $log->pushHandler($streamHandler);
+        }
+    WITH LINE FORMATTER
+        $lineFormatter = new \Monolog\Formatter\LineFormatter();
+        $streamHandler = new \Monolog\Handler\StreamHandler('my-debug-log-file', \Monolog\Logger::DEBUG);
+        $streamHandler->setFormatter($lineFormatter);
+        $log = new \Monolog\Logger('my-logger-name');
+        $log->pushHandler($streamHandler);
+        
+        CUSTOMIZE LINE FORMATTER
+            // the default date format is "Y-m-d H:i:s"
+            $dateFormat = "Y n j, g:i a";
+            // the default output format is "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
+            $output = "%datetime% > %level_name% > %message% %context% %extra%\n";
+            // finally, create a formatter
+            $formatter = new LineFormatter($output, $dateFormat);
+        
