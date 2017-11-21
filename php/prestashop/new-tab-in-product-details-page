@@ -1,7 +1,7 @@
 module.php
-    return parent::install() &&
-        ... &&
-        $this->registerHook('displayAdminProductsExtra');
+	return parent::install() &&
+		... &&
+		$this->registerHook('displayAdminProductsExtra');
 
 
 	public function hookDisplayAdminProductsExtra($params) {
