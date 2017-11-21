@@ -1,9 +1,44 @@
-return parent::install() &&
-    ... &&
-    $this->registerHook('displayAdminProductsExtra');
-    
-public function hookDisplayAdminProductsExtra($params) {
-   return $this->display(__FILE__, 'tab-body.tpl');
-}
+module.php
+    return parent::install() &&
+        ... &&
+        $this->registerHook('displayAdminProductsExtra');
 
+
+	public function hookDisplayAdminProductsExtra($params) {
+		$productId = $params['id_product'];
+		$prestashopProduct = new PrestaShopProduct($productId);
+
+		$this->context->smarty->assign(array(
+			'isExcludedFromImport' => $prestashopProduct->isExcludedFromImport,
+		));
+
+		return $this->display(__FILE__, 'admin-product-page-tab.tpl');
+	}
+    
+	public function hookActionProductUpdate($params)
+	{
+		$productId = $params['id_product'];
+		$prestashopProduct = new PrestaShopProduct($productId);
+
+		if(isset($_POST) && isset($_POST['TRODAT_EXCLUDE_PRODUCT_FROM_IMPORT']) && $_POST['TRODAT_EXCLUDE_PRODUCT_FROM_IMPORT'] === '1') {
+			$prestashopProduct->excludeFromImport();
+		} else {
+			$prestashopProduct->includeInImport();
+		}
+	}
+    
 create a template: [PrestaShop]\modules\[mymodule]\views\templates\hook\tab-body.tpl
+    <div class="form-wrapper">
+        <div class="form-group">
+            <label class="control-label col-lg-3">{l s='Reimport this product from Trodat' mod='trodat'}</label>
+            <a>
+                {l s='Start' mod='trodat'}
+            </a>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3">{l s='Exclude this product from the import' mod='trodat'}</label>
+            <div class="col-lg-5">
+                <input type="checkbox" name="TRODAT_EXCLUDE_PRODUCT_FROM_IMPORT" id="TRODAT_EXCLUDE_PRODUCT_FROM_IMPORT" value="1" {if $isExcludedFromImport} checked {/if}>
+            </div>
+        </div>
+    </div>
