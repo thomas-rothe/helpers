@@ -44,3 +44,12 @@ CONFIGURATION
             // finally, create a formatter
             $formatter = new LineFormatter($output, $dateFormat);
         
+            // Or with custom class:
+            class PrintRLineFormatter extends LineFormatter
+            {
+                public function format(array $record)
+                {
+                    return print_r( $record, true );
+                }
+            }
+            
