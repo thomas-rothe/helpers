@@ -17,13 +17,12 @@ class [mymodulename][mycontrollername]ModuleFrontController extends ModuleFrontC
         }
         
         // ..or check if logged in Admin
-		$cookie = new Cookie('psAdmin');
-		if ($cookie->id_employee){
+        $cookie = new Cookie('psAdmin');
+        if ($cookie->id_employee){
             // logged in admin
-		}
-		else {
+        } else {
             // no logged in admin
-		}
+        }
 
         // Do something
         ...
