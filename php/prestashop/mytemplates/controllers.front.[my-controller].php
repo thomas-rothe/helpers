@@ -1,6 +1,11 @@
 <?php
 
-class mycontrollernameModuleFrontController extends ModuleFrontControllerCore
+/*
+get link to this controller:
+$link = $this->context->link->getModuleLink('[mymodulename]', '[mycontrollername]', array());
+*/
+
+class [mymodulename][mycontrollername]ModuleFrontController extends ModuleFrontControllerCore
 {
     public function initContent()
     {
