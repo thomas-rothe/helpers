@@ -5,10 +5,34 @@ Execute  1    1    1
 No       0    0    0
 You add the numbers together, when there are more privileges. So r-x would be 5, because 4+1 is logically 5
 
-E.G.:
-       chmod [sticky bit][user][group][other] [filename]
+SYNTAX AND EXAMPLE
+       chmod [sticky bit][owner][group][other] [filename]
        chmod 0700 filename.txt
        
-       sticky bit
-              usually is "0"
+STICKY BIT
+       usually is "0", which means: no sticky bit
 
+       example set sticky bit on a directory which is not executeable for "others"
+              $ ll
+              drwxrwxr--  1 michael michael    0 Nov 25 09:04 TESTDIR
+              $ chmod 1774 TESTDIR ; ll
+              drwxrwxr-T  1 michael michael    0 Nov 25 09:04 TESTDIR
+       example unset sticky bit
+              $ chmod 0774 TESTDIR ; ll
+              drwxrwxr--  1 michael michael    0 Nov 25 09:04 TESTDIR
+       example set sticky bit on a directory which is executeable for "others"
+              $ ll
+              drwxrwxr-x  1 michael michael    0 Nov 25 09:04 TESTDIR
+              $ chmod 1775 TESTDIR ; ll
+              drwxrwxr-t  1 michael michael    0 Nov 25 09:04 TESTDIR
+
+       When a directory's sticky bit is set, the filesystem treats the files in such directories in a 
+       special way so only the file's owner, the directory's owner, or root user can rename or delete 
+       the file. Without the sticky bit set, any user with write and execute permissions for the 
+       directory can rename or delete contained files, regardless of the file's owner. Typically this 
+       is set on the /tmp directory to prevent ordinary users from deleting or moving other users' 
+       files.
+
+SGID
+
+SUID
