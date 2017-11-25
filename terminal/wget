@@ -1,0 +1,6 @@
+DOWNLOAD FILE
+    wget https://download.prestashop.com/download/releases/prestashop_1.7.2.4.zip
+QUIET
+    wget -q http://example.com/test.zip
+SAVE TO SOME OTHER PATH
+    wget http://example.com/test.zip -P /var/www/html
