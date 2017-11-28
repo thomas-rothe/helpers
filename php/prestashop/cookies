@@ -1,0 +1,10 @@
+The __set is a "magic method" not for use directly. Use this coding form instead:
+
+$cookie->test = $params;
+$cookie->write();
+
+The __set() function will handle the assignment of the new member variable you have created. Likewise you can use:
+
+global $cookie;
+if (isset($cookie->test))
+    // Use $cookie->test in your custom code
