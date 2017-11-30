@@ -1,0 +1,10 @@
+BEST WAY FOR CLICK EVENT
+    var myEl = document.getElementById('myelement');
+
+    myEl.addEventListener('click', function() {
+        alert('Hello world');
+    }, false);
+
+    myEl.addEventListener('click', function() {
+        alert('Hello world again!!!');
+    }, false);
