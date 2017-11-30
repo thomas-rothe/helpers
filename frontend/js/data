@@ -1,0 +1,13 @@
+BEST WAY
+    HTML
+        <article
+            id="electriccars"
+            data-columns="3"
+            data-index-number="12314"
+            data-parent="cars">
+        </article>
+    JS
+        var article = document.getElementById('electriccars');
+        article.dataset.columns // "3"
+        article.dataset.indexNumber // "12314"
+        article.dataset.parent // "cars"
