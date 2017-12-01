@@ -1,0 +1,45 @@
+ALL
+		$sql = 'SELECT * FROM `'._DB_PREFIX_.'trodat_language_pairs`';
+
+		$rows = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+
+		foreach($rows as $row) {
+			array_push($languagePairs, new self($row['prestashop_id'], $row['trodat_id']));
+		}
+ONE
+		$row = Db::getInstance()->getRow('SELECT * FROM `' . _DB_PREFIX_ . 'trodat_language_pairs` WHERE `prestashop_id` = ' . (int) $this->prestashopId . ' AND `trodat_id` = "' . pSQL($this->trodatId) . '";');
+		if($row) {
+			return true;
+		}
+INSERT
+    $sql =
+        'INSERT INTO `' . _DB_PREFIX_ . 'trodat_combination_map` (' .
+        '`trodat_id`, ' .
+        '`sku_1`, ' .
+        '`sku_2`, ' .
+        '`sku_3`, ' .
+        '`sku_4`, ' .
+        '`sku_5` ' .
+        ') ' .
+        'VALUES (' .
+        '"' . $trodat_id . '", ' .
+        '"' . $this->raw->getSKU1()[0] . '", ' .
+        '"' . $this->raw->getSKU2()[0] . '", ' .
+        '"' . $this->raw->getSKU3()[0] . '", ' .
+        '"' . $this->raw->getSKU4()[0] . '", ' .
+        '"' . $this->raw->getSKU5()[0] . '"' .
+        ');';
+    if ( \Db::getInstance()->execute( $sql ) == false ) {
+        throw new \Exception('Failed on inserting Trodat\'s ID (' . $trodat_id . ') to DB with: ' . $sql);
+    }
+UPDATE
+    $sql = 'UPDATE `' . _DB_PREFIX_ . 'trodat_combination_map` SET ' .
+           ((!empty($this->raw->getSKU1()[0])) ? '`sku_1` = "' . $this->raw->getSKU1()[0] . '", ' : '') .
+           ((!empty($this->raw->getSKU2()[0])) ? '`sku_2` = "' . $this->raw->getSKU2()[0] . '", ' : '') .
+           ((!empty($this->raw->getSKU3()[0])) ? '`sku_3` = "' . $this->raw->getSKU3()[0] . '", ' : '') .
+           ((!empty($this->raw->getSKU4()[0])) ? '`sku_4` = "' . $this->raw->getSKU4()[0] . '", ' : '') .
+           ((!empty($this->raw->getSKU5()[0])) ? '`sku_5` = "' . $this->raw->getSKU5()[0] . '", ' : '');
+    $sql = rtrim($sql, ', ') . ' WHERE `trodat_id` = "' . $trodat_id . '";';
+    if ( \Db::getInstance()->execute( $sql ) == false ) {
+      throw new \Exception('Failed on updating Trodat\'s ID (' . $trodat_id . ') to DB with: ' . $sql);
+    }
