@@ -1,5 +1,9 @@
 ALL INFO
     echo phpinfo()
+PREDEFINED CONSTANTS
+    $a = get_defined_constants(TRUE) ;
+    echo '<pre>';
+    print_r($a);
 SAPI (Server API)
     echo PHP_SAPI 
         - or the same: echo php_sapi_name()
