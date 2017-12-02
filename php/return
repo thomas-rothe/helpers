@@ -1,0 +1,10 @@
+NOT FOUND, NO SUCH THING FOUND,NOTHING, ETC.
+     null
+     
+     example:
+        public function getConfig($option = null)
+        {
+            return $option === null
+                ? $this->config
+                : (isset($this->config[$option]) ? $this->config[$option] : null);
+        }
