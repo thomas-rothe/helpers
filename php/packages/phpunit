@@ -22,7 +22,27 @@ EXCEPTIONS
     {
         $this->expectException(InvalidArgumentException::class);
     }
-DEPENDENCIES
+PHP ERRORS
+    /**
+     * @expectedException PHPUnit\Framework\Error
+     */
+    public function testFailingInclude()
+    {
+        include 'not_existing_file.php';
+    }
+TEST STDOUT
+    public function testExpectFooActualFoo()
+    {
+        $this->expectOutputString('foo');
+        print 'foo';
+    }
+    
+    Method	                                            Meaning
+    void expectOutputRegex(string $regularExpression)	Set up the expectation that the output matches a $regularExpression.
+    void expectOutputString(string $expectedString)	    Set up the expectation that the output is equal to an $expectedString.
+    bool setOutputCallback(callable $callback)	        Sets up a callback that is used to, for instance, normalize the actual output.
+    string getActualOutput()	                        Get the actual output.
+    DEPENDENCIES
     public function testEmpty()
     {
         $stack = [];
@@ -42,6 +62,126 @@ DEPENDENCIES
 
         return $stack;
     }
+FIXTURES
+    original state -> set the world up in a known state (= fixure) -> test ->back to original state
+    
+    The setUp() and tearDown() template methods are run once for each test method (and on fresh instances) 
+    of the test case class.
+    
+    In addition, the setUpBeforeClass() and tearDownAfterClass() template methods are called before the first 
+    test of the test case class is run and after the last test of the test case class is run, respectively.
+    
+    setUp() and tearDown() are nicely symmetrical in theory but not in practice. In practice, you only need 
+    to implement tearDown() if you have allocated external resources like files or sockets in setUp(). If your 
+    setUp() just creates plain PHP objects, you can generally ignore tearDown().
+    
+    SET UP
+        use PHPUnit\Framework\TestCase;
+        class StackTest extends TestCase
+        {
+            protected $stack;
+            protected function setUp()
+            {
+                $this->stack = [];
+            }
+            public function testEmpty()
+            {
+                $this->assertTrue(empty($this->stack));
+            }
+            public function testPush()
+            {
+                array_push($this->stack, 'foo');
+                $this->assertEquals('foo', $this->stack[count($this->stack)-1]);
+                $this->assertFalse(empty($this->stack));
+            }
+            public function testPop()
+            {
+                array_push($this->stack, 'foo');
+                $this->assertEquals('foo', array_pop($this->stack));
+                $this->assertTrue(empty($this->stack));
+            }
+        }
+    SET UP, TEAR DOWN, ETC.
+        use PHPUnit\Framework\TestCase;
+
+        class TemplateMethodsTest extends TestCase
+        {
+            public static function setUpBeforeClass()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+            }
+
+            protected function setUp()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+            }
+
+            protected function assertPreConditions()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+            }
+
+            public function testOne()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+                $this->assertTrue(true);
+            }
+
+            public function testTwo()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+                $this->assertTrue(false);
+            }
+
+            protected function assertPostConditions()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+            }
+
+            protected function tearDown()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+            }
+
+            public static function tearDownAfterClass()
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+            }
+
+            protected function onNotSuccessfulTest(Exception $e)
+            {
+                fwrite(STDOUT, __METHOD__ . "\n");
+                throw $e;
+            }
+        }
+        OUTPUTS:
+        TemplateMethodsTest::setUpBeforeClass
+        TemplateMethodsTest::setUp
+        TemplateMethodsTest::assertPreConditions
+        TemplateMethodsTest::testOne
+        TemplateMethodsTest::assertPostConditions
+        TemplateMethodsTest::tearDown
+        .TemplateMethodsTest::setUp
+        TemplateMethodsTest::assertPreConditions
+        TemplateMethodsTest::testTwo
+        TemplateMethodsTest::tearDown
+        TemplateMethodsTest::onNotSuccessfulTest
+        FTemplateMethodsTest::tearDownAfterClass
+        
+    SHARING FIXTURES BETWEEN TEST CLASSES
+        use PHPUnit\Framework\TestCase;
+        class DatabaseTest extends TestCase
+        {
+            protected static $dbh;
+            public static function setUpBeforeClass()
+            {
+                self::$dbh = new PDO('sqlite::memory:');
+            }
+            public static function tearDownAfterClass()
+            {
+                self::$dbh = null;
+            }
+        }
 PROVIDERS
     /**
      * @dataProvider additionProvider
