@@ -1,0 +1,23 @@
+.php FILES
+    // "http://localhost/trodat_test_v17/de/warenkorb" or "http://localhost/trodat_test_v17/en/cart"
+    $this->context->link->getPageLink('cart')
+.tpl FILES
+    Prestashop 1.6 : {$link->getModuleLink()}
+    Prestashop 1.7 : {url entity='module' name='myModule' controller='myController' params = ['paramKey1' => $paramValue1, 'paramKey2' => $paramValue2]}
+    Example : {url entity='module' name='marketplace' controller='productupdate' params=['edited' => 1, 'id' => $id]}
+
+    Prestashop 1.6 : {$link->getPageLink()}
+    Prestashop 1.7 : { url entity='myPageName' params = ['paramKey1' => $paramValue1, 'paramKey2' => $paramValue2]}
+    Example : { url entity='my-account' params=['edited' => 1, 'id' => $id]}
+
+    Prestashop 1.6 : {$link->getCategoryLink()}
+    Prestashop 1.7 : {url entity='category' id=$id_category id_lang=$id_lang}
+    Example : {url entity='category' id=3 id_lang=2}
+
+    Prestashop 1.6 : {$link->getCmsLink()}
+    Prestashop 1.7 : {url entity='cms' id=$id_cms id_lang=$id_lang}
+    Example : {url entity='cms' id=3 id_lang=2}
+
+    Prestashop 1.6 : {$link->getCatImageLink()}
+    Prestashop 1.7 : {url entity='categoryImage' id=$id_category name='imageType'}
+    Example : {url entity='categoryImage' id=3 name='home-default'}
