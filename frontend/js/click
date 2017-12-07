@@ -6,5 +6,5 @@ BEST WAY FOR CLICK EVENT
     }, false);
 
     myEl.addEventListener('click', function() {
-        alert('Hello world again!!!');
+        alert('Hello world AGAINNNN!!!');
     }, false);
