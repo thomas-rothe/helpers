@@ -1,0 +1,99 @@
+https://stackoverflow.com/questions/43696524/make-an-ajax-request-from-a-prestashop-module/43697852
+
+This is pretty simple, you just have to make the controller with Prestashop's standards then link it to your frontend Javascript.
+
+Name a php file like this : ./modules/modulename/controllers/front/ajax.php
+
+Then put inside :
+
+<?php
+
+// Edit name and class according to your files, keep camelcase for class name.
+require_once _PS_MODULE_DIR_.'modulename/modulename.php';
+
+class ModuleNameAjaxModuleFrontController extends ModuleFrontController
+{
+    public function initContent()
+    {
+
+        $module = new ModuleName;
+
+        // You may should do some security work here, like checking an hash from your module
+        if (Tools::isSubmit('action')) {
+
+            // Usefull vars derivated from getContext
+            $context = Context::getContext();
+            $cart = $context->cart;
+            $cookie = $context->cookie;
+            $customer = $context->customer;
+            $id_lang = $cookie->id_lang;
+
+            // Default response with translation from the module
+            $response = array('status' => false, "message" => $module->l('Nothing here.'));
+
+            switch (Tools::getValue('action')) {
+
+                case 'action_name':
+
+                    // Edit default response and do some work here
+                    $response = array('status' => true, "message" => $module->l('It works !'));
+
+                    break;
+
+                default:
+                    break;
+
+            }
+        }
+
+        // Classic json response
+        $json = Tools::jsonEncode($response);
+        echo $json;
+        die;
+
+        // For displaying like any other use this method to assign and display your template placed in modules/modulename/views/template/front/...
+        // Just put some vars in your template
+        // $this->context->smarty->assign(array('var1'=>'value1'));
+        // $this->setTemplate('template.tpl');
+
+        // For sending a template in ajax use this method
+        // $this->context->smarty->fetch('template.tpl');
+
+    }
+}
+
+?>
+In your Module Hooks, you need to bring access to the route in JS, so we basicaly make a variable :
+
+// In your module PHP
+public function hookFooter($params)
+{
+
+    // Create a link with the good path
+    $link = new Link;
+    $parameters = array("action" => "action_name");
+    $ajax_link = $link->getModuleLink('modulename','controller', $parameters);
+
+    Media::addJsDef(array(
+        "ajax_link" => $ajax_link
+    ));
+
+}
+On the frontend side, you just call it like this in a JS file (with jQuery here) :
+
+// ajax_link has been set in hookfooter, this is the best way to do it
+$(document).ready(function(){
+
+    $.getJSON(ajax_link, {parameter1 : "value"}, function(data) {
+
+        if(typeof data.status !== "undefined") {
+
+            // Use your new datas here
+            console.log(data);
+
+        }
+
+    });
+
+});
+And voila, you have your ajax ready to use controller
