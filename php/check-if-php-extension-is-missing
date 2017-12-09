@@ -2,3 +2,15 @@ EXAMPLE FOUND IN MONOLOG:
         if (!function_exists('json_encode')) {
             throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
         }
+
+EXAMPLE IN SYMPHONY LOCK
+    public static function isSupported()
+    {
+        return extension_loaded('sysvsem');
+    }
+    public function __construct()
+    {
+        if (!static::isSupported()) {
+            throw new InvalidArgumentException('Semaphore extension (sysvsem) is required');
+        }
+    }
