@@ -1,0 +1,190 @@
+FILES
+    FILE SYSTEMS
+        FAT-16 (or also MS-DOS)           Windows 95
+        FAT-32 (similar to FAT-16)        Windows 98
+        NTFS                              Windows NT, Windows 2000, Windows XP, Windows Vista, Windows 7, Windows 8
+        ReFS (or Resilient File System)   Windows 8 (targeted at the server version)
+        exFAT (FAT-like file system; Microsoft extension to FAT-32; optimized for flash drives and large file systems)
+    FILE NAMES
+        - different rules depending on file system (but all current operating systems allow 
+            strings of one to eight letters as legal file names)
+        - Many operating systems support two-part file names, with the two parts sepa-
+            rated by a period, as in prog.c. The part following the period is called the file
+            extension and usually indicates something about the file. In MS-DOS file names are 
+            1 to 8 characters, plus an optional extension of 1 to 3 characters. In UNIX, the 
+            size of the extension, if any, is up to the user, and a file may have two or more 
+            extensions, as in homepage.html.zip, where .html indicates
+            a Web page in HTML and .zip indicates that the file (homepage.html) has been
+            compressed using the zip program.
+            In some systems (all flavors of UNIX) file extensions are just conventions
+            and are not enforced by the operating system. A file named file.txt might be some
+            kind of text file, but that name is more to remind the owner than to convey any ac-
+            tual information to the computer. On the other hand, a C compiler may actually
+            insist that files it is to compile end in .c, and it may refuse to compile them if they
+            do not. However, the operating system does not care.
+            Conventions like this are especially useful when the same program can handle
+            several different kinds of files. The C compiler, for example, can be given a list of
+            several files to compile and link together, some of them C files and some of them
+            assembly-language files. The extension then becomes essential for the compiler to
+            tell which are C files, which are assembly files, and which are other files.
+            In contrast, Windows is aware of the extensions and assigns meaning to them.
+            Users (or processes) can register extensions with the operating system and specify
+            for each one which program ‘‘owns’’ that extension. When a user double clicks on
+            a file name, the program assigned to its file extension is launched with the file as
+            parameter. For example, double clicking on file.docx starts Microsoft Word with
+            file.docx as the initial file to edit.
+            EXAMPLES
+                .bak        Backup file
+                .c          C source program
+                .gif        Compuserve Graphical Interchange Format image
+                .hlp        Help file
+                .html       World Wide Web HyperText Markup Language document
+                .jpg        Still picture encoded with the JPEG standard
+                .mp3        Music encoded in MPEG layer 3 audio format
+                .mpg        Movie encoded with the MPEG standard
+                .o          Object file (compiler output, not yet linked)
+                .pdf        Portable Document For mat file
+                .ps         PostScript file
+                .tex        Input for the TEX formatting program
+                .txt        General text file
+                .zip        Compressed archive
+    FILE STRUCTURE
+        a) used by all Windows and UNIX systems
+            ------------------------------------
+            | Byte | Byte | Byte | Byte | Byte |
+            ------------------------------------
+            unstructured byte streams, files as nothing more than byte sequences
+        b) not in use any more
+            ----------------------------------------
+            |    Record    |    Record    |    Record    |
+            ----------------------------------------
+            a file consists of records which is a sequence of a fix length (for example 132 characters
+        c) used on some large mainframe computers for commercial data processing are read or written 
+            at once)
+            a file consists of a tree of records
+    FILE TYPES
+        - regular files (UNIX and Windows)
+            - contain user information
+            - either ASCII files or binary files:
+                - ASCII files
+                    - consist of lines of text
+                    - each line is terminated by
+                        - a carriage return character
+                        In ASCII and Unicode, the carriage return is defined as 13 (or hexadecimal 0D); it may also be seen as control+M or ^M. In the C programming language, and many other languages influenced by it, \r denotes this character.[1]
+                        - a line feed character
+                        - both (e.g., Windows)
+                    - lines need not all be of the same length.
+                    - great advantage: they can be displayed and printed as
+                       is, and they can be edited with any text editor. Furthermore, if large numbers of
+                      programs use ASCII files for input and output, it is easy to connect the output of
+                      one program to the input of another, as in shell pipelines. (The interprocess
+                      plumbing is not any easier, but interpreting the information certainly is if a stan-
+                      dard convention, such as ASCII, is used for expressing it.)
+                - binary files
+                    - are not ASCII files
+                    - listing them on the printer gives an incomprehensible listing full of random junk
+                    - usually, they have some internal structure known to programs that use them
+                    - technically the file is just a sequence of bytes; the operating system will 
+                        execute a file only if it has a proper format; every operating system must 
+                        recognize at least one file type: its own executable file; some recognize more
+                        - for example it can have five sections: header, text, data, relocation bits, 
+                        and symbol table:
+                        The header starts with a so-called magic number, identifying the file 
+                        as an executable file (to prevent the accidental execution of a file not 
+                        in this format)Then come the sizes of
+                        the various pieces of the file, the address at which execution starts, and some flag
+                        bits. Following the header are the text and data of the program itself. These are
+                        loaded into memory and relocated using the relocation bits. The symbol table is
+                        used for debugging.
+                        - second example of a binary file is an archive, also from UNIX. It consists
+                        of a collection of library procedures (modules) compiled but not linked. Each one
+                        is prefaced by a header telling its name, creation date, owner, protection code, and
+                        size. Just as with the executable file, the module headers are full of binary num-
+                        bers. Copying them to the printer would produce complete gibberish.
+        - directories (UNIX and Windows)
+            system files for maintaining the structure of the file system
+        - character special files (UNIX)
+            are related to input/output and used to model serial I/O devices, such as terminals, 
+            printers, and networks
+        - block special files
+            are used to model disks
+    FILE ACCESS
+    FILE ATTRIBUTES
+        - differ from OS to OS
+        - possible attributes (or "metadata")
+            - name
+            - data
+            - protection                  who can how access the file
+            - password                    password needed to access the file
+            - creator                     ID of the user who created the file
+            - owner                       ID of the current user owning the file
+            - read-only flag              0 for read/write; 1 for read only
+            - hidden flag                 0 for normal; 1 for do not display in listings
+            - system flag                 0 for normal files; 1 for system file
+            - archive flag                0 for has been backed up; 1 for needs to be backed up
+            - ASCII/binary flag           0 for ASCII file; 1 for binary file
+            - random access flag          0 for sequential access only; 1 for random access
+            - temporary flag              0 for normal; 1 for delete file on process exit
+            [- record length]             Number of bytes in a record
+            [- key position]              Offset of the key within each record
+            [- key length]                Number of bytes in the key field
+            - creation time               Date and time the file was created
+            - time of last access         Date and time the file was last accessed
+            - time of last change         Date and time the file was last changed
+            - current size                Number of bytes in the file
+            [- maximum size]              Number of bytes the file may grow to
+    FILE-SYSTEM CALLS
+        - differ from OS to OS, most common system calls:
+            1. Create
+                the file is created with no data; announce that the file is coming and 
+                set some of the attributes
+            2. Delete
+                delete and free up disk space
+            3. Open
+                Before using a file, a process must open it. The purpose of the
+                open call is to allow the system to fetch the attributes and list of disk
+                addresses into main memory for rapid access on later calls.
+            4. Close
+                When all the accesses are finished, the attributes and disk ad-
+                dresses are no longer needed, so the file should be closed to free up
+                internal table space. Many systems encourage this by imposing a
+                maximum number of open files on processes. A disk is written in
+                blocks, and closing a file forces writing of the file’s last block, even
+                though that block may not be entirely full yet.
+            5. Read
+                Data are read from file. Usually, the bytes come from the cur-
+                rent position. The caller must specify how many data are needed and
+                must also provide a buffer to put them in.
+            6. Write
+                Data are written to the file again, usually at the current posi-
+                tion. If the current position is the end of the file, the file’s size in-
+                creases. If the current position is in the middle of the file, existing
+                data are overwritten and lost forever.
+            7. Append
+                This call is a restricted form of write . It can add data only to
+                the end of the file. Systems that provide a minimal set of system calls
+                rarely have append, but many systems provide multiple ways of
+                doing the same thing, and these systems sometimes have append .
+            8. Seek
+                For random-access files, a method is needed to specify from
+                where to take the data. One common approach is a system call, seek,
+                that repositions the file pointer to a specific place in the file. After this
+                call has completed, data can be read from, or written to, that position.
+            9. Get attributes
+                Processes often need to read file attributes to do their
+                work. For example, the UNIX make program examines the modification times of all
+                the source and object files and arranges for the minimum number of
+                compilations required to bring everything up to date.
+            10. Set attributes
+                Some of the attributes are user settable and can be
+                changed after the file has been created. This system call makes that
+                possible. The protection-mode information is an obvious example.
+                Most of the flags also fall in this category.
+            11. Rename
+                It frequently happens that a user needs to change the name
+                of an existing file. This system call makes that possible. It is not al-
+                ways strictly necessary, because the file can usually be copied to a
+                new file with the new name, and the old file then deleted.
+DIRECTORIES
+    - are files themselves
+    - to keep track of files, file systems normally have directories or folders
