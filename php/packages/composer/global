@@ -1,0 +1,5 @@
+GET CONFIG
+
+    composer config --list --global
+
+    --> The '[home]' line refers to the default value of $COMPOSER_HOME
