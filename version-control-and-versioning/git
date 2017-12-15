@@ -57,6 +57,7 @@
 			git reset file.txt		<-- maybe same as: git rm --cached file.txt
 		ALL FILES
 			git reset
+			git reset --hard
 	STAGING->COMMITTED
 		git commit -m "added header"		<-- commits all staged files
 	MODIFIED->COMMITTED
