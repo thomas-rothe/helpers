@@ -1,0 +1,93 @@
+SERVER
+    DIRECTORY_SEPERATOR
+        - since 2014 Symfony uses this in its whole codebase (https://github.com/symfony/symfony/commit/559273ec1c8d8b00156a36b13230a82f3d3b554c)
+        
+        EXAMPLES
+            if ('\\' === DIRECTORY_SEPARATOR) {
+                // is Windows
+            } elseif (DIRECTORY_SEPARATOR == '/') {
+                // unix, linux, mac
+            }
+
+
+            if ($this->disableOutput) {
+                $nullstream = fopen('\\' === DIRECTORY_SEPARATOR ? 'NUL' : '/dev/null', 'c');
+                
+                
+    PHP_OS
+        - for UNIX it uses the output of the C program "uname", on Windows it uses strings like "WINNT"
+        - contains the OS for which this PHP binary was built (it could run on another OS)
+        
+        EXAMPLES
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                echo 'This is a server using Windows!';
+            } else {
+                echo 'This is a server not using Windows!';
+            }
+            
+            
+            if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
+                echo 'This is a server using Windows!';
+            } else {
+                echo 'This is a server not using Windows!';
+            }
+            
+            
+            class System {
+                const OS_UNKNOWN = 1;
+                const OS_WIN = 2;
+                const OS_LINUX = 3;
+                const OS_OSX = 4;
+                /**
+                 * @return int
+                 */
+                static public function getOS() {
+                    switch (true) {
+                        case stristr(PHP_OS, 'DAR'): return self::OS_OSX;
+                        case stristr(PHP_OS, 'WIN'): return self::OS_WIN;
+                        case stristr(PHP_OS, 'LINUX'): return self::OS_LINUX;
+                        default : return self::OS_UNKNOWN;
+                    }
+                }
+            }
+            if(System::getOS() == System::OS_WIN) {
+              // do something only on Windows platform
+            }
+
+
+    PHP_WINDOWS_VERSION_BUILD
+        - was used by Symfony until 2014
+        
+        EXAMPLE
+            if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+                // is Windows
+            }
+            
+            
+    PHP_SHLIB_SUFFIX
+            if (strtolower(PHP_SHLIB_SUFFIX) === 'dll') {
+                // Windows
+            } else {
+                // Linux/UNIX/OS X
+            }
+
+
+    PHP_WINDOWS_VERSION_MAJOR
+        EXAMPLE
+            if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
+                // is Windows
+            }
+
+
+    strpos(__FILE__,92)
+        - basically quite similar to detection via DIRECTORY_SEPERATOR
+    
+    PATH_SEPARATOR
+        - is not ":" for Windows, is ":" on all other OSs
+        
+        
+CLIENT
+    echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";
+
+    $browser = get_browser(null, true);
+    print_r($browser);
