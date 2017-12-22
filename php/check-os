@@ -57,6 +57,7 @@ SERVER
 
     PHP_WINDOWS_VERSION_BUILD
         - was used by Symfony until 2014
+        - is used by monolog/monolog
         
         EXAMPLE
             if (defined('PHP_WINDOWS_VERSION_BUILD')) {
