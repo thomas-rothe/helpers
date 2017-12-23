@@ -1,0 +1,12 @@
+EXAMPLE FOUND IN MONOLOG:
+        if (!function_exists('json_encode')) {
+            throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
+        }
+EXAMPLE IN SYMFONY PROCESS COMPONENT, Process.php
+        public function __construct($commandline, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
+        {
+            if (!function_exists('proc_open')) {
+                throw new RuntimeException('The Process class relies on proc_open, which is not available on your PHP installation.');
+            }
+            /* ... */
+        }
