@@ -1,5 +1,5 @@
-if (version_compare(_PS_VERSION_, '1.5.0.0', '>=')) {
-    echo 'I am PrestaShop 1.5 or higher';
+if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
+    echo 'I am PrestaShop 1.7 or higher';
 }
 
 <div class="{if version_compare($smarty.const._PS_VERSION_,'1.6','>=')}col-lg-12{else}clear{/if}" id="admincustomer_sponsorship">
