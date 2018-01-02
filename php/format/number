@@ -1,0 +1,12 @@
+number_format
+    string number_format ( float $number [, int $decimals = 0 ] )
+    string number_format ( float $number , int $decimals = 0 , string $dec_point = "." , string $thousands_sep = "," )
+
+    number_format(123);                       // 123
+    number_format(1234);                      // 1,234
+    number_format(1234.345);                  // 1,234
+    number_format(1234.345, 2);               // 1,234.35
+    number_format(1234.345, 3);               // 1,234.345
+    number_format(1234.345, 2, '.', ',');     // 1,234.35
+    number_format(1234.345, 2, ',', '.');     // 1.234,35
+    number_format(1234.345, 2, '', '');       // 123435
