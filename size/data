@@ -1,3 +1,16 @@
+Bit         b
+Kilobit     kb
+Megabit     Mb
+Gigabit     Gb
+Terabit     Tb
+Petabit     Pb
+Byte        B
+Kilobyte    kB
+Megabyte    MB
+Gigabyte    GB
+Terabyte    TB
+Petabyte    PB
+
 1 Megabyte is
     Bit         8000000
     Kilobit     8000
