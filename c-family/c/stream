@@ -1,0 +1,33 @@
+stdio.h
+    typedef struct 
+    {
+        short level;            /* Fill / Empty level of Buffer */
+        short token;            /* Validity Checking */
+        short bsize;            /* Buffer size */
+        char fd;                /* File descriptor using which file can be identified */
+        unsigned flags;         /* File status flag */
+        unsigned char hold;     /* ungetc character if no buffer space available */
+        unsigned char *buffer;  /* Data transfer buffer */
+        unsigned char *curp;    /* Current active pointer */
+        unsigned istemp;        /* Temp. File indicator */
+    } FILE ;
+
+FILE *fp = fopen("try.c","r");
+1. A search is carried out on the disk for the file to be opened.
+2. If the file is found, it is loaded into memory from the disk. In case the file is too large, then the 
+    file is loaded partwise. In case the file is not found, a NULL() is returned by fopen(). “stdio.h” 
+    contains a macro defined as NULL, which indicates that the attempt to open the file failed.
+3. fopen() then open sets up a character pointer. The character pointer is a part of FILE structure and 
+    points to the first character in memory where the file is loaded.
+
+There is a structure type FILE. What you get back from fopen() is a FILE *, which points at a FILE 
+structure. The structure that is pointed at contains all the information that the library needs to manage 
+I/O to the file. One consequence is that it seldom contains the file name; that isn't needed once the 
+file is open. The FILE structure is not the buffer; the buffer is an array of characters. The FILE 
+structure contains a pointer to the buffer, either supplied by the system or provided by the user via 
+setvbuf() or setbuf(). The structure contains more than just a pointer to the buffer. I'm not sure of the 
+details for Windows, but the structure contains any information needed at the O/S level to manage the 
+file in a way compliant with the C standard. The phrase 'indirectly points to the opened file through 
+buffer' is wrong; the buffer is the character array where data is held until it is read or written to 
+disk, so that the system doesn't do single-character I/O operations (usually; even an unbuffered FILE * 
+avoids single-character operations when it can).
