@@ -1,0 +1,9 @@
+GENERAL
+    Streams aren't a new idea at all. Many functional languages support them. The name 'stream' is used in Scheme, 
+    a LISP dialect that supports these features. Haskell also supports infinite lists. The names are all used in 
+    Haskell. A different but similar concept also exists in Python and in many other languages; these are called 
+    "generators".
+
+    These ideas have been around for a long time in the functional programming community. However, they're quite 
+    new concepts for most PHP and Javascript programmers, especially those without a functional programming 
+    background.
