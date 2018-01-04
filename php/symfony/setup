@@ -1,0 +1,12 @@
+INSTALL
+    composer create-project symfony/skeleton myproject
+INSTALL LIBRARIES
+    cd myproject
+    composer require sec-checker
+    composer require annotations
+    composer require --dev profiler
+    composer require twig
+CONSOLE
+    php bin/console
+    php bin/console server:run
+    php bin/console debug:router
