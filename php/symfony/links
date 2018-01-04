@@ -1,0 +1,29 @@
+LINK
+    IN CONTROLLERS
+        class TaskController extends Controller
+        {
+            public function bla()
+            {
+                $url = $this->generateUrl(            --> generates /blog/my-blog-post
+                    'blog_show',                      --> Route name
+                    array('slug' => 'my-blog-post')
+                );
+            }
+        }
+    IN SERVICES
+        use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+        class SomeService
+        {
+            private $router;
+            public function __construct(UrlGeneratorInterface $router)
+            {
+                $this->router = $router;
+            }
+            public function someMethod()
+            {
+                $url = $this->router->generate(
+                    'blog_show',
+                    array('slug' => 'my-blog-post')
+                );
+            }
+        }
