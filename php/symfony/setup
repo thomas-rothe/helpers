@@ -6,6 +6,7 @@ INSTALL LIBRARIES
     composer require annotations ;
     composer require --dev profiler ;
     composer require twig ;
+    composer require asset ;
 CONSOLE
     php bin/console
     php bin/console server:run
