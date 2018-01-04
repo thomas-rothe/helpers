@@ -10,4 +10,5 @@ INSTALL LIBRARIES
 CONSOLE
     php bin/console
     php bin/console server:run
+    php bin/console debug:autowiring
     php bin/console debug:router
