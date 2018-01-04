@@ -1,0 +1,42 @@
+ANNOTATIONS (IN CONTROLLER)
+    /**
+     * @Route("/blog", name="blog_list")                                        --> Matches /blog exactly
+     */
+    public function list() {}
+
+    /**
+     * @Route("/blog/{slug}", name="blog_show")                                 --> Matches /blog/*
+     */
+    public function show($slug) {}
+    
+    /**
+     * @Route("/blog/{page}", name="blog_list", requirements={"page"="\d+"})    --> Matches /blog/22
+     */
+    public function list($page) {}
+    
+    /**
+     * @Route("/blog/{page}", name="blog_list", requirements={"page"="\d+"})    --> Matches /blog/22
+     */
+    public function list($page = 1)                                             --> Defaults to "1"
+    
+    /**
+     * @Route(
+     *     "/articles/{_locale}/{year}/{slug}.{_format}",                       --> Matches /articles/en/2010/my-post
+     *                                                                                      /articles/fr/2010/my-post.rss
+     *                                                                                      /articles/en/3/my-latest-post.html
+     *     defaults={"_format": "html"},                                        --> Defaults to "html"
+     *     requirements={
+     *         "_locale": "en|fr",                                              --> {_locale} must be "en" or "fr"
+     *         "_format": "html|rss",                                           --> {_format} must be "html" or "rss"
+     *         "year": "\d+"                                                    --> {year} must be a number
+     *     }
+     * )
+     */
+    public function show($_locale, $year, $slug)
+Special Routing Parameters
+    _controller   As you've seen, this parameter is used to determine which controller is executed when the route is 
+                  matched.
+    _format       Used to set the request format (read more).
+    _fragment     Used to set the fragment identifier, the optional last part of a URL that starts with a # character 
+                  and is used to identify a portion of a document.
+    _locale       Used to set the locale on the request (read more).
