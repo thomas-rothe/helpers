@@ -17,13 +17,13 @@ ANNOTATIONS (IN CONTROLLER)
     /**
      * @Route("/blog/{page}", name="blog_list", requirements={"page"="\d+"})    --> Matches /blog/22
      */
-    public function list($page = 1)                                             --> Defaults to "1"
+    public function list($page = null)                                          --> Defaults to null
     
     /**
      * @Route(
      *     "/articles/{_locale}/{year}/{slug}.{_format}",                       --> Matches /articles/en/2010/my-post
-     *                                                                                      /articles/fr/2010/my-post.rss
-     *                                                                                      /articles/en/3/my-latest-post.html
+                                                                                            /articles/fr/2010/my-post.rss
+                                                                                            /articles/en/3/my-latest-post.html
      *     defaults={"_format": "html"},                                        --> Defaults to "html"
      *     requirements={
      *         "_locale": "en|fr",                                              --> {_locale} must be "en" or "fr"
