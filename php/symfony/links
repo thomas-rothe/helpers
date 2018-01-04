@@ -21,9 +21,18 @@ LINK
             }
             public function someMethod()
             {
-                $url = $this->router->generate(
+                $url = $this->router->generate(                 --> /blog/my-blog-post
                     'blog_show',
                     array('slug' => 'my-blog-post')
+                );
+                $this->get('router')->generate('blog', array(   --> /blog/2?category=Symfony
+                    'page' => 2,
+                    'category' => 'Symfony'
+                ));
+                $url = $this->router->->generateUrl(            --> http://www.example.com/blog/my-blog-post
+                    'blog_show', 
+                    array('slug' => 'my-blog-post'), 
+                    Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL
                 );
             }
         }
