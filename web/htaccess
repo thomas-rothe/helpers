@@ -12,6 +12,7 @@ HTPASSWD
 	AuthType Basic
 	AuthName "Password Protected Area"
 	AuthUserFile /var/www/blabla.at/web/.htpasswd
+	#AuthUserFile /usr/www/users/someus//info.example.at/.htpasswd
 	Require valid-user
 LARAVEL
 	<IfModule mod_rewrite.c>
