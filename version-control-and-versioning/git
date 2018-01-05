@@ -142,6 +142,8 @@
 		git tag -a 1.0.0 -m 'First version.'
 	REMOVE TRACKED FILES FROM REPO (for example after you added it to .gitignore)
 		git rm --cached file.txt
+	CREATE ARCHIVE
+		git archive --remote=ssh://git@bitbucket.org/user/repo --format=zip --output="repo.zip" master
 ##############################################################################
 ##############################################################################
 ##############################################################################
