@@ -1,11 +1,28 @@
+
+
+
+
+http://www.php-fig.org/psr/psr-2/
+stopped at 2.3
+
+
+
+
+
+
 DEFINITIONS
 MUST = REQUIRED = SHALL
     - follow PSR-1
-    - files must use the Unix LF (linefeed) line ending
-    - files must end with a single blank line
+    - files must use the linefeed for line endings                                  \n
+    - files must end with a single blank line                                       /*code*/\n\n
     - closing ?> tag must be omitted from files containing only PHP
     - 4 spaces for indenting (not tabs)
     - soft limit of 120 characters on line length
+        - "soft" (warning) and "hard" (error) limits refer to automated style checkers, not to programmers
+        - PSR-2 line length rules summed up:
+            0-80: Always ok
+            80-120: Acceptable (if there's a good reason for it, e.g. a string where wrapping it would be ugly)
+            120+: Lint tools, IDEs, etc. MUST show a warning (but never an error!) since the line might be ugly/unreadable/...
     - one blank line after the namespace declaration
     - one blank line after the block of use declarations
     - opening braces for classes go on the next line
