@@ -1,0 +1,27 @@
+DEFINITIONS
+MUST = REQUIRED = SHALL
+    - follow PSR-1
+    - files must use the Unix LF (linefeed) line ending
+    - files must end with a single blank line
+    - closing ?> tag must be omitted from files containing only PHP
+    - 4 spaces for indenting (not tabs)
+    - soft limit of 120 characters on line length
+    - one blank line after the namespace declaration
+    - one blank line after the block of use declarations
+    - opening braces for classes go on the next line
+    - closing braces for classes go on the next line after the body
+    - opening braces for methods go on the next line
+    - closing braces for methods go on the next line after the body
+    - visibility must be declared on all properties and methods
+    - abstract and final must be declared before the visibility
+    - static must be declared after the visibility
+    - control structure keywords must have one space after them
+    - opening braces for control structures go on the same line
+    - closing braces for control structures go on the next line after the body
+MUST NOT = SHALL NOT
+    - a hard limit on line length
+    - method and function calls must not have one space after them
+    - opening parentheses for control structures must not have a space after them
+    - closing parentheses for control structures must not have a space before them
+SHOULD = RECOMMENDED
+    - maximum of 80 characters per line
