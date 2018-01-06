@@ -1,3 +1,45 @@
+DEFINITIONS
+    PSR-1
+        - the term “class” refers to all classes, interfaces, and traits
 MUST
     PSR-1
-        `<?php` or `<?=`
+        - PHP tags                                                                          <?php ; <?= ; ?>
+        - Character Encoding                                                                UTF-8 without BOM 
+        - namespaces and classes follow an “autoloading” PSR: [PSR-0, PSR-4]
+            - each class is in a file by itself
+            - and is in a namespace of at least one level: a top-level vendor name
+            - code written for PHP 5.3 and after MUST use formal namespaces                 namespace Vendor\Model;
+            - code written for 5.2.x and before SHOULD use the pseudo-namespacing           class Vendor_Model_Foo
+        - class names declared in StudlyCaps                                                ClassName
+        - lass constants declared in all upper case with underscore separators              CLASS_CONSTANT
+        - Method names declared in camelCase                                                methodName
+MUST NOT
+    PSR-1
+REQUIRED
+    PSR-1
+SHALL
+    PSR-1
+SHALL NOT
+    PSR-1
+SHOULD
+    PSR-1
+        - either declare symbols (classes, functions, constants, etc.) or execute logic and cause side-effects 
+        (e.g. generate output, change .ini settings, etc.)
+            ini_set('error_reporting', E_ALL);  // side effect: change ini settings
+            include "file.php";                 // side effect: loads a file
+            echo "<html>\n";                    // side effect: generates output
+            function foo(){/*body*/}            // declaration
+            if (! function_exists('bar')) {     // conditional declaration is *not* a side effect
+                function bar(){/*body*/}
+            }
+        - whatever naming convention is used for property names ($StudlyCaps, $camelCase, or $under_score) 
+        SHOULD be applied consistently within a reasonable scope. That scope may be vendor-level, package-level, 
+        class-level, or method-level.
+SHOULD NOT
+    PSR-1
+RECOMMENDED
+    PSR-1
+MAY
+    PSR-1
+OPTIONAL
+    PSR-1
