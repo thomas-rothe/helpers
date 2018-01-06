@@ -1,0 +1,7 @@
+NEWLINE
+    - or: line ending, end of line (EOL), line break
+    - different OSs use different characters for new lines
+        Unix        \n      LF        line feed (finish line and go one "down" to a new line)
+        Windows     \r\n    CR LF     carriage return (move the cursor to the beginning of the line) plus line feed
+        old Macs    \r      CR        carriage return
+        
