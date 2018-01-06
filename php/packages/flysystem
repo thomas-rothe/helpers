@@ -3,17 +3,18 @@ INSTALL
 TUTORIALS
     https://gotohayato.com/content/154?page=1
 USAGE
-    use League\Flysystem\Filesystem;
-    use League\Flysystem\Adapter\Local;
-    $adapter = new Local('/proc', LOCK_EX, Local::SKIP_LINKS);
-    $filesystem = new Filesystem($adapter);
-
-    LIST
+    GENERAL
+        use League\Flysystem\Filesystem;
+        use League\Flysystem\Adapter\Local;
+        $adapter = new Local(__DIR__);
+        // or: $adapter = new Local('/proc', LOCK_EX, Local::SKIP_LINKS);
+        $filesystem = new Filesystem($adapter);
+    LIST DIRECTORY
         $entries = $filesystem->listContents();
-        $entries = $filesystem->listContents('path/path');
-        $entries = $filesystem->listContents('.);
-        $entries = $filesystem->listContents('..');
-        $entries = $filesystem->listContents('.', true);      // recursive
+        // or: $entries = $filesystem->listContents('path/path');
+        // or: $entries = $filesystem->listContents('.);
+        // or: $entries = $filesystem->listContents('..');
+        // or: $entries = $filesystem->listContents('.', true);      // recursive
         
         foreach ($entries as $entry) {        // type, path, timestamp, size, dirname, basename, extension, filename
             if ($entry['type'] === 'file') {
@@ -23,3 +24,34 @@ USAGE
                 print($entry['path'] . ' is a directory.' . PHP_EOL);
             }
         }
+    READ FILE
+        WHOLE FILE AT ONCE
+            $content = $filesystem->read('path/file.txt');
+        STREAM
+            $stream = $fs->readStream('data/sample-in.txt');
+            while (!feof($stream)) {
+              $line = fgets($stream);
+              print($line);
+            }
+            fclose($stream);
+    WRITE FILE
+        CREATE
+            try {
+                $content = $fs->write('path/file.txt', 'This text is written.');
+            } catch (FlyFileExistsException $e) {
+                throw $e;
+            }
+        UPDATE
+            try {
+                $content = $fs->update('path/file.txt', 'This text is written.');
+            } catch (FlyFileNotFoundException $e) {
+                throw $e;
+            }
+        file_put_contents() STYLE
+            $content = $fs->put('path/file.txt', 'This text is written.');
+        STREAM
+            $stream = fopen('https://packagist.org/search.json?q=league', 'r');
+            $content = $fs->writeStream('data/packages.json', $stream);
+            // or: $content = $fs->updateStream('data/packages.json', $stream);
+            // or: $content = $fs->putStream('data/packages.json', $stream);
+            fclose($stream);
