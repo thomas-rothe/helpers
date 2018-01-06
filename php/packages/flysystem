@@ -1,0 +1,25 @@
+INSTALL
+    composer require league/flysystem
+TUTORIALS
+    https://gotohayato.com/content/154?page=1
+USAGE
+    use League\Flysystem\Filesystem;
+    use League\Flysystem\Adapter\Local;
+    $adapter = new Local('/proc', LOCK_EX, Local::SKIP_LINKS);
+    $filesystem = new Filesystem($adapter);
+
+    LIST
+        $entries = $filesystem->listContents();
+        $entries = $filesystem->listContents('path/path');
+        $entries = $filesystem->listContents('.);
+        $entries = $filesystem->listContents('..');
+        $entries = $filesystem->listContents('.', true);      // recursive
+        
+        foreach ($entries as $entry) {        // type, path, timestamp, size, dirname, basename, extension, filename
+            if ($entry['type'] === 'file') {
+                print($entry['path'] . ' is a file.' . PHP_EOL);
+            }
+            elseif ($entry['type'] === 'dir') {
+                print($entry['path'] . ' is a directory.' . PHP_EOL);
+            }
+        }
