@@ -1,0 +1,20 @@
+GENERAL
+    - 1997
+    - defines key words for RFC Requirement Levels
+MUST = REQUIRED = SHALL
+    it is an absolute requirement
+MUST NOT = SHALL NOT
+    absolute prohibition
+SHOULD = RECOMMENDED
+    there may exist valid reasons in particular circumstances to ignore a
+    particular item, but the full implications must be understood
+SHOULD NOT = NOT RECOMMENDED
+    there may exist valid reasons in particular circumstances when the
+    particular behavior is acceptable or even useful, but the full
+    implications should be understood
+MAY = OPTIONAL
+    one vendor may choose to do it, while another does not
+    An implementation which does not include a particular option MUST be
+    prepared to interoperate with another implementation which does
+    include the option, though perhaps with reduced functionality. And 
+    vice versa
