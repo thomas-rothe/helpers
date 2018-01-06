@@ -1,6 +1,5 @@
 DEFINITIONS
-    PSR-1
-        - the term “class” refers to all classes, interfaces, and traits
+    - the term “class” refers to all classes, interfaces, and traits
 MUST = REQUIRED = SHALL
     PSR-1
         - PHP tags                                                                          <?php ; <?= ; ?>
@@ -13,9 +12,7 @@ MUST = REQUIRED = SHALL
         - class names declared in StudlyCaps                                                ClassName
         - lass constants declared in all upper case with underscore separators              CLASS_CONSTANT
         - Method names declared in camelCase                                                methodName
-MUST NOT = SHALL NOT
 SHOULD = RECOMMENDED
-    PSR-1
         - either declare symbols (classes, functions, constants, etc.) or execute logic and cause side-effects 
         (e.g. generate output, change .ini settings, etc.)
             ini_set('error_reporting', E_ALL);  // side effect: change ini settings
@@ -28,5 +25,3 @@ SHOULD = RECOMMENDED
         - whatever naming convention is used for property names ($StudlyCaps, $camelCase, or $under_score) 
         SHOULD be applied consistently within a reasonable scope. That scope may be vendor-level, package-level, 
         class-level, or method-level.
-SHOULD NOT = NOT RECOMMENDED
-MAY = OPTIONAL
