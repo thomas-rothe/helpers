@@ -161,16 +161,24 @@ class [Mymodule] extends Module
 
     public function hookBackOfficeHeader()
     {
-        if (Tools::getValue('module_name') == $this->name) {
-            $this->context->controller->addJS($this->_path . 'views/js/back.js');
-            $this->context->controller->addCSS($this->_path . 'views/css/back.css');
+        if (
+            Tools::getValue('module_name') == $this->name ||
+            Tools::getValue('configure') == $this->name
+        ) {
+            $this->context->controller->addJS($this->_path.'views/js/back.js');
+            $this->context->controller->addCSS($this->_path.'views/css/back.css');
         }
     }
 
     public function hookHeader()
     {
-        $this->context->controller->addJS($this->_path . '/views/js/front.js');
-        $this->context->controller->addCSS($this->_path . '/views/css/front.css');
+        if (
+            Tools::getValue('module_name') == $this->name ||
+            Tools::getValue('configure') == $this->name
+        ) {
+            $this->context->controller->addJS($this->_path . '/views/js/front.js');
+            $this->context->controller->addCSS($this->_path . '/views/css/front.css');
+        }
     }
 
     /***********************************************************************************************************************
