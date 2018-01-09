@@ -1,3 +1,5 @@
+INSTALL
+    composer require guzzlehttp/guzzle:~6.0
 INITIALIZING
     $client = new \GuzzleHttp\Client([
         'base_uri' => 'http://httpbin.org', // Base URI is used with relative requests
