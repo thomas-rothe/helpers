@@ -1,3 +1,5 @@
+INSTALL
+    composer require monolog/monolog
 LOG
     $log->debug('My log record');
     $log->info('My log record');
