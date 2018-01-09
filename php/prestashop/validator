@@ -1,0 +1,3 @@
+COMMENTS IF SOMETHING IS NOT VALID
+    Removing variable escaping is highly discouraged because malicious code can be displayed and executed
+        <div·class="mwd-media">{$varContainingHtml nofilter}{* HTML, cannot escape*}</div>
