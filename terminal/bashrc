@@ -1,0 +1,4 @@
+COLOR
+    force_color_prompt=yes
+ALIAS
+    alias ll='ls -la'
