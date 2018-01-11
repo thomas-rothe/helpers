@@ -1,0 +1,4 @@
+INSTALL
+    sudo apt-get install zip gzip tar
+ARCHIVE
+    zip -r ZIP_NAME.zip FOLDER_TO_ZIP
