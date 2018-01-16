@@ -1,0 +1,3 @@
+IF EMAIL IN MODULE, IT MUST BE IN:
+    ../modules/modulename/mails/templatename.html
+    ../modules/modulename/mails/templatename.txt
