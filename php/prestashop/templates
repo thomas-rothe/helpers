@@ -1,0 +1,6 @@
+$this->context->smarty->assign(array(
+    'module_dir' => $this->_path
+    'var' => $var,
+));
+
+$output .= $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
