@@ -19,7 +19,7 @@ EXAMPLE in [modulename].php
 		null,
 		null,
 		null,
-			dirname(__FILE__).'/views/templates/email/',
+		dirname(__FILE__).'/views/templates/email/',
 		false,
 		null
 	);
