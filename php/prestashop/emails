@@ -16,10 +16,10 @@ EXAMPLE in [modulename].php
 		'support@medani.at',
 		null,
 		null,
-            null,
-            null,
-            null,
+		null,
+		null,
+		null,
 			dirname(__FILE__).'/views/templates/email/',
-            false,
-            null
-        );
+		false,
+		null
+	);
