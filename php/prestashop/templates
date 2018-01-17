@@ -1,6 +1,9 @@
-$this->context->smarty->assign(array(
-    'module_dir' => $this->_path
-    'var' => $var,
-));
-
-$output .= $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
+VARIABLES
+    $this->context->smarty->assign(array(
+        'module_dir' => $this->_path
+        'var' => $var,
+    ));
+CALL TEMPLATE
+    $output .= $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
+    
+    return $this->display(__FILE__, 'views/templates/hook/hookDashboardZoneOne.tpl');
