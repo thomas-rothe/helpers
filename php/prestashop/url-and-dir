@@ -1,0 +1,4 @@
+MODULE URL
+    $this->_path
+MODULE DIR
+    $this->local_path
