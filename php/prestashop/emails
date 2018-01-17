@@ -2,20 +2,20 @@ IF EMAIL IN MODULE, IT MUST BE IN:
         ../modules/modulename/mails/templatename.html
         ../modules/modulename/mails/templatename.txt
 EXAMPLE in [modulename].php
-		return Mail::Send(
-			$this->context->language->id,
-			'inquiry',
-			'Anfrage über Medani Commons | ' . $this->context->shop->domain,
-			[ // variables for smarty
-				'name' => $name,
-				'email' => $email,
-				'subject' => $subject,
-				'category' => $category,
-				'message' => $message
-			],
-			'support@medani.at',
-			null,
-			null,
+	return Mail::Send(
+		$this->context->language->id,
+		'inquiry',
+		'Anfrage über Medani Commons | ' . $this->context->shop->domain,
+		[ // variables for smarty
+			'name' => $name,
+			'email' => $email,
+			'subject' => $subject,
+			'category' => $category,
+			'message' => $message
+		],
+		'support@medani.at',
+		null,
+		null,
             null,
             null,
             null,
