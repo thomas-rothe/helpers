@@ -1,0 +1,27 @@
+[module].php
+    public function getContent()
+    {
+	    $output = '';
+	    if (((bool)Tools::isSubmit('submitMwdcommonsConfiguration')) == true) {
+		    $this->postProcess();
+	    }
+	    if (((bool)Tools::isSubmit('submitMwdcommonsEmail')) == true) {
+		    $success = $this->postProcessEmail();
+		    $this->context->smarty->assign('success', $success);
+		    $output .= $this->context->smarty->fetch($this->local_path.'views/templates/admin/help-mail-confirmation.tpl');
+	    }
+
+	    $output .= $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
+
+	    return $output.$this->renderForm();
+    }
+help-mail-confirmation.tpl
+    {if 1 == $success}
+        <div class="alert alert-success" role="alert">
+            Ihre Anfrage wurde erfolgreich versandt.
+        </div>
+    {else}
+        <div class="alert alert-warning" role="alert">
+            Der Versand Ihrer Anfrage ist fehlgeschlagen
+        </div>
+    {/if}
