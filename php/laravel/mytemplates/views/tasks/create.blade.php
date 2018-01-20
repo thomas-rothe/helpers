@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <form class="form-horizontal" method="POST" action="{{ route('[tasks]') }}">
+  <form class="form-horizontal" method="POST" action="{{ route('[tasks.store]') }}">
     @include('partials.errors')
 
     {{ csrf_field() }}
