@@ -3,9 +3,10 @@
 @section('content')
 
   <form class="form-horizontal" method="POST" action="{{ route('[tasks]') }}">
-    @include('partials.errors')
-
+  
+    @include('errors.form-submit')
     {{ csrf_field() }}
+    <input type="hidden" name="_method" value="PUT">
 
     <!-- hidden field for datepicker -->
     <input type="hidden" id="datepicker-alternative-date" name="datepicker-alternative-date">
