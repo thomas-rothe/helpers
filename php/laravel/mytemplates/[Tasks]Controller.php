@@ -53,7 +53,9 @@ class TasksController extends Controller
     public function update(Task $task, StoreTask $request)
     {	
 	$task->fill( $request->all() );
-		
+	    
+	$task->save();
+	    
 	return redirect('tasks');
     }
 
