@@ -1,0 +1,24 @@
+CONFIG
+    config/filesystems.php
+        - here you configure all of your "disks" (with storage driver and storage location)
+        - as many as you want and they can use the same driver
+DEFAULT DISKS
+    public
+        - driver: local
+        - root directory: storage/app/public
+        - with "php artisan storage:link" you can create a symbolic link from "public/storage" to "storage/app/public"
+        - you get the URL to a file in this directory with: asset('storage/file.txt')
+    local
+        - driver: local
+        - root directory: storage/app
+GET DISK INSTANCE
+    STORAGE FACADE
+        STATIC METHOD DISK
+            Storage::disk('public')
+        SHORTCUT FOR DEFAULT DISK
+            Storage::put('file.txt', 'foobar')
+              Storage::disk('local')->put('file.txt', 'Contents');
+$content =    Storage::disk('local')->get('file.jpg');
+$boolean =    Storage::disk('local')->exists('file.jpg');
+$url =        Storage::disk('local')->url('uploads/file1.jpg');      // path to the URL is defined in config/filesystems.php
+
