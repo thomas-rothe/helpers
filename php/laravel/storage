@@ -17,12 +17,27 @@ GET DISK INSTANCE
             Storage::disk('public')
         SHORTCUT FOR DEFAULT DISK
               Storage::put('file.txt', 'foobar')
-              
 METHODS OF DISK INSTANCE
-                  Storage::disk('local')->put('file.txt', $stringOrResource);
-    $content =    Storage::disk('local')->get('file.jpg');
-    $boolean =    Storage::disk('local')->exists('file.jpg');
-
-    $url =        Storage::disk('local')->url('uploads/file1.jpg');      // path to the URL is defined in config/filesystems.php
-    $bytes =      Storage::disk('local')->size('file1.jpg');
-    $timestamp =  Storage::disk('local')->lastModified('file1.jpg');
+    WRITE
+        Storage::disk('local')->put('file.txt', $stringOrResource);
+        Storage::disk('local')->prepend('file.log', 'Prepended Text');
+        Storage::disk('local')->append('file.log', 'Appended Text');
+    READ
+        $content =    Storage::disk('local')->get('file.jpg');
+        $boolean =    Storage::disk('local')->exists('file.jpg');
+    COPY
+        Storage::copy('old/file1.jpg', 'new/file1.jpg');
+    MOVE
+        Storage::move('old/file1.jpg', 'new/file1.jpg');
+    URL
+        $url =        Storage::disk('local')->url('uploads/file1.jpg');         // path to the URL is defined in config/filesystems.php
+    METADATA
+        $bytes =      Storage::disk('local')->size('file1.jpg');
+        $timestamp =  Storage::disk('local')->lastModified('file1.jpg');
+    UPLOADS
+        $path = Storage::putFile('photos', new File('/path/to/photo'));                 // Automatically generate a unique ID for file name...
+        $path = Storage::putFileAs('photos', new File('/path/to/photo'), 'photo.jpg');  // Manually specify a file name...
+        $path = $request->file('avatar')->store('avatars');                             // Same as putFile()
+        $path = $request->file('avatar')->storeAs(
+            'path', $request->user()->id
+        );
