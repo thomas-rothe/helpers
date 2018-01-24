@@ -16,9 +16,13 @@ GET DISK INSTANCE
         STATIC METHOD DISK
             Storage::disk('public')
         SHORTCUT FOR DEFAULT DISK
-            Storage::put('file.txt', 'foobar')
-              Storage::disk('local')->put('file.txt', 'Contents');
-$content =    Storage::disk('local')->get('file.jpg');
-$boolean =    Storage::disk('local')->exists('file.jpg');
-$url =        Storage::disk('local')->url('uploads/file1.jpg');      // path to the URL is defined in config/filesystems.php
+              Storage::put('file.txt', 'foobar')
+              
+METHODS OF DISK INSTANCE
+                  Storage::disk('local')->put('file.txt', $stringOrResource);
+    $content =    Storage::disk('local')->get('file.jpg');
+    $boolean =    Storage::disk('local')->exists('file.jpg');
 
+    $url =        Storage::disk('local')->url('uploads/file1.jpg');      // path to the URL is defined in config/filesystems.php
+    $bytes =      Storage::disk('local')->size('file1.jpg');
+    $timestamp =  Storage::disk('local')->lastModified('file1.jpg');
