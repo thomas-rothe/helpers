@@ -1,0 +1,4 @@
+public function testException()
+{
+    $this->expectException(InvalidArgumentException::class);
+}
