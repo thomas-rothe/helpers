@@ -9,155 +9,48 @@ MESSAGES
         EXAMPLE
             $this->assertTrue($isAdmin, 'Failed to assert that the user is an admin');
 LIST
-    assertTrue(Boolean $condition)                  // fails if $condition is false
-    assertFalse(Boolean $condition)                 // fails if $condition is true
-    assertNull(Mixed $variable)                     // fails if $variable is not null
-    assertNotNull(Mixed $variable)                  // fails if $variable is null
-    assertSame(Object $expected, Object $actual)    // fails if the two variables do not 
-                                                    // reference the same object
-    assertNotSame(Object $expected, Object $actual) // fails if the two variables reference 
-                                                    // the same object
-    assertSame(Mixed $expected, Mixed $actual)      // fails if the two variables do not 
-                                                    // have the same type and value
-    assertNotSame(Mixed $expected, Mixed $actual)   // fails if the two variables have the 
-                                                    // same type and value
-    assertEquals(Array $expected, Array $actual)    // fails if the two arrays are not equal
-    assertNotEquals(Array $expected, Array $actual) // fails if the two arrays are equal
-    assertEquals(
-        Float $expected, 
-        Float $actual, 
-        Float $delta = 0
-    )                                               // fails if the two floats are not
-                                                    // within $delta of each other
-    assertEquals(Float
-    $expected, Float $actual,
-    String $message, Float
-    $delta = 0) Reports an error identified by $message
-    if the two floats $expected and
-    $actual are not within $delta of each
-    other.
-    assertNotEquals(Float
-    $expected, Float $actual,
-    Float $delta = 0) Reports an error if the two floats
-    $expected and $actual are within
-    $delta of each other.
-    assertNotEquals(Float
-    $expected, Float $actual,
-    String $message, Float
-    $delta = 0) Reports an error identified by $message
-    if the two floats $expected and
-    $actual are within $delta of each
-    other.
-    assertEquals(String
-    $expected, String $actual) Reports an error if the two strings
-    $expected and $actual are not
-    equal. The error is reported as the delta
-    between the two strings.
-    54
-    |
-    PHPUnit Pocket GuideTable 6. Assertions (continued)
-    Assertion Description
-    assertEquals(String
-    $expected, String $actual,
-    String $message) Reports an error identified by $message
-    if the two strings $expected and
-    $actual are not equal. The error is
-    reported as the delta between the two
-    strings.
-    assertNotEquals(String
-    $expected, String $actual) Reports an error if the two strings
-    $expected and $actual are equal.
-    assertNotEquals(String
-    $expected, String $actual,
-    String $message) Reports an error identified by $message
-    if the two strings $expected and
-    $actual are equal.
-    assertEquals(Mixed
-    $expected, Mixed $actual) Reports an error if the two variables
-    $expected and $actual are not
-    equal.
-    assertEquals(Mixed
-    $expected, Mixed $actual,
-    String $message) Reports an error identified by $message
-    if the two variables $expected and
-    $actual are not equal.
-    assertNotEquals(Mixed
-    $expected, Mixed $actual) Reports an error if the two variables
-    $expected and $actual are equal.
-    assertNotEquals(Mixed
-    $expected, Mixed $actual,
-    String $message) Reports an error identified by $message
-    if the two variables $expected and
-    $actual are equal.
-    assertContains(Mixed
-    $needle, Array $haystack) Reports an error if $needle is not an
-    element of $haystack .
-    assertContains(Mixed
-    $needle, Array $haystack,
-    String $message) Reports an error identified by $message
-    if $needle is not an element of
-    $haystack .
-    assertNotContains(Mixed
-    $needle, Array $haystack) Reports an error if $needle is an
-    element of $haystack .
-    assertNotContains(Mixed
-    $needle, Array $haystack,
-    String $message) Reports an error identified by $message
-    if $needle is an element of
-    $haystack .
-    assertContains(Mixed
-    $needle, Iterator $haystack) Reports an error if $needle is not an
-    element of $haystack .
-    assertContains(Mixed
-    $needle, Iterator $haystack,
-    String $message) Reports an error identified by $message
-    if $needle is not an element of
-    $haystack .
-    PHPUnit API |
-    55Table 6. Assertions (continued)
-    Assertion Description
-    assertNotContains(Mixed
-    $needle, Iterator $haystack) Reports an error if $needle is an
-    element of $haystack .
-    assertNotContains(Mixed
-    $needle, Iterator $haystack,
-    String $message) Reports an error identified by $message
-    if $needle is an element of
-    $haystack .
-    assertRegExp(String
-    $pattern, String $string) Reports an error if $string does not
-    match the regular expression $pattern .
-    assertRegExp(String
-    $pattern, String $string,
-    String $message) Reports an error identified by $message
-    if $string does not match the regular
-    expression $pattern .
-    assertNotRegExp(String
-    $pattern, String $string) Reports an error if $string matches the
-    regular expression $pattern .
-    assertNotRegExp(String
-    $pattern, String $string,
-    String $message) Reports an error identified by $message
-    if $string matches the regular
-    expression $pattern .
-    assertType(String
-    $expected, Mixed $actual) Reports an error if the variable $actual
-    is not of type $expected .
-    assertType(String
-    $expected, Mixed $actual,
-    String $message) Reports an error identified by $message
-    if the variable $actual is not of type
-    $expected .
-    assertNotType(String
-    $expected, Mixed $actual) Reports an error if the variable $actual
-    is of type $expected .
-    assertNotType(String
-    $expected, Mixed $actual,
-    String $message) Reports an error identified by $message
-    if the variable $actual is of type
-    $expected .
-    $this->assertArrayHasKey('foo', ['foo' => 'bar']);
-    $this->assertCount(1, ['foo']);
-    $this->assertDirectoryIsReadable('/path/to/directory');
-    $this->assertFalse(false);
-    ......
+
+assertTrue(Boolean $condition)                  // fails if $condition is false
+assertFalse(Boolean $condition)                 // fails if $condition is true
+
+assertNull(Mixed $variable)                     // fails if $variable is not null
+assertNotNull(Mixed $variable)                  // fails if $variable is null
+
+assertSame(Object $expected, Object $actual)    // fails if the two variables do not reference the same object
+assertNotSame(Object $expected, Object $actual) // fails if the two variables reference the same object
+assertSame(Mixed $expected, Mixed $actual)      // fails if the two variables do not have the same type and value
+assertNotSame(Mixed $expected, Mixed $actual)   // fails if the two variables have the same type and value
+
+assertEquals(Array $expected, Array $actual)    // fails if the two arrays are not equal
+assertNotEquals(Array $expected, Array $actual) // fails if the two arrays are equal
+assertEquals(                                   // fails if the two floats are not within $delta of each other
+    Float $expected, 
+    Float $actual, 
+    Float $delta = 0
+)
+assertNotEquals(                                // fails if the two floats are within $delta of each other
+    Float $expected, 
+    Float $actual,
+    Float $delta = 0
+)
+assertEquals(String $expected, String $actual)  // fails if the two strings are not equal
+assertNotEquals(String $expected, String $act)  // fails if the two strings are equal
+assertEquals(Mixed $expected, Mixed $actual)    // fails if the two variables are not equal
+assertNotEquals(Mixed $expected, Mixed $actual) // fails if the two variables are equal
+
+assertContains(Mixed $needle, Array $haystack)  // fails if $needle is not an element of $haystack
+assertNotContains(Mixed $needle, Array $haysta) // fails if $needle is an element of $haystack
+assertContains(Mixed $needle, Iterator $haysta) // fails if $needle is not an element of $haystack
+assertNotContains(Mixed $needle, Iterator $hay) // fails if $needle is an element of $haystack
+
+assertRegExp(String $pattern, String $string)   // fails if $string does not match the regex $pattern
+assertNotRegExp(String $pattern, String $strin) // fails if $string matches the regular expression $pattern
+
+assertType(String $expected, Mixed $actual)     // fails if the variable $actual is not of type $expected
+assertNotType(String $expected, Mixed $actual)  // fails if the variable $actual is of type $expected
+
+$this->assertArrayHasKey('foo', ['foo' => 'bar']);
+$this->assertCount(1, ['foo']);
+$this->assertDirectoryIsReadable('/path/to/directory');
+
+......
