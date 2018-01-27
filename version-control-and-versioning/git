@@ -46,21 +46,28 @@
 		git clone https://user@bitbucket.org/username/project.git
 		git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
 ### MOVE FILES BETWEEN AREAS ###
+	DELETE ALL UNCOMMITTED FILES
+		git reset --hard
 	MODIFIED->STAGING
 		SINGLE FILE
-			git add file.txt
-		ALL FILES
-			git add .			<-- maybe same as: git add -A
+			git add file1.txt
+		MULTIPLE FILES
+			git add file1.txt file2.txt
+		ALL .php FILES IN THE CURRENT DIRECTORY
+			git add *.php
+		ALL FILES IN THE CURRENT DIRECTORY AND ALL ITS SUBDIRECTORIES
+			git add .
+		ALL FILES IN ENTIRE WORKING TREE
+			git add -A			<-- or: git add --all
 	STAGING->MODIFIED
 		SINGLE FILE
-			git reset file.txt		<-- maybe same as: git rm --cached file.txt
+			git reset file.txt		<-- or: git rm --cached file.txt
 		ALL FILES
 			git reset
-			git reset --hard
 	STAGING->COMMITTED
 		git commit -m "added header"		<-- commits all staged files
 	MODIFIED->COMMITTED
-		git commit -a -m "bugfix in header"	<-- stages all tracked files and commits them (doesn't stage or commit untracked files)PUSHING
+		git commit -a -m "bugfix in header"	<-- stages all tracked files (not the new files!) and commits them
 ### BRANCHING ###
 	INFOS
 		- if you want to commit to a branch you have to switch to this branch before!!
