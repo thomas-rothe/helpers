@@ -140,10 +140,10 @@
 		
 ##### VIEW CHANGES ###
 	LOG
-		git log					<-- list of all commits
-		git log --oneline			<-- short list of all commits
-		git log -p -2				<-- show changes of the last two commits
-		git log --graph --oneline --decorate	<-- with graph
+		git log			<-- list of all commits
+		git log --oneline	<-- short list of all commits
+		git log -p -2		<-- show changes of the last two commits
+		git log --graph --oneline --decorate --all --simplify-by-decoration	<-- with graph
 ##### HELPER COMMANDS ###
 	RELEASE A VERSION
 		git tag -a 1.0.0 -m 'First version.'
