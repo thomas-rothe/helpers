@@ -20,12 +20,10 @@
 		REMOVE
 			git remote remove origin	<-- removes the alias "origin"
 		ADD
-			INFO
-				- if you clone a repo git automatically sets the default alias "origin" for your source
-			SSH (prefered is via HTTPS)
-				git remote add origin ssh://user@bitbucket.org/path/to/repo.git	<--sets an alias "origin"
-			HTTPS (better than via SSH, you don't have to bother about SSH keys)
-				git remote add origin https://bitbucket.org/user/repo		<--sets an alias "origin"
+			SSH
+				git remote add origin ssh://user@bitbucket.org/path/to/repo.git	<-- "origin" is the alias
+			HTTPS (for some people easier than via SSH, you don't have to bother about SSH keys)
+				git remote add origin https://bitbucket.org/user/repo		<-- "origin" is the alias
 ### GITIGNORE ###
 	UNTRACK DIRECTORY
 		/public/uploads
@@ -43,6 +41,7 @@
 	INITIALISING
 		git init		<-- safe: nothing will get lost if working directory is not empty
 	CLONING
+		- if you clone a repo git automatically sets the default alias "origin" for your source
 		git clone /absolute/or/relative/path/to/repo-directory target/directory
 		git clone https://user@bitbucket.org/username/project.git
 		git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
