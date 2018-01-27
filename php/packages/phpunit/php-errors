@@ -1,0 +1,7 @@
+/**
+ * @expectedException PHPUnit\Framework\Error
+ */
+public function testFailingInclude()
+{
+    include 'not_existing_file.php';
+}
