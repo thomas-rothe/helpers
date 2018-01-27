@@ -1,7 +1,7 @@
 QUICK SUMMARY
     1.6.19
-        - bug fixes -> 1.6.20
-        - new features which are backwards compatible -> 1.7.0
+        - bug fix -> 1.6.20
+        - new feature which is backwards compatible -> 1.7.0
         - everthing which breaks backwards compatibility -> 2.0.0
 GENERAL
     semantic versioning (http://semver.org/) is the de facto standard for versioning software releases (not released but internal versions 
