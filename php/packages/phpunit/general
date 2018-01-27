@@ -11,12 +11,6 @@ EXAMPLE
             $this->assertEquals(1, 1);
         }
     }
-ASSERTIONS
-    $this->assertArrayHasKey('foo', ['foo' => 'bar']);
-    $this->assertCount(1, ['foo']);
-    $this->assertDirectoryIsReadable('/path/to/directory');
-    $this->assertFalse(false);
-    ......
 EXCEPTIONS
     public function testException()
     {
