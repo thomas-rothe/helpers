@@ -4,9 +4,24 @@ XML
         <?xml version="1.0" encoding="UTF-8" ?>
         <phpunit></phpunit>
         
-ADD COLORS
-    colors="true"
-FILE TO EXECUTE BEFORE TESTS
-    bootstrap="path/my-bootstrap-or-autoload-file.php"
-MORE VERBOSITY
-    verbose="true"
+    OPTIONS
+        - example: 
+        
+            <phpunit colors="true"></phpunit>
+            
+        colors="true"                                           // adds colors
+        bootstrap="path/my-bootstrap-or-autoload-file.php"      // file to execute before the tests
+        verbose="true"                                          // more verbosity
+        stopOnFailure="false"                                   // if you don't want to stop on failures
+    TESTSUITES
+        - define which files should run or which directory's files should run
+        - you can have multiple testsuites in one file and run them specifically with: phpunit --testsuite "MyTestsuite"
+        
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <phpunit>
+                <testsuites>
+                    <testsuite name="My Testsuite">
+                        <directory>path/my-directory</directory>
+                    </testsuite>
+                </testsuites>
+            </phpunit>
