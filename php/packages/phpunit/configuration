@@ -4,3 +4,9 @@ XML
         <?xml version="1.0" encoding="UTF-8" ?>
         <phpunit></phpunit>
         
+ADD COLORS
+    colors="true"
+FILE TO EXECUTE BEFORE TESTS
+    bootstrap="path/my-bootstrap-or-autoload-file.php"
+MORE VERBOSITY
+    verbose="true"
