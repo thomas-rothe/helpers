@@ -2,19 +2,26 @@
 
 class TaskTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetName()
+    protected $task;
+    
+    public function setUp()
     {
-        $task = new \MichaelKaefer\PHPUnitProject\Model\Task();
+        $this->task = new \MichaelKaefer\PHPUnitProject\Model\Task();
+    }
+    
+    /** @test */
+    public function get_name()
+    {
         $task->setName('Clean up kitchen');
 
-        $this->assertEquals('Clean up kitchen', $task->getName(), 'Name of the task is returned false');
+        $this->assertEquals('Clean up kitchen', $this->task->getName(), 'Name of the task is returned false');
     }
 
-    public function testNameIsTrimmed()
+    /** @test */
+    public function name_is_trimmed()
     {
-        $task = new \MichaelKaefer\PHPUnitProject\Model\Task();
         $task->setName('   Cook  ');
 
-        $this->assertEquals('Cook', $task->getName(), 'Name of the task does not get trimmed');
+        $this->assertEquals('Cook', $this->task->getName(), 'Name of the task does not get trimmed');
     }
 }
