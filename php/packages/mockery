@@ -9,18 +9,18 @@ EXAMPLE
 
     class Temperature
     {
-        private $service;
+        private $api;
 
-        public function __construct(Service $service)
+        public function __construct(MeasurementApiInterface $api)
         {
-            $this->service = $service;
+            $this->api = $api;
         }
 
         public function average()
         {
             $total = 0;
             for ($i=0; $i<3; $i++) {
-                $total += $this->service->readTemp();
+                $total += $this->api->getTemperature();
             }
             return $total/3;
         }
@@ -36,12 +36,12 @@ EXAMPLE
 
         public function testGetsAverageTemperatureFromThreeServiceReadings()
         {
-            $service = Mockery::mock('Service');
-            $service->shouldReceive('readTemp')
+            $api = Mockery::mock('MyRoomTemperatureMeasurementApi');
+            $api->shouldReceive('getTemperature')
                 ->times(3)
                 ->andReturn(10, 12, 14);
 
-            $temperature = new Temperature($service);
+            $temperature = new Temperature($api);
 
             $this->assertEquals(12, $temperature->average());
         }
