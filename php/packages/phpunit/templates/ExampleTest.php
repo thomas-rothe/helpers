@@ -1,13 +1,15 @@
 <?php
 
-// a test for a class "Email" would look like:
-
-class EmailTest extends \PHPUnit\Framework\TestCase {
-    public function testSomething()
+class EmailTest extends \PHPUnit\Framework\TestCase // tests for a class "Email"
+{
+    /** @var test */
+    public function zero_is_zero()
     {
         $this->assertEquals(0, 0);
     }
-    public function testSomethingElse()
+    
+    /** @var test */
+    public function one_is_one()
     {
         $this->assertEquals(1, 1);
     }
