@@ -36,7 +36,7 @@ EXAMPLE
 
         public function testGetsAverageTemperatureFromThreeServiceReadings()
         {
-            $api = Mockery::mock('MyRoomTemperatureMeasurementApi');
+            $api = Mockery::mock('MeasurementApiInterface');
             $api->shouldReceive('getTemperature')
                 ->times(3)
                 ->andReturn(10, 12, 14);
