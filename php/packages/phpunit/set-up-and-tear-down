@@ -1,0 +1,4 @@
+SET UP
+    - if it exists inside a test class the public function setUp() will be called before each test function (e.g.: if
+        there are 3 test functions it will get called 3 times)
+TEAR DOWN
