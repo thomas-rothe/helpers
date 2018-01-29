@@ -1,0 +1,48 @@
+INSTALL
+    composer require --dev mockery/mockery
+STATIC METHOD mock()
+    - is available globally like:
+    
+        $task = Mockery::mock('MyApp\Model\Task');
+        
+EXAMPLE
+
+    class Temperature
+    {
+        private $service;
+
+        public function __construct($service)
+        {
+            $this->service = $service;
+        }
+
+        public function average()
+        {
+            $total = 0;
+            for ($i=0; $i<3; $i++) {
+                $total += $this->service->readTemp();
+            }
+            return $total/3;
+        }
+    }
+    
+    use \Mockery;
+    class TemperatureTest extends PHPUnit_Framework_TestCase
+    {
+        public function tearDown()
+        {
+            Mockery::close();
+        }
+
+        public function testGetsAverageTemperatureFromThreeServiceReadings()
+        {
+            $service = Mockery::mock('service');
+            $service->shouldReceive('readTemp')
+                ->times(3)
+                ->andReturn(10, 12, 14);
+
+            $temperature = new Temperature($service);
+
+            $this->assertEquals(12, $temperature->average());
+        }
+    }
