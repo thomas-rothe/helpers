@@ -13,6 +13,11 @@ XML
         bootstrap="path/my-bootstrap-or-autoload-file.php"      // file to execute before the tests
         verbose="true"                                          // more verbosity
         stopOnFailure="false"                                   // if you don't want to stop on failures
+        convertErrorsToExceptions="true"                        // ? - maybe good!
+        convertNoticesToExceptions="true"                       // ? - maybe good!
+        convertWarningsToExceptions="true"                      // ? - maybe good!
+        processIsolation="false"                                // ? - maybe good!
+        syntaxCheck="false"                                     // ? - maybe good!
     TESTSUITES
         - define which files should run or which directory's files should run
         - you can have multiple testsuites in one file and run them specifically with: phpunit --testsuite "MyTestsuite"
