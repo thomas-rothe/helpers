@@ -11,7 +11,7 @@ EXAMPLE
     {
         private $service;
 
-        public function __construct($service)
+        public function __construct(Service $service)
         {
             $this->service = $service;
         }
@@ -36,7 +36,7 @@ EXAMPLE
 
         public function testGetsAverageTemperatureFromThreeServiceReadings()
         {
-            $service = Mockery::mock('service');
+            $service = Mockery::mock('Service');
             $service->shouldReceive('readTemp')
                 ->times(3)
                 ->andReturn(10, 12, 14);
