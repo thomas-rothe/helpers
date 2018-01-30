@@ -1,3 +1,53 @@
+PS 1.6
+  {$base_dir_ssl}	              URL of your store when SSL certificate is active
+  {$base_dir}	                  URL of your store
+  {$cart}	                      Information about cart. Read entries below for more informations
+  {$cart->id}	                  ID of customer cart
+  {$cart->id_shop_group}	      ID of shop group (multistore feature)
+  {$cart->id_shop}	            ID of shop (multistore feature)
+  {$cart->id_address_delivery}	ID of customer address delivery (only if order was made)
+  {$cart->id_address_invoice}	  ID of customer address invoice (only if order was made)
+  {$cart->id_currency}	        ID of cart currency
+  {$cart->id_customer}	        ID of customer for which cart belongs (only if customer is logged)
+  {$cart->id_guest}	            ID of shop guest
+  {$cart->id_lang}	            ID of cart language
+  {$cart->recycable}	          Bool value if recycable checked for this cart
+  {$cart->gift}	                Bool value if gift checed for this cart
+  {$cart->gift_message}	Gift message
+  {$cart->mobile_theme}	Bool value if cart was created on mobile device
+  {$cart->date_add}	Date of cart creation
+  {$cart->date_upd}	Date of cart update
+  {$cart->id_carrier}	Id of cart carrier (if selected)
+  {$cart->checkedTos}	Bool value if terms of service is checked
+  {$img_cat_dir}	URL for the directory with categories images
+  {$img_ps_dir}	URL for the directory with PrestaShop image
+  {$img_lang_dir}	URL for the directory with languages images
+  {$img_sup_dir}	URL for the directory with suppliers images
+  {$img_ship_dir}	URL for the directory with carriers images
+  {$img_prod_dir}	URL for the directory with products images
+  {$img_manu_dir}	URL for the directory with manufacturers images
+  {$img_dir}	URL for the directory with theme’s images
+  {$css_dir}	URL for the directory with theme’s CSS
+  {$modules_dir}	URL for the directory with modules
+  {$mail_dir}	URL for the directory with mail templates
+  {$js_dir}	URL for the directory with theme’s JavaScript
+  {$tpl_dir}	URL for the directory with current theme's
+  {$pic_dir}	URL for the directory with uploaded pictures
+  {$lang_iso}	ISO code for the current language
+  {$cart_qties}	Number of products in the cart
+  {$come_from}	URL for the visitor’s origin
+  {$shop_name}	Shop name
+  {$currency}	Currency object (currently used currency).
+  {$currencies}	The various available currencies
+  {$id_currency_cookie}	ID of the current currency
+  {$cookie}	User cookie
+  {$languages}	The various available languages
+  {$priceDisplay}	Price display method (with or without taxes…)
+  {$roundMode}	Rounding method in use
+  {$logged}	Indicates whether the visitor is logged to a customer account
+  {$page_name}	Page name
+  {$customerName}	Client name (if logged in)
+  {$use_taxes}	Indicates whether taxes are enabled or not
 PS 1.7
   {$currency.name} -> Name of the active currency. 
   {$currency.iso_code} -> ISO language code enabled. 
