@@ -18,3 +18,19 @@ To use your locally developed package create a composer.json:
 			}
 		]
 	}
+	
+	
+{
+  "require": {
+    "medani/ps-module-header": "1.0.0"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "C:\\packages\\ps-module-header",
+      "options": {
+        "symlink": true
+      }
+    }
+  ]
+}
