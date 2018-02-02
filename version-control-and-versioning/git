@@ -46,6 +46,8 @@
 		git clone https://user@bitbucket.org/username/project.git
 		git clone ssh://user@server:22/~/public_html/www.sample.at/some/path/.git ./targetdirectory/
 ### MOVE FILES BETWEEN AREAS ###
+	DELETE UNSTAGED CHANGES
+		git checkout -- .
 	DELETE ALL UNCOMMITTED FILES
 		git reset --hard
 	MODIFIED->STAGING
