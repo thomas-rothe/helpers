@@ -1,0 +1,4 @@
+PRINT LAST 10 LINES OF FILE
+    tail myfile.txt
+PRINT LAST 100 LINES OF FILE
+    tail myfile.txt -n 100
