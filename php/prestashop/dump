@@ -3,3 +3,4 @@ IN SOME VERSIONS YOU CAN USE THE SYMFONY COMPONENT VarDumper OUT OF THE BOX
         array('foo' => 'bar'),
         123
     );
+    
