@@ -17,3 +17,29 @@ __autoload() - DEPRECATED AS OF PHP 7.2
     }
     $foo = new Foo();
     $bar = new Bar();
+spl_autoload_register()
+    
+    /Foo.php
+    <?php class Foo {}
+
+    /bar/Bar.php
+    <?php class Bar {}
+
+    /index.php
+    function my_autoloader($class) {
+        if ($class === 'Bar') {
+            return;
+        }
+        include $class . '.php';
+    }
+
+    function my_other_autoloader($class) {
+        include 'bar/' . $class . '.php';
+    }
+
+    spl_autoload_register('my_autoloader');
+    spl_autoload_register('my_other_autoloader');
+
+    $foo = new Foo();
+    $bar = new Bar();
+    
