@@ -1,5 +1,9 @@
-if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
-    echo 'I am PrestaShop 1.7 or higher';
-}
-
-<div class="{if version_compare($smarty.const._PS_VERSION_,'1.6','>=')}col-lg-12{else}clear{/if}" id="admincustomer_sponsorship">
+GET VERSION FROM SOURCE CODE
+    _PS_VERSION gets defined in: [PS]/config/autoload.php
+VERSION SPECIFIC CODE
+    PHP
+        if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
+            echo 'I am PrestaShop 1.7 or higher';
+        }
+    SMARTY
+        <div class="{if version_compare($smarty.const._PS_VERSION_,'1.6','>=')}col-lg-12{else}clear{/if}" id="admincustomer_sponsorship">
