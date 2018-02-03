@@ -1,1 +1,5 @@
-
+CREATE NEW IF NOT EXISTS
+    IN FILESYSTEM
+        $pdo = new \PDO('sqlite:/tmp/foo.sqlite');
+    IN MEMORY
+        $pdo = new \PDO('sqlite::memory:');
