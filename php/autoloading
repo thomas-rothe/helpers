@@ -1,0 +1,19 @@
+__autoload() - DEPRECATED AS OF PHP 7.2
+    - you can define anywhere a function called: __autoload
+    - if a class can not be found it will call (if it exists) your function "__autoload" ()
+    - is the last chance to find a class, afterwards PHP will throw an exception
+    - __autoload must take exactly one parameter
+    - downside of __autoload: ?
+    
+    /Foo.php
+    <?php class Foo {}
+
+    /Bar.php
+    <?php class Bar {}
+
+    /index.php
+    function __autoload($classname) {
+        include ($classname . '.php');
+    }
+    $foo = new Foo();
+    $bar = new Bar();
