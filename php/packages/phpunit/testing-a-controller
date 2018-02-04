@@ -159,15 +159,34 @@ BETTER
             $request = new Request(
                 array(’email’ => ’user@example.com’)
             );
-            $this->controller->resetPasswordAction($request);
+            $view = $this->controller->resetPasswordAction($request);
+            $this->assertType(’View’, $view);
         }
         
         public function testDisplaysErrorViewWhenNoUserFound()
         {
+            // ...
             $request = new Request(
                 array(’email’ => ’user@example.com’)
             );
             $result = $controller->resetPasswordAction($request);
             // ...
+        }
+        public function testDisplaysViewWhenEmailAddressGiven()
+        {
+            $request = new Request(
+                array(’email’ => ’user@example.com’)
+            );
+            $view = $this->controller->resetPasswordAction();
+            $this->assertType(’View’, $view);
+            }
+        }
+        public function testDisplaysErrorViewWhenNoEmailAddressGiven()
+        {
+            $request = new Request(
+                array('email' => '')
+            );
+            $view = $this->controller->resetPasswordAction();
+            $this->assertType(’ErrorView’, $view);
         }
     }
