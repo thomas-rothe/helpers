@@ -1,0 +1,173 @@
+BAD CONTROLLER WHICH IS HARD TO UNIT TEST
+    class UserController
+    {
+        public function resetPasswordAction()
+        {
+            if (!isset($_POST[’email’])) {
+                return new ErrorView(’resetPassword’, ’No email specified’);
+            }
+            $db = new PDO(Configuration::get(’DSN’));
+            $statement = $db->prepare(’SELECT * FROM Users WHERE email=:email;’);
+            $statement->bindValue(’:email’, $_POST[’email’], PDO::PARAM_STR);
+            $statement->execute();
+            $record = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($record === FALSE) {
+                return new ErrorView(
+                    ’resetPassword’,
+                    ’No user with email ’ . $_POST[’email’]
+                );
+            }
+            $code = CryptHelper::getConfirmationCode();
+            $statement = $db->prepare(’UPDATE Users SET code=:code WHERE email=:email;’);
+            $statement->bindValue(’:code’, $code, PDO::PARAM_STR);
+            $statement->bindValue(’:email’, $_POST[’email’], PDO::PARAM_STR);
+            $statement->execute();
+            mail(
+                $_POST[’email’],
+                ’Password Reset’,
+                ’Confirmation code: ’ . $code
+            );
+            return new View(’passwordResetRequested’);
+        }
+    }
+    
+    Test extends PHPUnit_Framework_TestCase
+    {
+        protected function setUp()
+        {
+            $this->db = new PDO(’sqlite::memory:’);
+            $this->db->exec(
+            file_get_contents(
+                'CREATE TABLE “Users” (
+                    “id” INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    “username” VARCHAR UNIQUE NOT NULL,
+                    “email” VARCHAR UNIQUE NOT NULL,
+                    “code” VARCHAR
+                    );
+            );
+            $this->db->exec(
+                “INSERT INTO Users (username, email)
+                VALUES (’John Doe’, ’user@example.com’);”
+            );
+            Configuration::init(array(’DSN’ => ’sqlite::memory:’));
+            $this->controller = new UserController;
+        }
+        protected function tearDown()
+        {
+            unset($this->db);
+            unset($this->controller);
+            Configuration::init(array());
+            $_POST = array();
+        }
+        public function testDisplaysErrorViewWhenNoEmailAddressGiven()
+        {
+            $_POST[’email’] = ’’;
+            $view = $this->controller->resetPasswordAction();
+            $this->assertType(’ErrorView’, $view);
+        }
+        public function testDisplaysViewWhenEmailAddressGiven()
+        {
+            $_POST[’email’] = ’user@example.com’;
+            $view = $this->controller->resetPasswordAction();
+            $this->assertType(’View’, $view);
+        }
+    }
+BETTER
+    class UserController
+    {
+        protected $gateway;
+        protected $mailer;
+        protected $cryptHelper;
+        
+        public function __construct(TableDataGateway $gateway, Mailer $mailer, CryptHelper $cryptHelper)
+        {
+            $this->gateway = $gateway;
+            $this->mailer = $mailer;
+            $this->cryptHelper = $cryptHelper;
+        }
+        
+        public function resetPasswordAction(Request $request)
+        {
+            $record = $this->gateway->findUserByEmail(
+                $request->email
+            );
+            $code = $this->cryptHelper->getConfirmationCode();
+            $this->gateway->updateUserWithConfirmationCode(
+                $request->email, $code
+            );
+            $this->mailer->send(
+                $request->email,
+                ’Password Reset’,
+                ’Confirmation code: ’ . $code
+            );
+            return new View(’passwordResetRequested’);
+        }
+    }
+    
+    class UserControllerTest extends PHPUnit_Framework_TestCase
+    {
+        protected function setUp()
+        {
+            $this->usersGateway = $this->getMock(
+                ’UsersTableDataGateway’, array(), array(), ’’, FALSE
+            );
+            $this->cryptHelper = $this->getMock(
+                ’CryptHelper’, array(), array(), ’’, FALSE
+            );
+            $this->mailer = $this->getMock(
+                ’Mailer’, array(), array(), ’’, FALSE
+            );
+            $this->controller = new UserController(
+                $this->usersGateway, $this->mailer, $this->cryptHelper
+            );
+        }
+        
+        protected function tearDown()
+        {
+            unset($this->usersGateway);
+            unset($this->cryptHelper);
+            unset($this->mailer);
+            unset($this->controller);
+        }
+        
+        public function testStoresConfirmationCode()
+        {
+            $this->usersGateway
+                ->expects($this->once())
+                ->method(‘findUserByEmail’)
+                ->with(‘user@example.com’)
+                ->will($this->returnValue(
+                    array(
+                        ‘id’ => 42,
+                        ‘username’ => ‘John Doe’,
+                        ‘email’ => ‘user@example.com’,
+                        ‘code’ => NULL
+                    ))
+                );
+            $cryptHelper
+                ->expects($this->once())
+                ->method(’getConfirmationCode’)
+                ->will($this->returnValue(’123456789’));
+            $this->usersGateway
+                ->expects($this->once())
+                ->method(’updateUserWithConfirmationCode’)
+                ->with(’user@example.com’, ’123456789’);
+            $mailer
+                ->expects($this->once())
+                ->method(’send’)
+                ->with(’user@example.com’);
+            $request = new Request(
+                array(’email’ => ’user@example.com’)
+            );
+            $this->controller->resetPasswordAction($request);
+        }
+        
+        public function testDisplaysErrorViewWhenNoUserFound()
+        {
+            $request = new Request(
+                array(’email’ => ’user@example.com’)
+            );
+            $result = $controller->resetPasswordAction($request);
+            // ...
+        }
+    }
