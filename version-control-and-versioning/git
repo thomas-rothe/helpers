@@ -139,7 +139,10 @@
 		git pull origin master		<-- a) fetches and b) merges master from remote to local master
 						<-- maybe same as: git fetch; git merge
 	FETCH
-		
+
+##### TAGS #####
+	DELETE A TAG IN A REMOTE REPO
+		git push origin :refs/tags/[TAGNAME]
 ##### VIEW CHANGES ###
 	LOG
 		git log						<-- list of all commits
